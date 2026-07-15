@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import Icon from '../ui/Icon'
 import Avatar from '../ui/Avatar'
@@ -8,6 +8,19 @@ export default function Sidebar({ profile, navItems, activeSection, onNavClick, 
   const [collapsed, setCollapsed] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+  const railRef = useRef(null)
+  const itemsRef = useRef(new Map())
+  const [railStyle, setRailStyle] = useState({ opacity: 0, top: 0, height: 0 })
+
+  // Active marker snaps between items on steps(1) — mechanical, not eased.
+  useEffect(() => {
+    const active = navItems.find((it) =>
+      it.href ? location.pathname === it.href : activeSection === it.id
+    )
+    const node = active ? itemsRef.current.get(active.id) : null
+    if (node) setRailStyle({ opacity: 1, top: node.offsetTop, height: node.offsetHeight })
+    else setRailStyle((s) => ({ ...s, opacity: 0 }))
+  }, [activeSection, location.pathname, navItems, collapsed])
 
   const handleClick = (item) => {
     if (item.href) {
@@ -19,47 +32,34 @@ export default function Sidebar({ profile, navItems, activeSection, onNavClick, 
     if (onMobileClose) onMobileClose()
   }
 
-  const isActive = (item) => {
-    if (item.href) return location.pathname === item.href
-    return activeSection === item.id
-  }
+  const isActive = (item) =>
+    item.href ? location.pathname === item.href : activeSection === item.id
 
   const sidebarContent = (
-    <div className="flex-1 flex flex-col bg-surface-900/95 backdrop-blur-2xl border-r border-surface-600/20 h-full">
-      {/* Logo area */}
-      <div className="flex items-center gap-3 px-5 pt-6 pb-5 border-b border-surface-600/10">
-        <Logo variant="icon" size="sm" />
-        {!collapsed && (
-          <div className="flex flex-col min-w-0">
-            <span className="text-sm font-semibold tracking-[0.15em] bg-clip-text text-transparent bg-gradient-to-r from-accent-300 to-violet-300">
-              SAMI
-            </span>
-            <span className="text-[10px] text-surface-500 font-medium tracking-[0.08em] uppercase">
-              Portfolio
-            </span>
-          </div>
-        )}
+    <div className="flex-1 flex flex-col bg-sunken border-r border-line h-full">
+      {/* Logo */}
+      <div className="flex items-center gap-3 px-5 pt-6 pb-5 border-b border-line">
+        <Logo variant={collapsed ? 'icon' : 'full'} size="sm" collapsed={collapsed} />
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="ml-auto p-1.5 rounded-lg text-surface-500 hover:text-surface-300 hover:bg-surface-700/40 transition-colors hidden lg:block"
+          aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
+          className="ml-auto p-1.5 text-ink-dim hover:text-ink transition-colors duration-240 hidden lg:block"
         >
           <Icon name={collapsed ? 'chevronRight' : 'chevronDown'} size={14} />
         </button>
       </div>
 
       {/* Profile */}
-      <div className="px-4 py-5 border-b border-surface-600/10">
+      <div className="px-5 py-5 border-b border-line">
         <div className={`flex ${collapsed ? 'flex-col items-center' : 'items-center gap-4'}`}>
           <Avatar initials={profile.avatar} src={profile.avatarUrl} size={collapsed ? 'sm' : 'lg'} status="online" />
           {!collapsed && (
             <div className="min-w-0">
-              <h2 className="text-sm font-semibold text-surface-100 truncate">{profile.name}</h2>
-              <p className="text-xs text-surface-400 truncate">{profile.title}</p>
-              <div className="flex items-center gap-1.5 mt-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 relative">
-                  <span className="absolute inset-0 rounded-full bg-emerald-400 animate-ping opacity-50" />
-                </span>
-                <span className="text-[11px] text-emerald-400/80 font-medium">{profile.status}</span>
+              <h2 className="font-display font-bold text-ink truncate text-[15px]">{profile.name}</h2>
+              <p className="text-[13px] text-ink-dim truncate">{profile.title}</p>
+              <div className="flex items-center gap-2 mt-2">
+                <span className="w-2 h-2 rounded-full bg-live" />
+                <span className="mono-label text-live normal-case tracking-normal">{profile.status}</span>
               </div>
             </div>
           )}
@@ -67,84 +67,81 @@ export default function Sidebar({ profile, navItems, activeSection, onNavClick, 
       </div>
 
       {/* Navigation */}
-      <nav className="flex-1 py-4 px-3 space-y-1 overflow-y-auto scrollbar-thin">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            onClick={() => handleClick(item)}
-            className={`nav-link w-full text-left ${
-              isActive(item) ? 'nav-link-active' : 'nav-link-inactive'
-            } ${collapsed ? 'justify-center px-3' : ''}`}
-            title={collapsed ? item.label : undefined}
-          >
-            <Icon name={item.icon} size={18} />
-            {!collapsed && <span>{item.label}</span>}
-            {isActive(item) && !collapsed && (
-              <span className="ml-auto w-1.5 h-1.5 rounded-full bg-accent-400" />
-            )}
-          </button>
-        ))}
+      <nav ref={railRef} className="relative flex-1 py-4 px-3 overflow-y-auto scrollbar-thin">
+        {/* Sliding active marker: 2px yellow left rule spanning the item. */}
+        <span
+          aria-hidden
+          className="pointer-events-none absolute left-0 w-0.5 bg-yellow transition-all duration-240 ease-snap"
+          style={{ opacity: railStyle.opacity, top: railStyle.top, height: railStyle.height }}
+        />
+        {navItems.map((item) => {
+          const active = isActive(item)
+          return (
+            <button
+              key={item.id}
+              ref={(el) => { if (el) itemsRef.current.set(item.id, el) }}
+              onClick={() => handleClick(item)}
+              title={collapsed ? item.label : undefined}
+              className={`group relative z-[1] w-full text-left flex items-center gap-3 px-3 py-2.5 font-mono text-[13px] uppercase tracking-label transition-colors duration-240 ${
+                active ? 'text-ink' : 'text-ink-dim hover:text-ink'
+              } ${collapsed ? 'justify-center' : ''}`}
+            >
+              {/* 8x8 square marker snaps in on active */}
+              <span
+                aria-hidden
+                className={`shrink-0 w-2 h-2 transition-all duration-120 ease-snap ${
+                  active ? 'bg-yellow' : 'bg-line-strong group-hover:bg-ink-dim'
+                }`}
+              />
+              {!collapsed && <span>{item.label}</span>}
+            </button>
+          )
+        })}
       </nav>
 
-      {/* Social links */}
-      <div className={`px-4 py-4 border-t border-surface-600/10 ${collapsed ? 'flex flex-col items-center gap-3' : ''}`}>
-        {collapsed ? (
-          <div className="flex flex-col items-center gap-3">
-            {profile.social.slice(0, 2).map((s) => (
-              <a key={s.name} href={s.href} className="text-surface-500 hover:text-accent-400 transition-colors" title={s.name}>
-                <Icon name={s.icon} size={16} />
-              </a>
-            ))}
-            <a href="/admin" className="text-surface-500 hover:text-accent-400 transition-colors" title="Admin">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
-              </svg>
-            </a>
-          </div>
-        ) : (
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              {profile.social.map((s) => (
-                <a key={s.name} href={s.href} className="p-2 rounded-lg text-surface-500 hover:text-accent-400 hover:bg-surface-700/30 transition-all" title={s.name}>
-                  <Icon name={s.icon} size={16} />
-                </a>
-              ))}
-            </div>
+      {/* Social + admin */}
+      <div className={`px-4 py-4 border-t border-line ${collapsed ? 'flex flex-col items-center gap-3' : 'flex items-center justify-between'}`}>
+        <div className={`flex items-center gap-1 ${collapsed ? 'flex-col' : ''}`}>
+          {profile.social.map((s) => (
             <a
-              href="/admin"
-              className="p-2 rounded-lg text-surface-500 hover:text-accent-400 hover:bg-surface-700/30 transition-all"
-              title="Admin"
+              key={s.name}
+              href={s.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="p-2 text-ink-dim hover:text-yellow transition-colors duration-240"
+              title={s.name}
+              aria-label={s.name}
             >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="3" />
-                <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
-              </svg>
+              <Icon name={s.icon} size={16} />
             </a>
-          </div>
-        )}
+          ))}
+        </div>
+        <a
+          href="/admin"
+          className="p-2 text-ink-dim hover:text-yellow transition-colors duration-240"
+          title="Admin"
+          aria-label="Admin"
+        >
+          <Icon name="settings" size={15} />
+        </a>
       </div>
     </div>
   )
 
   return (
     <>
-      {/* Desktop sidebar */}
       <aside
-        className={`fixed left-0 top-0 h-screen z-30 flex-col transition-all duration-300 ease-out hidden lg:flex ${
+        className={`fixed left-0 top-0 h-screen z-30 flex-col transition-[width] duration-360 ease-machine hidden lg:flex ${
           collapsed ? 'w-[72px]' : 'w-[260px]'
         }`}
       >
         {sidebarContent}
       </aside>
 
-      {/* Mobile overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
-          <div className="absolute inset-0 bg-surface-950/60 backdrop-blur-sm" onClick={onMobileClose} />
-          <aside className="relative w-[260px] h-full flex flex-col animate-slide-up">
-            {sidebarContent}
-          </aside>
+          <div className="absolute inset-0 bg-sunken/80 animate-fade-in" onClick={onMobileClose} />
+          <aside className="relative w-[260px] h-full flex flex-col">{sidebarContent}</aside>
         </div>
       )}
     </>

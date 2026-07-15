@@ -23,21 +23,21 @@ export default function SocialEditor() {
 
   return (
     <div>
-      <h2 className="text-base font-semibold text-surface-100 mb-1">Social Links</h2>
-      <p className="text-xs text-surface-400 mb-6">Links to your professional profiles.</p>
+      <h2 className="h3 mb-1">Social Links</h2>
+      <p className="text-ink-dim text-sm mb-6">Links to your professional profiles.</p>
 
       <div className="space-y-4">
         {socials.map((s) => (
           <div key={s.name}>
-            <label className="text-xs font-medium text-surface-300 mb-1.5 block">{s.name}</label>
+            <label className="admin-label">{s.name}</label>
             <input
               type="url"
               value={links[s.name] || ''}
               onChange={(e) => update(s.name, e.target.value)}
               placeholder="https://..."
-              className="w-full px-3.5 py-2 rounded-xl bg-surface-800 border border-surface-600/30 text-sm text-surface-200 placeholder-surface-500 outline-none focus:border-accent-400/30 transition-all"
+              className="admin-input"
             />
-            <p className="text-[11px] text-surface-500 mt-1">{s.desc}</p>
+            <p className="mono-label normal-case tracking-normal mt-1">{s.desc}</p>
           </div>
         ))}
       </div>

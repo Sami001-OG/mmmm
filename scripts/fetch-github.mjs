@@ -76,13 +76,29 @@ function contributionLevel(count) {
   return 4
 }
 
+// Never destroy good data. On any failure, keep the previously-committed JSON
+// (still fresh enough) and warn. Only emit the _empty sentinel when there was
+// no prior file at all — and fail the build so a broken deploy is loud.
+function keepPreviousOrFail(reason) {
+  if (existsSync(OUTPUT)) {
+    try {
+      const prev = JSON.parse(readFileSync(OUTPUT, 'utf-8'))
+      if (prev && !prev._empty) {
+        console.log(`✗ ${reason}. Keeping previously-synced data.`)
+        return
+      }
+    } catch { /* fall through to sentinel */ }
+  }
+  writeFileSync(OUTPUT, JSON.stringify({ _empty: true }))
+  console.log(`✗ ${reason}. No prior data — wrote _empty sentinel.`)
+}
+
 async function main() {
   const token = process.env.GITHUB_TOKEN || process.env.VITE_GITHUB_TOKEN
   const username = process.env.GITHUB_USERNAME || 'Sami001-OG'
 
   if (!token) {
-    writeFileSync(OUTPUT, JSON.stringify({ _empty: true }))
-    console.log('⏭ No GITHUB_TOKEN set. Using mock data.')
+    keepPreviousOrFail('No GITHUB_TOKEN set')
     return
   }
 
@@ -94,7 +110,10 @@ async function main() {
 
     const [profileRes, reposRes, contribGraph] = await Promise.all([
       fetch(`${GITHUB_REST}/users/${encodeURIComponent(username)}`, { headers }),
-      fetch(`${GITHUB_REST}/users/${encodeURIComponent(username)}/repos?sort=stars&per_page=20&type=owner`, { headers }),
+      // NOTE: `sort=stars` is NOT a valid REST param (valid: created/updated/pushed/
+      // full_name) — it silently sorted alphabetically. Fetch by recency, then
+      // sort by stars client-side below.
+      fetch(`${GITHUB_REST}/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=100&type=owner`, { headers }),
       (async () => {
         try { return await graphql(CONTRIB_QUERY, { username }, token) }
         catch { return null }
@@ -105,22 +124,22 @@ async function main() {
     if (!reposRes.ok) throw new Error(`Repos fetch: ${reposRes.status}`)
 
     const profileData = await profileRes.json()
-    const reposList = await reposRes.json()
+    const reposList = (await reposRes.json())
+      .filter((r) => !r.fork)
+      .sort((a, b) => b.stargazers_count - a.stargazers_count)
 
-    // Fetch per-repo language byte counts
+    // Fetch per-repo language byte counts (reposList is already fork-free).
     const langResults = await Promise.all(
-      reposList
-        .filter((r) => !r.fork)
-        .map((r) =>
-          fetch(r.languages_url, { headers })
-            .then((res) => res.json())
-            .catch(() => ({}))
-        )
+      reposList.map((r) =>
+        fetch(r.languages_url, { headers })
+          .then((res) => res.json())
+          .catch(() => ({}))
+      )
     )
 
     // Aggregate bytes across all repos
     const byteTotals = {}
-    reposList.filter((r) => !r.fork).forEach((r, i) => {
+    reposList.forEach((r, i) => {
       for (const [lang, bytes] of Object.entries(langResults[i])) {
         byteTotals[lang] = (byteTotals[lang] || 0) + bytes
       }
@@ -136,12 +155,9 @@ async function main() {
       .filter((l) => l.percentage >= 1)
 
     // Build repos with topics
-    const totalStars = reposList
-      .filter((r) => !r.fork)
-      .reduce((sum, r) => sum + r.stargazers_count, 0)
+    const totalStars = reposList.reduce((sum, r) => sum + r.stargazers_count, 0)
 
     const repos = reposList
-      .filter((r) => !r.fork)
       .slice(0, 12)
       .map((r) => ({
         id: r.id,
@@ -160,15 +176,31 @@ async function main() {
     let contributions = null
     if (contribGraph?.user?.contributionsCollection?.contributionCalendar) {
       const cal = contribGraph.user.contributionsCollection.contributionCalendar
+      const weeks = cal.weeks.map((w) =>
+        w.contributionDays.map((d) => ({
+          date: d.date,
+          count: d.contributionCount,
+          level: contributionLevel(d.contributionCount),
+        }))
+      )
+      // Derive streaks from the flat day list (zero extra API cost).
+      const days = weeks.flat()
+      let currentStreak = 0
+      let longestStreak = 0
+      let run = 0
+      for (const d of days) {
+        if (d.count > 0) { run++; longestStreak = Math.max(longestStreak, run) }
+        else run = 0
+      }
+      for (let i = days.length - 1; i >= 0; i--) {
+        if (days[i].count > 0) currentStreak++
+        else break
+      }
       contributions = {
         totalContributions: cal.totalContributions,
-        weeks: cal.weeks.map((w) =>
-          w.contributionDays.map((d) => ({
-            date: d.date,
-            count: d.contributionCount,
-            level: contributionLevel(d.contributionCount),
-          }))
-        ),
+        currentStreak,
+        longestStreak,
+        weeks,
       }
     }
 
@@ -207,13 +239,15 @@ async function main() {
       repos: regularRepos,
       languages,
       contributions,
+      // Build-date stamp — surfaced as "data as of {date}" in the UI so the
+      // static snapshot never looks stale-but-unlabeled.
+      fetchedAt: process.env.BUILD_DATE || new Date().toISOString().slice(0, 10),
     }
 
     writeFileSync(OUTPUT, JSON.stringify(result, null, 2))
     console.log(`✓ Synced ${profileData.login}: ${regularRepos.length} repos (+${pinnedRepos.length} pinned), ${languages.length} languages, ${totalStars} total stars`)
   } catch (err) {
-    writeFileSync(OUTPUT, JSON.stringify({ _empty: true }))
-    console.log(`✗ GitHub sync failed: ${err.message}. Using mock data.`)
+    keepPreviousOrFail(`GitHub sync failed: ${err.message}`)
   }
 }
 

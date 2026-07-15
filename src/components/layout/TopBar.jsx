@@ -1,58 +1,73 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Icon from '../ui/Icon'
 import Avatar from '../ui/Avatar'
 
-export default function TopBar({ profile, onMenuToggle, searchQuery, onSearchChange }) {
-  const [searchFocused, setSearchFocused] = useState(false)
-
+// Mono UTC clock + blue data dot. Mounted-gate so SSR HTML has no time string
+// (hydration parity — server can't know the clock).
+function UTCClock() {
+  const [now, setNow] = useState(null)
+  useEffect(() => {
+    const tick = () => setNow(new Date())
+    tick()
+    const id = setInterval(tick, 1000)
+    return () => clearInterval(id)
+  }, [])
+  const label = now
+    ? now.toISOString().slice(11, 19) + ' UTC'
+    : '--:--:-- UTC'
   return (
-    <header className="sticky top-0 z-20 bg-surface-900/80 backdrop-blur-2xl border-b border-surface-600/10">
-      <div className="flex items-center justify-between px-4 sm:px-8 py-3.5">
-        {/* Left: Hamburger + Greeting */}
+    <span className="hidden sm:flex items-center gap-2 mono-data text-ink-dim">
+      <span className="w-2 h-2 rounded-full bg-blue" />
+      {label}
+    </span>
+  )
+}
+
+export default function TopBar({ profile, onMenuToggle, onSearchOpen, isPaper, onToggleTheme }) {
+  return (
+    <header className="sticky top-0 z-20 bg-paper border-b border-line">
+      <div className="flex items-center justify-between px-4 sm:px-8 py-4">
         <div className="flex items-center gap-3">
           <button
             onClick={onMenuToggle}
-            className="p-2 rounded-xl text-surface-400 hover:text-surface-200 hover:bg-surface-700/40 transition-all lg:hidden"
+            className="p-2 text-ink-dim hover:text-ink transition-colors duration-240 lg:hidden"
             aria-label="Toggle menu"
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-              <path d="M3 12h18M3 6h18M3 18h18" />
-            </svg>
+            <Icon name="menu" size={18} />
           </button>
-
-          <div className="hidden sm:block">
-            <h1 className="text-base font-semibold text-surface-100">
-              Welcome back, <span className="text-accent-400">{profile.name?.split(' ')[0]}</span>
-            </h1>
-            <p className="text-xs text-surface-400 mt-0.5">{profile.bio}</p>
+          <div className="hidden sm:flex flex-col leading-none">
+            <span className="mono-label">portfolio // 2026</span>
           </div>
         </div>
 
-        {/* Right: Search + Actions */}
-        <div className="flex items-center gap-3">
-          <div
-            className={`flex items-center gap-2 px-3.5 py-2 rounded-xl border transition-all duration-200 ${
-              searchFocused
-                ? 'bg-surface-800 border-accent-400/30 shadow-glow'
-                : 'bg-surface-800/50 border-surface-600/20 hover:border-surface-500/30'
-            }`}
-          >
-            <Icon name="search" size={14} className="text-surface-400 shrink-0" />
-            <input
-              type="text"
-              placeholder="Search projects..."
-              value={searchQuery || ''}
-              onChange={(e) => onSearchChange?.(e.target.value)}
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setSearchFocused(false)}
-              className="bg-transparent text-sm text-surface-200 placeholder-surface-500 border-none outline-none w-28 sm:w-44 focus:w-32 sm:focus:w-56 transition-all duration-200"
-            />
-            <span className="text-[10px] text-surface-500 font-mono px-1.5 py-0.5 rounded bg-surface-700/50 border border-surface-600/20 hidden sm:inline">
-              Ctrl+K
-            </span>
-          </div>
+        <div className="flex items-center gap-3 sm:gap-5">
+          <UTCClock />
 
-          <Avatar initials={profile.avatar} src={profile.avatarUrl} size="sm" status="online" className="ml-1" />
+          {/* cmdk trigger — sharp 2px outline, square kbd chip */}
+          <button
+            onClick={onSearchOpen}
+            className="group flex items-center gap-2 px-3 py-2 border border-line hover:border-line-strong transition-colors duration-240"
+            aria-label="Open command palette"
+          >
+            <Icon name="search" size={14} className="text-ink-dim group-hover:text-ink transition-colors" />
+            <span className="hidden sm:inline mono-label normal-case tracking-normal text-ink-dim">Search</span>
+            <kbd className="hidden sm:inline-flex items-center px-1.5 py-0.5 mono-data text-[10px] text-ink-dim bg-surface-hi border border-line">
+              ⌘K
+            </kbd>
+          </button>
+
+          {/* Paper-mode toggle — one keystroke inverts to 1923 white-poster. */}
+          <button
+            onClick={onToggleTheme}
+            className="p-2 border border-line text-ink-dim hover:text-ink hover:border-line-strong transition-colors duration-240"
+            aria-label={isPaper ? 'Switch to dark mode' : 'Switch to paper mode'}
+            aria-pressed={isPaper}
+            title={isPaper ? 'Dark mode' : 'Paper mode'}
+          >
+            <Icon name="palette" size={16} />
+          </button>
+
+          <Avatar initials={profile.avatar} src={profile.avatarUrl} size="sm" status="online" />
         </div>
       </div>
     </header>

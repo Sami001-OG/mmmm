@@ -1,0 +1,12 @@
+{
+  "name": "Sami — Developer",
+  "short_name": "Sami",
+  "description": "Developer from Dhaka. Bauhaus-grammar portfolio pulling live GitHub data.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#111014",
+  "theme_color": "#111014",
+  "icons": [
+    { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}

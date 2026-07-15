@@ -35,54 +35,52 @@ export default function ExperienceEditor() {
 
   return (
     <div>
-      <h2 className="text-base font-semibold text-surface-100 mb-1">Experience</h2>
-      <p className="text-xs text-surface-400 mb-6">Your work history, internships, and freelance roles.</p>
+      <h2 className="h3 mb-1">Experience</h2>
+      <p className="text-ink-dim text-sm mb-6">Your work history, internships, and freelance roles.</p>
 
       {items.length === 0 && (
-        <div className="text-xs text-surface-500 mb-4">No entries yet. Add your first experience.</div>
+        <p className="mono-label mb-4">No entries yet. Add your first experience.</p>
       )}
 
       <div className="space-y-4 mb-6">
         {items.map((item, idx) => (
-          <div key={idx} className="card p-4 space-y-3">
+          <div key={idx} className="admin-card space-y-3">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-medium text-surface-300">#{idx + 1}</span>
-              <button onClick={() => remove(idx)} className="text-xs text-red-400/70 hover:text-red-400 transition-colors">Remove</button>
+              <span className="mono-label">Entry {String(idx + 1).padStart(2, '0')}</span>
+              <button onClick={() => remove(idx)} className="admin-remove">Remove</button>
             </div>
             <div className="grid grid-cols-2 gap-3">
               <div>
-                <label className="text-[11px] text-surface-400 mb-1 block">Company</label>
-                <input value={item.company} onChange={(e) => update(idx, 'company', e.target.value)} className="w-full px-3 py-2 rounded-xl bg-surface-800 border border-surface-600/30 text-sm text-surface-200 outline-none focus:border-accent-400/30 transition-all" />
+                <label className="admin-label">Company</label>
+                <input value={item.company} onChange={(e) => update(idx, 'company', e.target.value)} className="admin-input" />
               </div>
               <div>
-                <label className="text-[11px] text-surface-400 mb-1 block">Role</label>
-                <input value={item.role} onChange={(e) => update(idx, 'role', e.target.value)} className="w-full px-3 py-2 rounded-xl bg-surface-800 border border-surface-600/30 text-sm text-surface-200 outline-none focus:border-accent-400/30 transition-all" />
+                <label className="admin-label">Role</label>
+                <input value={item.role} onChange={(e) => update(idx, 'role', e.target.value)} className="admin-input" />
               </div>
             </div>
             <div>
-              <label className="text-[11px] text-surface-400 mb-1 block">Period</label>
-              <input value={item.period} onChange={(e) => update(idx, 'period', e.target.value)} placeholder="e.g. Jan 2023 — Present" className="w-full px-3 py-2 rounded-xl bg-surface-800 border border-surface-600/30 text-sm text-surface-200 outline-none focus:border-accent-400/30 transition-all" />
+              <label className="admin-label">Period</label>
+              <input value={item.period} onChange={(e) => update(idx, 'period', e.target.value)} placeholder="e.g. Jan 2023 — Present" className="admin-input" />
             </div>
             <div>
-              <label className="text-[11px] text-surface-400 mb-1 block">Description</label>
-              <textarea value={item.description} onChange={(e) => update(idx, 'description', e.target.value)} rows={2} className="w-full px-3 py-2 rounded-xl bg-surface-800 border border-surface-600/30 text-sm text-surface-200 outline-none focus:border-accent-400/30 transition-all resize-none" />
+              <label className="admin-label">Description</label>
+              <textarea value={item.description} onChange={(e) => update(idx, 'description', e.target.value)} rows={2} className="admin-input resize-none" />
             </div>
             <div>
-              <label className="text-[11px] text-surface-400 mb-1 block">Highlights</label>
+              <label className="admin-label">Highlights</label>
               {item.highlights.map((h, hi) => (
                 <div key={hi} className="flex gap-2 mb-1.5">
-                  <input value={h} onChange={(e) => updateHighlight(idx, hi, e.target.value)} placeholder="Highlight..." className="flex-1 px-3 py-1.5 rounded-lg bg-surface-800 border border-surface-600/30 text-sm text-surface-200 outline-none focus:border-accent-400/30 transition-all" />
+                  <input value={h} onChange={(e) => updateHighlight(idx, hi, e.target.value)} placeholder="Highlight..." className="admin-input" />
                 </div>
               ))}
-              <button onClick={() => addHighlight(idx)} className="text-[11px] text-accent-400 hover:text-accent-300 transition-colors">+ Add highlight</button>
+              <button onClick={() => addHighlight(idx)} className="admin-remove text-blue-bright hover:text-blue">+ Add highlight</button>
             </div>
           </div>
         ))}
       </div>
 
-      <button onClick={add} className="px-4 py-2 rounded-xl bg-surface-700/40 border border-surface-600/20 text-xs text-surface-300 hover:bg-surface-700/60 transition-all">
-        + Add Experience
-      </button>
+      <button onClick={add} className="admin-btn">+ Add Experience</button>
     </div>
   )
 }

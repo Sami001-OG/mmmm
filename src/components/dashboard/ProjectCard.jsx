@@ -1,80 +1,87 @@
 import Badge from '../ui/Badge'
 import Icon from '../ui/Icon'
+import { langColors } from '../../data/langColors'
 
-const langColors = {
-  TypeScript: '#3178c6',
-  JavaScript: '#f7df1e',
-  Python: '#3572a5',
-  HTML: '#e34f26',
-  CSS: '#563d7c',
-  Rust: '#dea584',
-  Go: '#00add8',
-  Java: '#b07219',
-  C: '#555555',
-  'C++': '#f34b7d',
-  Solidity: '#363636',
-}
-
+/**
+ * Project card — flat, ruled, with an optional 16:9 image slot for manually
+ * added projects (GitHub repos have none and fall back to a shape plate).
+ * Featured cards carry a yellow top rule; the whole card lifts 4px on hover
+ * with a 2px outline. No glare, tilt, or glow.
+ */
 export default function ProjectCard({ project, featured = false }) {
+  const tags = project.tags || []
+  const hasImage = Boolean(project.image)
+
   return (
-    <div className={`card-hover group p-5 flex flex-col ${featured ? 'ring-1 ring-amber-400/15 bg-amber-400/[0.02]' : ''}`}>
-      {/* Header */}
-      <div className="flex items-start justify-between mb-3">
-        <div className={`w-9 h-9 rounded-xl ${featured ? 'bg-amber-400/10 border-amber-400/20' : 'bg-gradient-to-br from-accent-400/10 to-violet-400/10 border-accent-400/10'} border flex items-center justify-center shrink-0`}>
-          <Icon name="code" size={16} className={featured ? 'text-amber-400' : 'text-accent-400'} />
-        </div>
-        <div className="flex items-center gap-2">
-          {featured && (
-            <span className="text-[10px] font-semibold text-amber-400/80 uppercase tracking-wider">Featured</span>
+    <a
+      href={project.href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="card card-lift group h-full p-0 flex flex-col overflow-hidden"
+      aria-label={`Open ${project.title}`}
+    >
+      {featured && <span aria-hidden className="absolute inset-x-0 top-0 h-1 bg-yellow z-[1]" />}
+
+      {/* Image / shape plate — 16:9 */}
+      <div className="relative aspect-[16/9] bg-surface-hi border-b border-line overflow-hidden">
+        {hasImage ? (
+          <img
+            src={project.image}
+            alt=""
+            loading="lazy"
+            className="w-full h-full object-cover transition-transform duration-480 ease-machine group-hover:scale-[1.03]"
+          />
+        ) : (
+          <div className="absolute inset-0 flex items-center justify-center">
+            {/* Bauhaus shape plate stand-in */}
+            <svg viewBox="0 0 120 68" className="w-2/3 h-2/3 opacity-70" aria-hidden>
+              <circle cx="38" cy="34" r="20" fill="#4C8DFF" />
+              <rect x="60" y="14" width="34" height="34" fill="#E5484D" />
+            </svg>
+          </div>
+        )}
+      </div>
+
+      <div className="flex flex-col flex-1 p-5">
+        <div className="flex items-start justify-between gap-2 mb-2">
+          <h3 className="h3 truncate group-hover:text-blue-bright transition-colors duration-240">
+            {project.title}
+          </h3>
+          {project.status && (
+            <Badge color={project.statusColor} dot>{project.status}</Badge>
           )}
-          <Badge color={project.statusColor} dot>
-            {project.status}
-          </Badge>
         </div>
-      </div>
 
-      {/* Content */}
-      <h3 className="text-sm font-semibold text-surface-100 mb-1.5 group-hover:text-accent-400 transition-colors">
-        {project.title}
-      </h3>
-      <p className="text-xs text-surface-400 leading-relaxed mb-4 flex-1 line-clamp-2">
-        {project.description}
-      </p>
+        <p className="text-ink-dim text-sm leading-relaxed mb-4 flex-1 line-clamp-2">
+          {project.description}
+        </p>
 
-      {/* Tags */}
-      <div className="flex flex-wrap gap-1.5 mb-4">
-        {project.tags.map((tag) => (
-          <span
-            key={tag}
-            className="inline-flex items-center gap-1 text-[11px] font-mono text-surface-400 bg-surface-700/40 px-2 py-0.5 rounded-md border border-surface-600/20"
-          >
-            {langColors[tag] && (
-              <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: langColors[tag] }} />
-            )}
-            {tag}
+        {/* Tags — square chips, language color dot when known */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {tags.slice(0, 4).map((tag) => (
+            <span key={tag} className="chip">
+              {langColors[tag] && (
+                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: langColors[tag] }} />
+              )}
+              {tag}
+            </span>
+          ))}
+          {tags.length > 4 && <span className="chip">+{tags.length - 4}</span>}
+        </div>
+
+        {/* Footer stats */}
+        <div className="flex items-center gap-4 pt-3 border-t border-line mt-auto mono-data text-ink-faint">
+          <span className="flex items-center gap-1.5">
+            <Icon name="star" size={13} />
+            <span className="tabular-nums">{project.stars ?? 0}</span>
           </span>
-        ))}
-      </div>
-
-      {/* Footer */}
-      <div className="flex items-center gap-4 pt-3 border-t border-surface-600/10 mt-auto">
-        <div className="flex items-center gap-1.5 text-surface-500">
-          <Icon name="star" size={13} />
-          <span className="text-xs font-medium">{project.stars}</span>
+          <span className="flex items-center gap-1.5">
+            <Icon name="fork" size={13} />
+            <span className="tabular-nums">{project.forks ?? 0}</span>
+          </span>
+          <Icon name="arrowUpRight" size={14} className="ml-auto text-ink-dim group-hover:text-yellow transition-colors duration-240" />
         </div>
-        <div className="flex items-center gap-1.5 text-surface-500">
-          <Icon name="fork" size={13} />
-          <span className="text-xs font-medium">{project.forks}</span>
-        </div>
-        <a
-          href={project.href}
-          className="ml-auto text-surface-500 hover:text-accent-400 transition-colors"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Icon name="external-link" size={14} />
-        </a>
       </div>
-    </div>
+    </a>
   )
 }

@@ -1,10 +1,3 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App'
-import './index.css'
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
+// Compat shim: rerun the client hydrate entry from here so older references
+// to `src/main.jsx` keep resolving. The source of truth is entry-client.jsx.
+import './entry-client.jsx'

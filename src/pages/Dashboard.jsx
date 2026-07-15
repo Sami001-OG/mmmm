@@ -7,26 +7,61 @@ import SkillBar from '../components/dashboard/SkillBar'
 import DonutChart from '../components/dashboard/DonutChart'
 import ContributionGraph from '../components/dashboard/ContributionGraph'
 import SectionHeader from '../components/dashboard/SectionHeader'
+import Hero from '../components/dashboard/Hero'
+import Reveal from '../components/ui/Reveal'
+import CommandPalette from '../components/ui/CommandPalette'
 import Icon from '../components/ui/Icon'
 import Badge from '../components/ui/Badge'
 import useGithubData from '../hooks/useGithubData'
 import usePortfolioData from '../hooks/usePortfolioData'
+import useTheme from '../hooks/useTheme'
 import { github } from '../data/portfolio'
+
+// Fixed exposed-grid backdrop — 12-col ruled field, aria-hidden, SSR-safe.
+// Flat: no auroras, no blur, no scanlines (the cyber layer is gone).
+function GridField() {
+  return (
+    <div
+      aria-hidden
+      className="pointer-events-none fixed inset-0 -z-10 grid-lines opacity-[0.35]"
+    />
+  )
+}
 
 export default function Dashboard() {
   const [activeSection, setActiveSection] = useState('overview')
   const [mounted, setMounted] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
-  const [searchQuery, setSearchQuery] = useState('')
+  const [paletteOpen, setPaletteOpen] = useState(false)
   const gh = useGithubData(github.username)
   const pd = usePortfolioData()
+  const { isPaper, toggle: toggleTheme } = useTheme()
 
   useEffect(() => { setMounted(true) }, [])
+
+  // Global ⌘K / Ctrl+K toggles the command palette.
+  useEffect(() => {
+    const onKey = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault()
+        setPaletteOpen((v) => !v)
+      }
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
 
   const scrollTo = (id) => {
     setActiveSection(id)
     const el = document.getElementById(id)
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' })
+      // Move keyboard focus with the viewport so SR/keyboard users don't lose
+      // their place. tabIndex -1 makes the section programmatically focusable
+      // without adding it to the tab order.
+      el.setAttribute('tabindex', '-1')
+      el.focus({ preventScroll: true })
+    }
   }
 
   const mergedProfile = {
@@ -35,15 +70,16 @@ export default function Dashboard() {
     bio: gh.data?.bio || pd.profile.bio,
     avatarUrl: gh.data?.avatarUrl || null,
     location: gh.data?.location || pd.profile.location,
+    login: gh.data?.login || github.username,
     social: pd.profile.social,
   }
 
   const stats = gh.data
     ? [
-        { label: 'Repositories', value: String(gh.data.repos.length + (gh.data.pinnedRepos?.length || 0)), icon: 'folder', trend: null },
-        { label: 'Languages', value: String(gh.data.languages.length), icon: 'terminal', trend: null },
-        { label: 'Total Stars', value: String(gh.data.totalStars), icon: 'star', trend: null },
-        { label: 'Contributions', value: gh.data.contributions ? String(gh.data.contributions.totalContributions) : '-', icon: 'git-commit', trend: `+${gh.data.followers} followers` },
+        { label: 'Repositories', value: String(gh.data.repos.length + (gh.data.pinnedRepos?.length || 0)), icon: 'folder', accent: 'blue' },
+        { label: 'Languages', value: String(gh.data.languages.length), icon: 'terminal', accent: 'yellow' },
+        { label: 'Total Stars', value: String(gh.data.totalStars), icon: 'star', accent: 'red' },
+        { label: 'Followers', value: String(gh.data.followers), icon: 'users', accent: 'blue' },
       ]
     : []
 
@@ -51,26 +87,38 @@ export default function Dashboard() {
     ? { name: 'Languages by code volume', icon: 'code', skills: gh.data.languages.map((l) => ({ name: l.name, level: l.percentage })) }
     : null
 
-  const allRepos = [...(gh.data?.pinnedRepos || []), ...(gh.data?.repos || [])]
+  // Merge manual projects (from admin) with GitHub repos. Manual entries win
+  // on title collision; featured (pinned GitHub repos + manual-featured) lead.
+  const manual = pd.projects || []
+  const manualTitles = new Set(manual.map((p) => p.title.toLowerCase()))
+  const ghPinned = (gh.data?.pinnedRepos || []).filter((r) => !manualTitles.has(r.title.toLowerCase()))
+  const ghRepos = (gh.data?.repos || []).filter((r) => !manualTitles.has(r.title.toLowerCase()))
 
-  const filteredRepos = searchQuery
-    ? allRepos.filter((r) =>
-        r.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        r.tags?.some((t) => t.toLowerCase().includes(searchQuery.toLowerCase())) ||
-        r.description?.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : allRepos
-
-  const filteredPinned = searchQuery
-    ? (gh.data?.pinnedRepos || []).filter((r) => filteredRepos.find((f) => f.id === r.id))
-    : (gh.data?.pinnedRepos || [])
-
-  const filteredRegular = searchQuery
-    ? (gh.data?.repos || []).filter((r) => filteredRepos.find((f) => f.id === r.id))
-    : (gh.data?.repos || [])
+  const pinned = [...manual.filter((p) => p.featured), ...ghPinned]
+  const regular = [...manual.filter((p) => !p.featured), ...ghRepos]
+  const totalRepos = pinned.length + regular.length
 
   return (
-    <div className="min-h-screen bg-surface">
+    <div className="min-h-screen relative">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-[60] focus:px-4 focus:py-2 focus:bg-yellow focus:text-paper focus:font-mono focus:text-[12px] focus:uppercase focus:tracking-label"
+      >
+        Skip to content
+      </a>
+
+      <GridField />
+
+      <CommandPalette
+        open={paletteOpen}
+        onClose={() => setPaletteOpen(false)}
+        navItems={pd.navItems}
+        social={mergedProfile.social}
+        onNavigate={scrollTo}
+        isPaper={isPaper}
+        onToggleTheme={toggleTheme}
+      />
+
       <Sidebar
         profile={mergedProfile}
         navItems={pd.navItems}
@@ -80,21 +128,27 @@ export default function Dashboard() {
         onMobileClose={() => setMobileOpen(false)}
       />
 
-      <div className="lg:pl-[260px] transition-all duration-300">
+      <div className="lg:pl-[260px]">
         <TopBar
           profile={mergedProfile}
-          onMenuToggle={() => setMobileOpen(!mobileOpen)}
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
+          onMenuToggle={() => setMobileOpen((v) => !v)}
+          onSearchOpen={() => setPaletteOpen(true)}
+          isPaper={isPaper}
+          onToggleTheme={toggleTheme}
         />
 
-        <main className={`px-4 sm:px-8 py-8 space-y-10 ${mounted ? 'animate-fade-in' : 'opacity-0'}`}>
+        <main id="main" className={`px-4 sm:px-8 py-8 space-y-16 transition-opacity duration-480 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+          {/* Hero */}
+          <Hero profile={mergedProfile} languages={gh.data?.languages} />
+
           {/* Overview */}
           <section id="overview">
-            <SectionHeader title="Overview" description="Real data from GitHub" />
+            <SectionHeader index={1} title="Overview" description="Real data, pulled from GitHub" />
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {stats.map((stat) => (
-                <StatCard key={stat.label} {...stat} />
+              {stats.map((stat, i) => (
+                <Reveal key={stat.label} delay={i * 60} className="h-full">
+                  <StatCard {...stat} />
+                </Reveal>
               ))}
             </div>
           </section>
@@ -102,38 +156,41 @@ export default function Dashboard() {
           {/* Projects */}
           <section id="projects">
             <SectionHeader
+              index={2}
               title="Projects"
-              description={
-                searchQuery
-                  ? `${filteredRepos.length} matching "${searchQuery}"`
-                  : `${allRepos.length} public repositories`
-              }
-              action={gh.data ? 'View all on GitHub →' : null}
+              description={`${totalRepos} public repositories`}
+              action={gh.data ? { label: 'All on GitHub', href: `https://github.com/${mergedProfile.login}?tab=repositories` } : null}
             />
 
-            {filteredPinned.length > 0 && !searchQuery && (
-              <div className="mb-4">
-                <div className="flex items-center gap-2 mb-3">
-                  <Icon name="star" size={13} className="text-amber-400" />
-                  <span className="text-[11px] font-semibold text-amber-400/80 uppercase tracking-wider">Featured</span>
+            {pinned.length > 0 && (
+              <div className="mb-6">
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="shape-square bg-yellow" aria-hidden />
+                  <span className="mono-label">Featured</span>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {filteredPinned.map((project) => (
-                    <ProjectCard key={project.id} project={project} featured />
+                  {pinned.map((project, i) => (
+                    <Reveal key={project.id} delay={i * 60} className="h-full">
+                      <ProjectCard project={project} featured />
+                    </Reveal>
                   ))}
                 </div>
               </div>
             )}
 
-            {filteredRepos.length === 0 ? (
-              <div className="card p-8 text-center">
-                <p className="text-sm text-surface-400">No projects match "{searchQuery}"</p>
-              </div>
-            ) : (
+            {regular.length > 0 && (
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {filteredRegular.map((project) => (
-                  <ProjectCard key={project.id} project={project} />
+                {regular.map((project, i) => (
+                  <Reveal key={project.id} delay={i * 50} className="h-full">
+                    <ProjectCard project={project} />
+                  </Reveal>
                 ))}
+              </div>
+            )}
+
+            {totalRepos === 0 && (
+              <div className="card p-10 text-center">
+                <p className="text-ink-dim text-sm">No public repositories to show yet.</p>
               </div>
             )}
           </section>
@@ -141,22 +198,21 @@ export default function Dashboard() {
           {/* Skills */}
           <section id="skills">
             <SectionHeader
+              index={3}
               title="Skills"
               description="Language composition from GitHub + proficiencies you define"
             />
             <div className="space-y-6">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {gh.data?.languages?.length > 0 && (
-                  <DonutChart data={gh.data.languages} />
-                )}
-                {languagesCategory && (
-                  <SkillBar category={languagesCategory} />
-                )}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                {gh.data?.languages?.length > 0 && <DonutChart data={gh.data.languages} />}
+                {languagesCategory && <SkillBar category={languagesCategory} />}
               </div>
               {pd.skills.length > 0 && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {pd.skills.map((cat) => (
-                    <SkillBar key={cat.name} category={cat} />
+                  {pd.skills.map((cat, i) => (
+                    <Reveal key={cat.name} delay={i * 80} className="h-full">
+                      <SkillBar category={cat} />
+                    </Reveal>
                   ))}
                 </div>
               )}
@@ -166,48 +222,43 @@ export default function Dashboard() {
           {/* Experience */}
           <section id="experience">
             <SectionHeader
+              index={4}
               title="Experience"
               description={pd.experience.length > 0 ? 'Work history and roles' : 'Current focus'}
             />
             {pd.experience.length > 0 ? (
-              <div className="space-y-1">
+              <div className="space-y-4">
                 {pd.experience.map((exp, i) => (
-                  <div key={i} className="relative pl-8 pb-8 last:pb-0 group">
-                    <div className="absolute left-[7px] top-3 bottom-0 w-px bg-surface-600/20 last:hidden" />
-                    <div className="absolute left-0 top-1.5 w-[15px] h-[15px] rounded-full border-2 border-accent-400/30 bg-surface-800">
-                      <div className="absolute inset-[3px] rounded-full bg-accent-400/60" />
-                    </div>
-                    <div className="card-hover p-5">
-                      <div className="flex items-start justify-between mb-1">
-                        <div>
-                          <h3 className="text-sm font-semibold text-surface-100">{exp.role}</h3>
-                          <p className="text-xs text-accent-400 font-medium">{exp.company}</p>
+                  <Reveal key={i} delay={i * 60}>
+                    <div className="card card-lift p-5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <h3 className="h3">{exp.role}</h3>
+                          <p className="mono-label text-blue-bright normal-case tracking-normal mt-1">{exp.company}</p>
                         </div>
                         {exp.period && <Badge color="surface">{exp.period}</Badge>}
                       </div>
                       {exp.description && (
-                        <p className="text-xs text-surface-400 mt-2 leading-relaxed">{exp.description}</p>
+                        <p className="text-ink-dim text-sm mt-3 leading-relaxed">{exp.description}</p>
                       )}
                       {exp.highlights?.length > 0 && (
-                        <div className="flex flex-wrap gap-1.5 mt-3">
+                        <div className="flex flex-wrap gap-1.5 mt-4">
                           {exp.highlights.filter(Boolean).map((h, hi) => (
-                            <span key={hi} className="text-[11px] text-surface-400 bg-surface-700/40 px-2 py-0.5 rounded-md border border-surface-600/20">{h}</span>
+                            <span key={hi} className="chip">{h}</span>
                           ))}
                         </div>
                       )}
                     </div>
-                  </div>
+                  </Reveal>
                 ))}
               </div>
             ) : (
               <div className="card p-6">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-accent-400/10 border border-accent-400/20 flex items-center justify-center shrink-0 mt-0.5">
-                    <Icon name="monitor" size={18} className="text-accent-400" />
-                  </div>
+                  <span className="shape-dot bg-blue mt-2 shrink-0" aria-hidden />
                   <div>
-                    <h3 className="text-sm font-semibold text-surface-100">Student Developer</h3>
-                    <p className="text-xs text-surface-400 mt-1.5 leading-relaxed">
+                    <h3 className="h3">Student Developer</h3>
+                    <p className="text-ink-dim text-sm mt-2 leading-relaxed">
                       Building projects, learning daily, and aiming for mastery. Open to internships and collaborations.
                     </p>
                   </div>
@@ -219,15 +270,19 @@ export default function Dashboard() {
           {/* Education */}
           {pd.education.length > 0 && (
             <section id="education">
-              <SectionHeader title="Education" description="Academic background" />
+              <SectionHeader index={5} title="Education" description="Academic background" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {pd.education.map((edu, i) => (
-                  <div key={i} className="card p-5">
-                    <h3 className="text-sm font-semibold text-surface-100">{edu.school}</h3>
-                    <p className="text-xs text-accent-400 font-medium mt-0.5">{edu.degree}{edu.field ? ` — ${edu.field}` : ''}</p>
-                    {edu.year && <p className="text-xs text-surface-500 mt-1">{edu.year}</p>}
-                    {edu.notes && <p className="text-xs text-surface-400 mt-2">{edu.notes}</p>}
-                  </div>
+                  <Reveal key={i} delay={i * 80} className="h-full">
+                    <div className="card card-lift p-5 h-full">
+                      <h3 className="h3">{edu.school}</h3>
+                      <p className="mono-label text-blue-bright normal-case tracking-normal mt-1">
+                        {edu.degree}{edu.field ? ` — ${edu.field}` : ''}
+                      </p>
+                      {edu.year && <p className="mono-data text-ink-faint mt-2">{edu.year}</p>}
+                      {edu.notes && <p className="text-ink-dim text-sm mt-2">{edu.notes}</p>}
+                    </div>
+                  </Reveal>
                 ))}
               </div>
             </section>
@@ -235,41 +290,40 @@ export default function Dashboard() {
 
           {/* Activity */}
           <section id="activity">
-            <SectionHeader title="Activity" description="GitHub contribution calendar" />
+            <SectionHeader index={6} title="Activity" description="GitHub contribution calendar" />
             {gh.data?.contributions ? (
               <ContributionGraph data={gh.data.contributions} />
             ) : (
               <div className="card p-5">
-                <p className="text-xs text-surface-400">Contribution data unavailable.</p>
+                <p className="text-ink-dim text-sm">Contribution data unavailable.</p>
               </div>
             )}
 
-            <div className="card mt-4 p-5 flex items-center justify-between">
+            <div className="card mt-4 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <div className="flex items-center gap-4">
-                <div className="w-10 h-10 rounded-xl bg-accent-400/10 border border-accent-400/20 flex items-center justify-center">
-                  <Icon name="mail" size={18} className="text-accent-400" />
-                </div>
+                <span className="shape-dot bg-live shrink-0" aria-hidden />
                 <div>
-                  <p className="text-sm font-medium text-surface-100">Let&apos;s connect</p>
-                  <p className="text-xs text-surface-400">{mergedProfile.location || 'Open to opportunities'}</p>
+                  <p className="h3">Let&apos;s connect</p>
+                  <p className="text-ink-dim text-sm mt-0.5">{mergedProfile.location || 'Open to opportunities'}</p>
                 </div>
               </div>
               <a
-                href={`https://github.com/${gh.data?.login || github.username}`}
+                href={`https://github.com/${mergedProfile.login}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="px-4 py-2 rounded-xl bg-accent-400/10 border border-accent-400/20 text-accent-300 text-xs font-semibold hover:bg-accent-400/20 hover:shadow-glow transition-all"
+                className="btn-blue"
               >
-                View GitHub Profile
+                <span>View GitHub Profile</span>
+                <Icon name="arrowUpRight" size={13} />
               </a>
             </div>
           </section>
 
-          <footer className="flex items-center justify-between py-6 border-t border-surface-600/10 text-xs text-surface-500">
-            <span>&copy; {new Date().getFullYear()} {mergedProfile.name}. Built with React & Tailwind CSS.</span>
+          <footer className="flex flex-col sm:flex-row items-center justify-between gap-3 py-8 border-t border-line mono-data text-ink-faint">
+            <span>© {new Date().getFullYear()} {mergedProfile.name} — built with React &amp; Tailwind.</span>
             <div className="flex items-center gap-4">
               {mergedProfile.social.map((s) => (
-                <a key={s.name} href={s.href} className="hover:text-surface-300 transition-colors">
+                <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors duration-240">
                   {s.name}
                 </a>
               ))}

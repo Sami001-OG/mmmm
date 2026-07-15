@@ -20,6 +20,14 @@ const icons = {
   bell: 'M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9',
   mail: 'M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z',
   mapPin: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z M15 11a3 3 0 11-6 0 3 3 0 016 0z',
+  menu: 'M3 6h18M3 12h18M3 18h18',
+  x: 'M6 6l12 12M18 6L6 18',
+  copy: 'M8 4h10a2 2 0 012 2v10M4 8h10a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V10a2 2 0 012-2z',
+  check: 'M4 12l5 5L20 6',
+  download: 'M12 3v12m0 0l-4-4m4 4l4-4M4 21h16',
+  command: 'M9 6a3 3 0 10-3 3h12a3 3 0 10-3-3v12a3 3 0 103-3H6a3 3 0 10-3 3',
+  arrowUpRight: 'M7 17L17 7M7 7h10v10',
+  settings: 'M12 9a3 3 0 100 6 3 3 0 000-6zM4 12h1m14 0h1M12 4v1m0 14v1M6.3 6.3l.7.7m10 10l.7.7m0-11.4l-.7.7m-10 10l-.7.7',
 }
 
 const socialIcons = {
@@ -29,19 +37,20 @@ const socialIcons = {
   dribbble: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.245.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z',
 }
 
-export default function Icon({ name, size = 18, className = '' }) {
+export default function Icon({ name, size = 18, className = '', strokeWidth }) {
   const path = icons[name] || socialIcons[name]
   if (!path) return null
+  const isSocial = !!socialIcons[name] && !icons[name]
   return (
     <svg
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth={name === 'fork' ? 2 : 1.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
+      fill={isSocial ? 'currentColor' : 'none'}
+      stroke={isSocial ? 'none' : 'currentColor'}
+      strokeWidth={strokeWidth ?? 2}
+      strokeLinecap="square"
+      strokeLinejoin="miter"
       className={className}
     >
       <path d={path} />

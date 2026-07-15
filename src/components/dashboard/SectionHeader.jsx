@@ -1,14 +1,43 @@
-export default function SectionHeader({ title, description, action }) {
+import Icon from '../ui/Icon'
+
+/**
+ * Section header — type-as-architecture. Oversized ghost index numeral behind
+ * a lowercase display title, a mono description, and an optional accent-link
+ * action. No HUD brackets, no animated ticks — flat Dessau grammar.
+ */
+export default function SectionHeader({ title, description, action, index }) {
+  const padded = typeof index === 'number' ? String(index).padStart(2, '0') : null
+
   return (
-    <div className="flex items-end justify-between mb-6">
-      <div>
-        <h2 className="section-title">{title}</h2>
-        {description && <p className="text-xs text-surface-400 mt-1.5">{description}</p>}
+    <div className="flex items-end justify-between gap-4 mb-6">
+      <div className="relative min-w-0">
+        {padded && (
+          <span
+            aria-hidden
+            className="section-index absolute -top-6 -left-1 text-[64px] leading-none"
+          >
+            {padded}
+          </span>
+        )}
+        <div className="relative">
+          <div className="flex items-center gap-3">
+            <span className="h-6 w-1 bg-yellow shrink-0" aria-hidden />
+            <h2 className="h2">{title}</h2>
+          </div>
+          {description && <p className="mono-label mt-2 ml-4">{description}</p>}
+        </div>
       </div>
+
       {action && (
-        <button className="text-xs font-medium text-accent-400 hover:text-accent-300 transition-colors flex items-center gap-1">
-          {action}
-        </button>
+        <a
+          href={action.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="btn-ghost shrink-0"
+        >
+          <span>{action.label}</span>
+          <Icon name="arrowUpRight" size={13} />
+        </a>
       )}
     </div>
   )
