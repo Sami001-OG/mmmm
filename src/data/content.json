@@ -1,5 +1,32 @@
 {
-  "profile": null,
+  "profile": {
+    "name": "Sami",
+    "title": "Student & Developer",
+    "location": "Dhaka, Bangladesh",
+    "email": "ms7424537@gmail.com",
+    "phone": "+8801601473313",
+    "avatar": "S",
+    "status": "Building the future",
+    "statusColor": "emerald",
+    "bio": "Optimistic",
+    "social": [
+      {
+        "name": "GitHub",
+        "href": "https://github.com/Sami001-OG",
+        "icon": "github"
+      },
+      {
+        "name": "Twitter",
+        "href": "https://twitter.com/Sami38174202",
+        "icon": "twitter"
+      },
+      {
+        "name": "LinkedIn",
+        "href": "#",
+        "icon": "linkedin"
+      }
+    ]
+  },
   "social": null,
   "experience": [],
   "education": [],
