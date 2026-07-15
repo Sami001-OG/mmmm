@@ -9,6 +9,7 @@ const draftKeys = {
   skills: 'portfolio_draft_skills',
   social: 'portfolio_draft_social',
   projects: 'portfolio_draft_projects',
+  repoImages: 'portfolio_draft_repo_images',
 }
 
 function loadDraft(key) {
@@ -40,6 +41,9 @@ function buildData() {
   const draftSkills = loadDraft(draftKeys.skills) || content.skills
   const draftSocial = loadDraft(draftKeys.social) || content.social
   const draftProjects = loadDraft(draftKeys.projects) || content.projects
+  // Map of GitHub repo title (lowercase) → image URL, editable in the admin
+  // panel. Lets fetched repos carry cover images (e.g. imgbb links).
+  const draftRepoImages = loadDraft(draftKeys.repoImages) || content.repoImages || {}
 
   const mergedProfile = {
     ...profile,
@@ -58,6 +62,7 @@ function buildData() {
     education: draftEducation || [],
     skills: draftSkills || [],
     projects: normalizeProjects(draftProjects),
+    repoImages: draftRepoImages,
     navItems,
     github,
   }

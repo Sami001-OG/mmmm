@@ -145,8 +145,11 @@ async function main() {
     sameAs: ['https://github.com/Sami001-OG'],
   }
 
-  // 4. Client index.html is the template for every emitted page.
-  const template = fs.readFileSync(path.join(DIST_CLIENT, 'index.html'), 'utf-8')
+  // 4. Client index.html is the template for every emitted page. OG images
+  //    must be absolute URLs for social crawlers — resolve against SITE_URL.
+  const template = fs
+    .readFileSync(path.join(DIST_CLIENT, 'index.html'), 'utf-8')
+    .replaceAll('content="/og.png"', `content="${SITE_URL}/og.png"`)
 
   // 5. Mirror client assets (JS, CSS, fonts, favicon) into dist/ root.
   fs.mkdirSync(DIST, { recursive: true })

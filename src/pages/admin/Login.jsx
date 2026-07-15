@@ -21,6 +21,8 @@ export default function AdminLogin() {
     }
     if (pw === ADMIN_PW) {
       sessionStorage.setItem('admin_auth', '1')
+      // Kept for the publish API call — the server re-validates it.
+      sessionStorage.setItem('admin_pw', pw)
       navigate('/admin/panel')
     } else {
       setError('Incorrect password')
