@@ -35,7 +35,11 @@ export default async function handler(req, res) {
   }
 
   const token = process.env.GITHUB_TOKEN
-  const repo = process.env.CONTENT_REPO
+  // Accept "owner/repo", a full github.com URL, or a .git clone URL.
+  const repo = (process.env.CONTENT_REPO || '')
+    .replace(/^https?:\/\/(www\.)?github\.com\//, '')
+    .replace(/\.git$/, '')
+    .replace(/\/+$/, '')
   if (!token || !repo) {
     res.status(500).json({ error: 'GITHUB_TOKEN / CONTENT_REPO not configured on the server.' })
     return
@@ -88,6 +92,11 @@ export default async function handler(req, res) {
     })
     if (!putRes.ok) {
       const detail = await putRes.json().catch(() => ({}))
+      if (putRes.status === 404) {
+        throw new Error(
+          `GitHub can't find "${repo}" — check CONTENT_REPO is "owner/repo" and the token has Contents read/write access to it.`
+        )
+      }
       throw new Error(detail.message || `GitHub write failed (${putRes.status})`)
     }
 
