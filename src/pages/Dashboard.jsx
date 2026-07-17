@@ -7,6 +7,7 @@ import SkillBar from '../components/dashboard/SkillBar'
 import DonutChart from '../components/dashboard/DonutChart'
 import ContributionGraph from '../components/dashboard/ContributionGraph'
 import Timeline from '../components/dashboard/Timeline'
+import SystemsBoard from '../components/dashboard/SystemsBoard'
 import SectionHeader from '../components/dashboard/SectionHeader'
 import Hero from '../components/dashboard/Hero'
 import Nameplate from '../components/Nameplate'
@@ -341,7 +342,7 @@ export default function Dashboard() {
 
           {/* Activity */}
           <section id="activity">
-            <SectionHeader index={7} title="Activity" description="GitHub contribution calendar" />
+            <SectionHeader index={7} title="Activity" description="Contribution calendar + deployed-system status" />
             {gh.data?.contributions ? (
               <ContributionGraph data={gh.data.contributions} />
             ) : (
@@ -349,6 +350,7 @@ export default function Dashboard() {
                 <p className="text-ink-dim text-sm">Contribution data unavailable.</p>
               </div>
             )}
+            <SystemsBoard systems={gh.data?.systems} />
           </section>
 
           {/* Contact */}
