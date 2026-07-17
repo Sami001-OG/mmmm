@@ -22,6 +22,7 @@ export const profile = {
 export const navItems = [
   { label: 'Overview', id: 'overview', icon: 'grid' },
   { label: 'Projects', id: 'projects', icon: 'folder' },
+  { label: 'Timeline', id: 'timeline', icon: 'calendar' },
   { label: 'Skills', id: 'skills', icon: 'code' },
   { label: 'Experience', id: 'experience', icon: 'briefcase' },
   { label: 'Activity', id: 'activity', icon: 'activity' },

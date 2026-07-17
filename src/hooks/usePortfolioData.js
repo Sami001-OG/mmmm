@@ -83,6 +83,8 @@ function normalizeProjects(drafts) {
         : Array.isArray(p.tags) ? p.tags : [],
       href: p.href || '#',
       repo: p.repo || '',
+      started: p.started || '',
+      ended: p.ended || '',
       image: p.image || '',
       stars: Number(p.stars) || 0,
       forks: Number(p.forks) || 0,

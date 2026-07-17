@@ -12,6 +12,8 @@ const emptyProject = {
   tags: '',
   href: '',
   repo: '',
+  started: '',
+  ended: '',
   image: '',
   stars: 0,
   forks: 0,
@@ -179,6 +181,17 @@ export default function ProjectsEditor() {
             <div>
               <label className="admin-label">Repo link (source code)</label>
               <input value={item.repo || ''} onChange={(e) => update(idx, 'repo', e.target.value)} placeholder="https://github.com/user/repo" className="admin-input" />
+            </div>
+
+            <div className="grid grid-cols-2 gap-3">
+              <div>
+                <label className="admin-label">Started (shows on timeline)</label>
+                <input value={item.started || ''} onChange={(e) => update(idx, 'started', e.target.value)} placeholder="2026-03" className="admin-input" />
+              </div>
+              <div>
+                <label className="admin-label">Ended (blank = ongoing)</label>
+                <input value={item.ended || ''} onChange={(e) => update(idx, 'ended', e.target.value)} placeholder="2026-06" className="admin-input" />
+              </div>
             </div>
 
             <div>

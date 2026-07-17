@@ -6,6 +6,7 @@ import ProjectCard from '../components/dashboard/ProjectCard'
 import SkillBar from '../components/dashboard/SkillBar'
 import DonutChart from '../components/dashboard/DonutChart'
 import ContributionGraph from '../components/dashboard/ContributionGraph'
+import Timeline from '../components/dashboard/Timeline'
 import SectionHeader from '../components/dashboard/SectionHeader'
 import Hero from '../components/dashboard/Hero'
 import Nameplate from '../components/Nameplate'
@@ -109,6 +110,17 @@ export default function Dashboard() {
   const pinned = [...manual.filter((p) => p.featured), ...ghPinned]
   const regular = [...manual.filter((p) => !p.featured), ...ghRepos]
   const totalRepos = pinned.length + regular.length
+
+  // Proof-of-work timeline: GitHub repos span first commit → last push;
+  // manual projects join when the admin supplies a started date.
+  const timelineItems = [
+    ...[...ghPinned, ...ghRepos]
+      .filter((r) => r.createdAt)
+      .map((r) => ({ id: r.id, title: r.title, start: r.createdAt, end: r.updatedAt, lang: r.tags?.[0] })),
+    ...manual
+      .filter((m) => m.started)
+      .map((m) => ({ id: m.id, title: m.title, start: m.started, end: m.ended || null, lang: (m.tags || [])[0] })),
+  ]
 
   return (
     <div className="min-h-screen relative">
@@ -222,10 +234,22 @@ export default function Dashboard() {
             )}
           </section>
 
+          {/* Timeline — proof of work */}
+          {timelineItems.length > 0 && (
+            <section id="timeline">
+              <SectionHeader
+                index={3}
+                title="Timeline"
+                description="Proof of work — first commit to last push, per project"
+              />
+              <Timeline items={timelineItems} />
+            </section>
+          )}
+
           {/* Skills */}
           <section id="skills">
             <SectionHeader
-              index={3}
+              index={4}
               title="Skills"
               description="Language composition from GitHub + proficiencies you define"
             />
@@ -249,7 +273,7 @@ export default function Dashboard() {
           {/* Experience */}
           <section id="experience">
             <SectionHeader
-              index={4}
+              index={5}
               title="Experience"
               description={pd.experience.length > 0 ? 'Work history and roles' : 'Current focus'}
             />
@@ -297,7 +321,7 @@ export default function Dashboard() {
           {/* Education */}
           {pd.education.length > 0 && (
             <section id="education">
-              <SectionHeader index={5} title="Education" description="Academic background" />
+              <SectionHeader index={6} title="Education" description="Academic background" />
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {pd.education.map((edu, i) => (
                   <Reveal key={i} delay={i * 80} className="h-full">
@@ -317,7 +341,7 @@ export default function Dashboard() {
 
           {/* Activity */}
           <section id="activity">
-            <SectionHeader index={6} title="Activity" description="GitHub contribution calendar" />
+            <SectionHeader index={7} title="Activity" description="GitHub contribution calendar" />
             {gh.data?.contributions ? (
               <ContributionGraph data={gh.data.contributions} />
             ) : (
@@ -329,7 +353,7 @@ export default function Dashboard() {
 
           {/* Contact */}
           <section id="contact">
-            <SectionHeader index={7} title="Contact" description="Reach out — open to opportunities" />
+            <SectionHeader index={8} title="Contact" description="Reach out — open to opportunities" />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
               <div className="card p-5 space-y-4">
                 {mergedProfile.email && (
