@@ -46,6 +46,8 @@ const CONTRIB_QUERY = `
             primaryLanguage { name }
             url
             homepageUrl
+            createdAt
+            pushedAt
             isArchived
             repositoryTopics(first: 10) {
               nodes { topic { name } }
@@ -94,32 +96,80 @@ function keepPreviousOrFail(reason) {
   console.log(`✗ ${reason}. No prior data — wrote _empty sentinel.`)
 }
 
+// GitHub repo "Website" fields are sometimes saved without a scheme
+// ("myapp.vercel.app") — normalize so anchors and pings don't go relative.
+function normUrl(url) {
+  if (!url) return ''
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`
+}
+
+// Build-time reachability check for every deployed project (repo homepages +
+// manual live links). Feeds the Systems board. Never throws.
+async function pingAll(targets) {
+  return Promise.all(
+    targets.map(async (t) => {
+      const started = Date.now()
+      try {
+        const ctrl = new AbortController()
+        const timer = setTimeout(() => ctrl.abort(), 6000)
+        const res = await fetch(t.url, { redirect: 'follow', signal: ctrl.signal })
+        clearTimeout(timer)
+        return { ...t, ok: res.ok, status: res.status, ms: Date.now() - started }
+      } catch {
+        return { ...t, ok: false, status: 0, ms: Date.now() - started }
+      }
+    })
+  )
+}
+
 async function main() {
   const token = process.env.GITHUB_TOKEN || process.env.VITE_GITHUB_TOKEN
   const username = process.env.GITHUB_USERNAME || 'Sami001-OG'
 
+  // Prior sync — merged in when a data source is unavailable this run
+  // (contributions/pinned need GraphQL, which needs a token).
+  let prev = {}
+  try {
+    const p = JSON.parse(readFileSync(OUTPUT, 'utf-8'))
+    if (p && !p._empty) prev = p
+  } catch { /* first run */ }
+
   if (!token) {
-    keepPreviousOrFail('No GITHUB_TOKEN set')
-    return
+    console.log('! No GITHUB_TOKEN — unauthenticated REST sync (contributions/pinned kept from last sync).')
   }
 
   try {
     const headers = {
-      Authorization: `Bearer ${token}`,
       Accept: 'application/vnd.github.v3+json',
+      ...(token ? { Authorization: `Bearer ${token}` } : {}),
     }
 
-    const [profileRes, reposRes, contribGraph] = await Promise.all([
+    let [profileRes, reposRes, contribGraph] = await Promise.all([
       fetch(`${GITHUB_REST}/users/${encodeURIComponent(username)}`, { headers }),
       // NOTE: `sort=stars` is NOT a valid REST param (valid: created/updated/pushed/
       // full_name) — it silently sorted alphabetically. Fetch by recency, then
       // sort by stars client-side below.
       fetch(`${GITHUB_REST}/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=100&type=owner`, { headers }),
       (async () => {
+        if (!token) return null
         try { return await graphql(CONTRIB_QUERY, { username }, token) }
         catch { return null }
       })(),
     ])
+
+    // Revoked/expired token → retry the public REST endpoints without auth
+    // rather than failing the sync (GraphQL data falls back to prior sync).
+    if (token && (profileRes.status === 401 || reposRes.status === 401)) {
+      console.log('! GITHUB_TOKEN rejected (401) — retrying unauthenticated.')
+      const anon = { Accept: 'application/vnd.github.v3+json' }
+      ;[profileRes, reposRes] = await Promise.all([
+        fetch(`${GITHUB_REST}/users/${encodeURIComponent(username)}`, { headers: anon }),
+        fetch(`${GITHUB_REST}/users/${encodeURIComponent(username)}/repos?sort=pushed&per_page=100&type=owner`, { headers: anon }),
+      ])
+      contribGraph = null
+      // Language fetches below reuse `headers` — strip the dead credential.
+      delete headers.Authorization
+    }
 
     if (!profileRes.ok) throw new Error(`Profile fetch: ${profileRes.status}`)
     if (!reposRes.ok) throw new Error(`Repos fetch: ${reposRes.status}`)
@@ -170,12 +220,14 @@ async function main() {
         stars: r.stargazers_count,
         forks: r.forks_count,
         href: r.html_url,
-        homepage: r.homepage || '',
+        homepage: normUrl(r.homepage),
+        createdAt: r.created_at,
         updatedAt: r.pushed_at,
       }))
 
-    // Contribution calendar
-    let contributions = null
+    // Contribution calendar (GraphQL-only — falls back to the prior sync
+    // when running unauthenticated)
+    let contributions = prev.contributions || null
     if (contribGraph?.user?.contributionsCollection?.contributionCalendar) {
       const cal = contribGraph.user.contributionsCollection.contributionCalendar
       const weeks = cal.weeks.map((w) =>
@@ -206,24 +258,47 @@ async function main() {
       }
     }
 
-    // Pinned repos
+    // Pinned repos (GraphQL-only — prior sync's pinned kept when unauthenticated)
     const pinnedRaw = contribGraph?.user?.pinnedItems?.nodes || []
-    const pinnedIds = new Set(pinnedRaw.map((p) => p.id))
-    const pinnedRepos = pinnedRaw.filter(Boolean).map((p) => ({
-      id: p.id,
-      title: p.name,
-      description: p.description || repos.find((r) => r.id === p.id)?.description || 'No description provided.',
-      tags: [p.primaryLanguage?.name, ...(p.repositoryTopics?.nodes?.map((t) => t.topic.name) || [])].filter(Boolean),
-      status: p.isArchived ? 'Archived' : 'Live',
-      statusColor: p.isArchived ? 'surface' : 'emerald',
-      stars: p.stargazerCount,
-      forks: p.forkCount,
-      href: p.url,
-      homepage: p.homepageUrl || '',
-    }))
+    const pinnedRepos = pinnedRaw.length
+      ? pinnedRaw.filter(Boolean).map((p) => ({
+          id: p.id,
+          title: p.name,
+          description: p.description || repos.find((r) => r.id === p.id)?.description || 'No description provided.',
+          tags: [p.primaryLanguage?.name, ...(p.repositoryTopics?.nodes?.map((t) => t.topic.name) || [])].filter(Boolean),
+          status: p.isArchived ? 'Archived' : 'Live',
+          statusColor: p.isArchived ? 'surface' : 'emerald',
+          stars: p.stargazerCount,
+          forks: p.forkCount,
+          href: p.url,
+          homepage: normUrl(p.homepageUrl),
+          createdAt: p.createdAt,
+          updatedAt: p.pushedAt,
+        }))
+      : (token ? [] : prev.pinnedRepos || [])
+    const pinnedIds = new Set(pinnedRepos.map((p) => p.id))
+    const pinnedTitles = new Set(pinnedRepos.map((p) => p.title.toLowerCase()))
 
-    // Remove pinned from regular list
-    const regularRepos = repos.filter((r) => !pinnedIds.has(r.id))
+    // Remove pinned from regular list (by id AND title — prior-sync pinned
+    // entries carry GraphQL node ids that never match REST numeric ids)
+    const regularRepos = repos.filter((r) => !pinnedIds.has(r.id) && !pinnedTitles.has(r.title.toLowerCase()))
+
+    // Systems board: ping every deployed project — repo homepages plus manual
+    // projects' live links from content.json (manual projects are first-class).
+    let manualProjects = []
+    try {
+      manualProjects = JSON.parse(readFileSync(resolve(__dirname, '../src/data/content.json'), 'utf-8')).projects || []
+    } catch { /* no content yet */ }
+    const seenUrls = new Set()
+    const targets = []
+    for (const r of [...pinnedRepos, ...regularRepos]) {
+      if (r.homepage && !seenUrls.has(r.homepage)) { seenUrls.add(r.homepage); targets.push({ name: r.title, url: r.homepage }) }
+    }
+    for (const m of manualProjects) {
+      const url = m && m.href && m.href !== '#' ? normUrl(m.href) : ''
+      if (url && !seenUrls.has(url)) { seenUrls.add(url); targets.push({ name: m.title, url }) }
+    }
+    const systems = targets.length ? await pingAll(targets) : []
 
     const result = {
       avatarUrl: profileData.avatar_url,
@@ -242,13 +317,14 @@ async function main() {
       repos: regularRepos,
       languages,
       contributions,
+      systems,
       // Build-date stamp — surfaced as "data as of {date}" in the UI so the
       // static snapshot never looks stale-but-unlabeled.
       fetchedAt: process.env.BUILD_DATE || new Date().toISOString().slice(0, 10),
     }
 
     writeFileSync(OUTPUT, JSON.stringify(result, null, 2))
-    console.log(`✓ Synced ${profileData.login}: ${regularRepos.length} repos (+${pinnedRepos.length} pinned), ${languages.length} languages, ${totalStars} total stars`)
+    console.log(`✓ Synced ${profileData.login}: ${regularRepos.length} repos (+${pinnedRepos.length} pinned), ${languages.length} languages, ${totalStars} total stars, ${systems.length} system(s) pinged${token ? '' : ' [unauthenticated]'}`)
   } catch (err) {
     keepPreviousOrFail(`GitHub sync failed: ${err.message}`)
   }
