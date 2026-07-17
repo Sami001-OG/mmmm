@@ -102,7 +102,7 @@ export default function Sidebar({ profile, navItems, activeSection, onNavClick, 
       {/* Social + admin */}
       <div className={`px-4 py-4 border-t border-line ${collapsed ? 'flex flex-col items-center gap-3' : 'flex items-center justify-between'}`}>
         <div className={`flex items-center gap-1 ${collapsed ? 'flex-col' : ''}`}>
-          {profile.social.map((s) => (
+          {profile.social.filter((s) => s.href && s.href !== '#').map((s) => (
             <a
               key={s.name}
               href={s.href}

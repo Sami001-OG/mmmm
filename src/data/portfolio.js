@@ -25,5 +25,6 @@ export const navItems = [
   { label: 'Skills', id: 'skills', icon: 'code' },
   { label: 'Experience', id: 'experience', icon: 'briefcase' },
   { label: 'Activity', id: 'activity', icon: 'activity' },
+  { label: 'Contact', id: 'contact', icon: 'mail' },
   { label: 'Download CV', id: 'cv', icon: 'external-link', href: '/cv' },
 ]

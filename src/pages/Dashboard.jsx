@@ -67,12 +67,16 @@ export default function Dashboard() {
   const mergedProfile = {
     ...pd.profile,
     name: gh.data?.name || pd.profile.name,
-    bio: gh.data?.bio || pd.profile.bio,
+    // Admin-authored bio wins; GitHub bio is only a fallback when none is set.
+    bio: pd.profile.bio || gh.data?.bio,
     avatarUrl: gh.data?.avatarUrl || null,
     location: gh.data?.location || pd.profile.location,
     login: gh.data?.login || github.username,
     social: pd.profile.social,
   }
+
+  // Social links with real destinations — '#' placeholders are dead links.
+  const liveSocial = mergedProfile.social.filter((s) => s.href && s.href !== '#')
 
   const stats = gh.data
     ? [
@@ -305,31 +309,89 @@ export default function Dashboard() {
                 <p className="text-ink-dim text-sm">Contribution data unavailable.</p>
               </div>
             )}
+          </section>
 
-            <div className="card mt-4 p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <span className="shape-dot bg-live shrink-0" aria-hidden />
-                <div>
-                  <p className="h3">Let&apos;s connect</p>
-                  <p className="text-ink-dim text-sm mt-0.5">{mergedProfile.location || 'Open to opportunities'}</p>
+          {/* Contact */}
+          <section id="contact">
+            <SectionHeader index={7} title="Contact" description="Reach out — open to opportunities" />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <div className="card p-5 space-y-4">
+                {mergedProfile.email && (
+                  <a href={`mailto:${mergedProfile.email}`} className="group flex items-center gap-4">
+                    <span className="shrink-0 w-9 h-9 border border-line flex items-center justify-center text-ink-dim group-hover:text-yellow group-hover:border-line-strong transition-colors duration-240">
+                      <Icon name="mail" size={15} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="mono-label block">Email</span>
+                      <span className="mono-data text-ink group-hover:text-blue-bright transition-colors duration-240 break-all">{mergedProfile.email}</span>
+                    </span>
+                  </a>
+                )}
+                {mergedProfile.phone && (
+                  <a href={`tel:${String(mergedProfile.phone).replace(/\s/g, '')}`} className="group flex items-center gap-4">
+                    <span className="shrink-0 w-9 h-9 border border-line flex items-center justify-center text-ink-dim group-hover:text-yellow group-hover:border-line-strong transition-colors duration-240">
+                      <Icon name="phone" size={15} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="mono-label block">Phone</span>
+                      <span className="mono-data text-ink group-hover:text-blue-bright transition-colors duration-240">{mergedProfile.phone}</span>
+                    </span>
+                  </a>
+                )}
+                {mergedProfile.location && (
+                  <div className="flex items-center gap-4">
+                    <span className="shrink-0 w-9 h-9 border border-line flex items-center justify-center text-ink-dim">
+                      <Icon name="mapPin" size={15} />
+                    </span>
+                    <span className="min-w-0">
+                      <span className="mono-label block">Location</span>
+                      <span className="mono-data text-ink">{mergedProfile.location}</span>
+                    </span>
+                  </div>
+                )}
+              </div>
+
+              <div className="card p-5 flex flex-col justify-between gap-5">
+                <div className="flex items-start gap-4">
+                  <span className="shape-dot bg-live mt-1.5 shrink-0" aria-hidden />
+                  <div>
+                    <p className="h3">Let&apos;s connect</p>
+                    <p className="text-ink-dim text-sm mt-1 leading-relaxed">
+                      Open to internships, collaborations, and interesting projects.
+                    </p>
+                  </div>
+                </div>
+                <div className="flex flex-wrap items-center gap-2">
+                  {liveSocial.map((s) => (
+                    <a
+                      key={s.name}
+                      href={s.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn-ghost"
+                    >
+                      <Icon name={s.icon} size={13} />
+                      <span>{s.name}</span>
+                    </a>
+                  ))}
+                  <a
+                    href={`https://github.com/${mergedProfile.login}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn-blue"
+                  >
+                    <span>View GitHub Profile</span>
+                    <Icon name="arrowUpRight" size={13} />
+                  </a>
                 </div>
               </div>
-              <a
-                href={`https://github.com/${mergedProfile.login}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn-blue"
-              >
-                <span>View GitHub Profile</span>
-                <Icon name="arrowUpRight" size={13} />
-              </a>
             </div>
           </section>
 
           <footer className="flex flex-col sm:flex-row items-center justify-between gap-3 py-8 border-t border-line mono-data text-ink-faint">
             <span>© {new Date().getFullYear()} {mergedProfile.name} — built with React &amp; Tailwind.</span>
             <div className="flex items-center gap-4">
-              {mergedProfile.social.map((s) => (
+              {liveSocial.map((s) => (
                 <a key={s.name} href={s.href} target="_blank" rel="noopener noreferrer" className="hover:text-ink transition-colors duration-240">
                   {s.name}
                 </a>
