@@ -1,5 +1,6 @@
 import React from 'react'
 import { hydrateRoot } from 'react-dom/client'
+import { inject } from '@vercel/analytics'
 import App from './App'
 import ErrorBoundary from './components/ErrorBoundary'
 import './index.css'
@@ -14,3 +15,8 @@ hydrateRoot(
     <App />
   </ErrorBoundary>
 )
+
+// Vercel Web Analytics — cookieless page views. No-ops outside Vercel;
+// requires Analytics to be enabled once in the Vercel project dashboard.
+inject()
+
