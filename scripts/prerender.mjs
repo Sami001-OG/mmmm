@@ -77,7 +77,13 @@ function writeSitemap(routes, siteUrl) {
       return `  <url>\n    <loc>${loc}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>${priority}</priority>\n  </url>`
     })
     .join('\n')
-  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.w3.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`
+  return `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urls}\n</urlset>\n`
+}
+
+// robots.txt with an absolute Sitemap URL (the spec requires absolute; the
+// static public/robots.txt is a fallback for non-prerender builds).
+function writeRobots(siteUrl) {
+  return `User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: ${siteUrl}/sitemap.xml\n`
 }
 
 function copyDir(src, dest, skipTopLevelIndexHtml = false) {
@@ -188,9 +194,12 @@ async function main() {
   written.push('dist/404.html')
 
   // 6d. sitemap.xml — indexable routes only (admin/404 excluded). robots.txt
-  //     already points crawlers here.
+  //     is rewritten with an absolute Sitemap URL (overwrites the static copy
+  //     brought in by copyDir in step 5).
   fs.writeFileSync(path.join(DIST, 'sitemap.xml'), writeSitemap(PRERENDER_ROUTES, SITE_URL))
   written.push('dist/sitemap.xml')
+  fs.writeFileSync(path.join(DIST, 'robots.txt'), writeRobots(SITE_URL))
+  written.push('dist/robots.txt')
 
   // 7. Dist hygiene: drop the SSR bundle and the intermediate client dir so
   //    nothing ships twice and the server bundle isn't publicly downloadable.
