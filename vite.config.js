@@ -1,5 +1,16 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
+import { execSync } from 'node:child_process'
+
+// Build provenance for the footer nameplate — stamped at build time like a
+// manufacturing plate. Vercel exposes the commit; local builds ask git.
+function buildInfo() {
+  let sha = process.env.VERCEL_GIT_COMMIT_SHA || ''
+  if (!sha) {
+    try { sha = execSync('git rev-parse HEAD', { stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim() } catch { /* not a repo */ }
+  }
+  return { sha: sha.slice(0, 7) || 'dev', builtAt: new Date().toISOString().slice(0, 10) }
+}
 
 // SSR-aware config:
 // - Default build (no `--ssr` flag) produces the client bundle to `dist`.
@@ -7,6 +18,9 @@ import react from '@vitejs/plugin-react'
 //   is driven by `scripts/prerender.mjs` and `server.js`.
 export default defineConfig({
   plugins: [react()],
+  define: {
+    __BUILD_INFO__: JSON.stringify(buildInfo()),
+  },
   server: {
     port: 5173,
     strictPort: true,
