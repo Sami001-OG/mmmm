@@ -148,7 +148,7 @@ async function main() {
     url: `${SITE_URL}/`,
     jobTitle: 'Student & Developer',
     address: { '@type': 'PostalAddress', addressLocality: 'Dhaka', addressCountry: 'BD' },
-    sameAs: ['https://github.com/Sami001-OG'],
+    sameAs: ['https://github.com/Sami001-OG', 'https://twitter.com/Sami38174202'],
   }
 
   // 4. Client index.html is the template for every emitted page. OG images
