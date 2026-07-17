@@ -122,7 +122,7 @@ export default function Sidebar({ profile, navItems, activeSection, onNavClick, 
           title="Admin"
           aria-label="Admin"
         >
-          <Icon name="settings" size={15} />
+          <Icon name="gear" size={16} />
         </a>
       </div>
     </div>

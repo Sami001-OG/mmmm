@@ -18,7 +18,7 @@ export default function CommandPalette({ open, onClose, navItems = [], social = 
         : { id: n.id, label: n.label, icon: n.icon, kind: 'section', hint: 'Jump to' }
     )
     const actions = [
-      { id: 'toggle-theme', label: isPaper ? 'Switch to dark mode' : 'Switch to paper mode', icon: 'palette', kind: 'action', hint: 'Toggle', run: onToggleTheme },
+      { id: 'toggle-theme', label: isPaper ? 'Switch to dark mode' : 'Switch to paper mode', icon: isPaper ? 'moon' : 'sun', kind: 'action', hint: 'Toggle', run: onToggleTheme },
     ]
     const links = social
       .filter((s) => s.href && s.href !== '#')

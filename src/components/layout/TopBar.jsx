@@ -64,7 +64,7 @@ export default function TopBar({ profile, onMenuToggle, onSearchOpen, isPaper, o
             aria-pressed={isPaper}
             title={isPaper ? 'Dark mode' : 'Paper mode'}
           >
-            <Icon name="palette" size={16} />
+            <Icon name={isPaper ? 'moon' : 'sun'} size={16} />
           </button>
 
           <Avatar initials={profile.avatar} src={profile.avatarUrl} size="sm" status="online" />
