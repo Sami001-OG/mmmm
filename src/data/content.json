@@ -29,7 +29,43 @@
   },
   "social": null,
   "experience": [],
-  "education": [],
+  "education": [
+    {
+      "school": "Upzilla Parishad Bidya Niketon,Tarail, Kishorganj",
+      "degree": "PSC",
+      "field": "",
+      "year": "2013-2014",
+      "notes": ""
+    },
+    {
+      "school": "Shahid Police Smriti College,Dhaka",
+      "degree": "Primary Level",
+      "field": "",
+      "year": "2010-2013",
+      "notes": ""
+    },
+    {
+      "school": "Tarail Govt. High School, Kishorganj",
+      "degree": "SSC",
+      "field": "Science",
+      "year": "2015-2020",
+      "notes": ""
+    },
+    {
+      "school": "Dr. Mahbubur Rahman Mollah College,Dhaka",
+      "degree": "HSC",
+      "field": "Science",
+      "year": "2021-2022",
+      "notes": ""
+    },
+    {
+      "school": "Institute of Science and Technology,Dhaka",
+      "degree": "BSc",
+      "field": "Computer Science and Engineering",
+      "year": "2023-2027",
+      "notes": ""
+    }
+  ],
   "skills": [],
   "projects": [],
   "repoImages": {
