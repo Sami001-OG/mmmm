@@ -342,7 +342,18 @@ export default function Dashboard() {
 
           {/* Activity */}
           <section id="activity">
-            <SectionHeader index={7} title="Activity" description="Contribution calendar + deployed-system status" />
+            <div className="flex items-start justify-between gap-4 flex-wrap">
+              <SectionHeader index={7} title="Activity" description="Contribution calendar + deployed-system status" />
+              <a
+                href="/poster.png"
+                download={`sami-${new Date().getFullYear()}.png`}
+                className="btn-ghost shrink-0 gap-2"
+                title="Download the year-in-code poster (print quality)"
+              >
+                <Icon name="download" size={14} />
+                <span className="mono-label">{new Date().getFullYear()} poster</span>
+              </a>
+            </div>
             {gh.data?.contributions ? (
               <ContributionGraph data={gh.data.contributions} />
             ) : (

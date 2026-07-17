@@ -86,6 +86,62 @@ function writeRobots(siteUrl) {
   return `User-agent: *\nAllow: /\nDisallow: /admin\n\nSitemap: ${siteUrl}/sitemap.xml\n`
 }
 
+// The machine-readable "you": `curl <site>/sami.json`. Structured profile,
+// stack, and projects assembled from the same sources the site renders —
+// GitHub sync + committed content.json (manual projects are first-class).
+function buildProfileJson(siteUrl) {
+  let gh = {}
+  let content = {}
+  try { gh = JSON.parse(fs.readFileSync(path.resolve(ROOT, 'src/data/github-static.json'), 'utf-8')) } catch { /* empty */ }
+  try { content = JSON.parse(fs.readFileSync(path.resolve(ROOT, 'src/data/content.json'), 'utf-8')) } catch { /* none */ }
+  if (gh._empty) gh = {}
+
+  const ghProjects = [...(gh.pinnedRepos || []), ...(gh.repos || [])].map((r) => ({
+    name: r.title,
+    description: r.description || '',
+    tags: r.tags || [],
+    repo: r.href || '',
+    live: r.homepage || '',
+    stars: r.stars || 0,
+    source: 'github',
+  }))
+  const manualProjects = (content.projects || [])
+    .filter((p) => p && p.title)
+    .map((p) => ({
+      name: p.title,
+      description: p.description || '',
+      tags: typeof p.tags === 'string' ? p.tags.split(',').map((t) => t.trim()).filter(Boolean) : (p.tags || []),
+      repo: p.repo || '',
+      live: p.href && p.href !== '#' ? p.href : '',
+      source: 'manual',
+    }))
+
+  const profile = content.profile || {}
+  return {
+    $schema: 'https://sami.dev/sami.schema.json',
+    generatedAt: new Date().toISOString(),
+    name: profile.name || 'Sami',
+    title: profile.title || 'Student & Developer',
+    location: profile.location || 'Dhaka, Bangladesh',
+    bio: profile.bio || '',
+    url: `${siteUrl}/`,
+    availability: profile.status || '',
+    links: {
+      github: 'https://github.com/Sami001-OG',
+      twitter: 'https://twitter.com/Sami38174202',
+      ...(profile.email ? { email: profile.email } : {}),
+    },
+    stack: (gh.languages || []).map((l) => ({ name: l.name, share: l.percentage })),
+    skills: content.skills || [],
+    stats: {
+      repositories: (gh.repos?.length || 0) + (gh.pinnedRepos?.length || 0),
+      stars: gh.totalStars || 0,
+      contributionsLastYear: gh.contributions?.total || 0,
+    },
+    projects: [...manualProjects, ...ghProjects],
+  }
+}
+
 function copyDir(src, dest, skipTopLevelIndexHtml = false) {
   if (!fs.existsSync(src)) return
   for (const entry of fs.readdirSync(src, { withFileTypes: true })) {
@@ -167,11 +223,18 @@ async function main() {
   for (const route of PRERENDER_ROUTES) {
     const meta = ROUTE_META[route] || {}
     const canonical = route === '/' ? `${SITE_URL}/` : `${SITE_URL}${route}`
-    const withMeta = applyMeta(template, {
+    let withMeta = applyMeta(template, {
       ...meta,
       canonical,
       jsonLd: route === '/' ? personLd : null,
     })
+    // Advertise the machine-readable profile from the homepage head.
+    if (route === '/') {
+      withMeta = withMeta.replace(
+        '</head>',
+        `    <link rel="alternate" type="application/json" href="${SITE_URL}/sami.json" title="sami.json — machine-readable profile" />\n  </head>`
+      )
+    }
     const html = withMeta.replace('<!--app-html-->', render(route))
     written.push(writeRoute(route, html))
   }
@@ -200,6 +263,10 @@ async function main() {
   written.push('dist/sitemap.xml')
   fs.writeFileSync(path.join(DIST, 'robots.txt'), writeRobots(SITE_URL))
   written.push('dist/robots.txt')
+
+  // 6e. sami.json — the machine-readable profile. `curl <site>/sami.json`.
+  fs.writeFileSync(path.join(DIST, 'sami.json'), JSON.stringify(buildProfileJson(SITE_URL), null, 2))
+  written.push('dist/sami.json')
 
   // 7. Dist hygiene: drop the SSR bundle and the intermediate client dir so
   //    nothing ships twice and the server bundle isn't publicly downloadable.

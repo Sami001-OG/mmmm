@@ -11,7 +11,7 @@
     "dev": "node scripts/fetch-github.mjs && vite",
     "dev:ssr": "node scripts/fetch-github.mjs && node server.js",
     "build": "node scripts/fetch-github.mjs && vite build",
-    "build:ssr": "node scripts/fetch-github.mjs && node scripts/generate-og.mjs && node scripts/generate-icons.mjs && node scripts/prerender.mjs",
+    "build:ssr": "node scripts/fetch-github.mjs && node scripts/generate-og.mjs && node scripts/generate-poster.mjs && node scripts/generate-icons.mjs && node scripts/prerender.mjs",
     "start": "NODE_ENV=production node server.js",
     "preview": "vite preview"
   },
