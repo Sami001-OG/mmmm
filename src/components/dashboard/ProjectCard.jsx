@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import Badge from '../ui/Badge'
 import Icon from '../ui/Icon'
 import { langColors } from '../../data/langColors'
@@ -10,7 +11,9 @@ import { langColors } from '../../data/langColors'
  */
 export default function ProjectCard({ project, featured = false }) {
   const tags = project.tags || []
-  const hasImage = Boolean(project.image)
+  // Dead hotlinks (e.g. removed imgbb uploads) fall back to the shape plate.
+  const [imgFailed, setImgFailed] = useState(false)
+  const hasImage = Boolean(project.image) && !imgFailed
 
   return (
     <a
@@ -29,6 +32,7 @@ export default function ProjectCard({ project, featured = false }) {
             src={project.image}
             alt=""
             loading="lazy"
+            onError={() => setImgFailed(true)}
             className="w-full h-full object-cover transition-transform duration-480 ease-machine group-hover:scale-[1.03]"
           />
         ) : (

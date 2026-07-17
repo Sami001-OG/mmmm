@@ -155,13 +155,26 @@ export default function Dashboard() {
           {/* Overview */}
           <section id="overview">
             <SectionHeader index={1} title="Overview" description="Real data, pulled from GitHub" />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {stats.map((stat, i) => (
-                <Reveal key={stat.label} delay={i * 60} className="h-full">
-                  <StatCard {...stat} />
-                </Reveal>
-              ))}
-            </div>
+            {gh.data ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                {stats.map((stat, i) => (
+                  <Reveal key={stat.label} delay={i * 60} className="h-full">
+                    <StatCard {...stat} />
+                  </Reveal>
+                ))}
+              </div>
+            ) : (
+              <div className="card p-5 flex items-start gap-4">
+                <span className="shape-dot bg-yellow mt-1.5 shrink-0" aria-hidden />
+                <div>
+                  <p className="h3">GitHub data unavailable</p>
+                  <p className="text-ink-dim text-sm mt-1 leading-relaxed">
+                    {gh.error || 'Could not load GitHub data.'} The site still works — project
+                    and activity data will appear after the next successful build.
+                  </p>
+                </div>
+              </div>
+            )}
           </section>
 
           {/* Projects */}
