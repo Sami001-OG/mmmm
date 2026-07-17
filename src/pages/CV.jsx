@@ -110,8 +110,8 @@ export default function CV() {
 
   const projectHref = (r) => {
     if (r.href && r.href !== '#') return r.href
-    if (!r.manual) return `https://github.com/${github.username}/${r.title}`
-    return null
+    if (r.manual) return r.repo || null
+    return `https://github.com/${github.username}/${r.title}`
   }
 
   return (

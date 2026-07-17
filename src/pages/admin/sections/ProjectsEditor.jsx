@@ -11,6 +11,7 @@ const emptyProject = {
   description: '',
   tags: '',
   href: '',
+  repo: '',
   image: '',
   stars: 0,
   forks: 0,
@@ -170,9 +171,14 @@ export default function ProjectsEditor() {
                 <input value={item.title} onChange={(e) => update(idx, 'title', e.target.value)} className="admin-input" />
               </div>
               <div>
-                <label className="admin-label">Link (href)</label>
-                <input value={item.href} onChange={(e) => update(idx, 'href', e.target.value)} placeholder="https://…" className="admin-input" />
+                <label className="admin-label">Live link (deployed project)</label>
+                <input value={item.href} onChange={(e) => update(idx, 'href', e.target.value)} placeholder="https://myproject.vercel.app" className="admin-input" />
               </div>
+            </div>
+
+            <div>
+              <label className="admin-label">Repo link (source code)</label>
+              <input value={item.repo || ''} onChange={(e) => update(idx, 'repo', e.target.value)} placeholder="https://github.com/user/repo" className="admin-input" />
             </div>
 
             <div>

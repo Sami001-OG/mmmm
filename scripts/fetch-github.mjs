@@ -45,6 +45,7 @@ const CONTRIB_QUERY = `
             forkCount
             primaryLanguage { name }
             url
+            homepageUrl
             isArchived
             repositoryTopics(first: 10) {
               nodes { topic { name } }
@@ -169,6 +170,7 @@ async function main() {
         stars: r.stargazers_count,
         forks: r.forks_count,
         href: r.html_url,
+        homepage: r.homepage || '',
         updatedAt: r.pushed_at,
       }))
 
@@ -217,6 +219,7 @@ async function main() {
       stars: p.stargazerCount,
       forks: p.forkCount,
       href: p.url,
+      homepage: p.homepageUrl || '',
     }))
 
     // Remove pinned from regular list
