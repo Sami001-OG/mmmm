@@ -34,8 +34,11 @@
     <script>
       // Apply persisted paper mode before paint — no dark→light flash on reload.
       try {
-        if (localStorage.getItem('portfolio_theme') === 'paper')
+        if (localStorage.getItem('portfolio_theme') === 'paper') {
           document.documentElement.setAttribute('data-theme', 'paper')
+          var tc = document.querySelector('meta[name="theme-color"]')
+          if (tc) tc.setAttribute('content', '#F4F1EA')
+        }
       } catch (e) {}
     </script>
     <script type="module" src="/src/entry-client.jsx"></script>

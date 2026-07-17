@@ -20,6 +20,10 @@ export default function useTheme() {
     const root = document.documentElement
     if (theme === 'paper') root.setAttribute('data-theme', 'paper')
     else root.removeAttribute('data-theme')
+    // Keep browser chrome (mobile address bar) in step with the theme.
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute('content', theme === 'paper' ? '#F4F1EA' : '#111014')
     try { localStorage.setItem(STORAGE_KEY, theme) } catch { /* private mode */ }
   }, [theme])
 
