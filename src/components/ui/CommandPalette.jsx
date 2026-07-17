@@ -3,7 +3,7 @@ import Icon from './Icon'
 
 // cmdk-style launcher — Dessau modal. Keyboard-first: ↑/↓ move, ↵ run, Esc close.
 // SSR-safe: renders null until open, so server HTML never contains the dialog.
-export default function CommandPalette({ open, onClose, navItems = [], social = [], onNavigate, isPaper = false, onToggleTheme }) {
+export default function CommandPalette({ open, onClose, navItems = [], social = [], onNavigate, isPaper = false, onToggleTheme, isBlueprint = false, onToggleBlueprint }) {
   const [query, setQuery] = useState('')
   const [active, setActive] = useState(0)
   const inputRef = useRef(null)
@@ -19,12 +19,13 @@ export default function CommandPalette({ open, onClose, navItems = [], social = 
     )
     const actions = [
       { id: 'toggle-theme', label: isPaper ? 'Switch to dark mode' : 'Switch to paper mode', icon: isPaper ? 'moon' : 'sun', kind: 'action', hint: 'Toggle', run: onToggleTheme },
+      { id: 'toggle-blueprint', label: isBlueprint ? 'Exit blueprint mode' : 'Blueprint mode — inspect the construction', icon: 'grid', kind: 'action', hint: 'Toggle', run: onToggleBlueprint },
     ]
     const links = social
       .filter((s) => s.href && s.href !== '#')
       .map((s) => ({ id: `social-${s.name}`, label: s.name, icon: s.icon, kind: 'external', href: s.href, hint: 'Open' }))
     return [...sections, ...actions, ...links]
-  }, [navItems, social, isPaper, onToggleTheme])
+  }, [navItems, social, isPaper, onToggleTheme, isBlueprint, onToggleBlueprint])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()

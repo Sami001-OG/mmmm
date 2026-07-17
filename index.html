@@ -32,12 +32,17 @@
   <body>
     <div id="root"><!--app-html--></div>
     <script>
-      // Apply persisted paper mode before paint — no dark→light flash on reload.
+      // Apply persisted (or ?theme= linked) theme before paint — no flash.
+      // ?theme=paper|blueprint persists, so React hydrates in agreement.
       try {
-        if (localStorage.getItem('portfolio_theme') === 'paper') {
-          document.documentElement.setAttribute('data-theme', 'paper')
+        var themeColors = { paper: '#F4F1EA', blueprint: '#0E2842' }
+        var q = new URLSearchParams(location.search).get('theme')
+        var t = themeColors[q] ? q : localStorage.getItem('portfolio_theme')
+        if (themeColors[t]) {
+          if (themeColors[q]) localStorage.setItem('portfolio_theme', q)
+          document.documentElement.setAttribute('data-theme', t)
           var tc = document.querySelector('meta[name="theme-color"]')
-          if (tc) tc.setAttribute('content', '#F4F1EA')
+          if (tc) tc.setAttribute('content', themeColors[t])
         }
       } catch (e) {}
     </script>
