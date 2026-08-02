@@ -33,11 +33,17 @@ export default function useTheme() {
     const root = document.documentElement
     if (theme === 'dark') root.removeAttribute('data-theme')
     else root.setAttribute('data-theme', theme)
+    // Animate the switch: the theme-anim class makes every surface, border,
+    // and ink color ease over (see index.css). Cleaned up after ~500ms so
+    // element transitions (hover lifts, etc.) resume normally.
+    root.classList.add('theme-anim')
+    const t = setTimeout(() => root.classList.remove('theme-anim'), 500)
     // Keep browser chrome (mobile address bar) in step with the theme.
     document
       .querySelector('meta[name="theme-color"]')
       ?.setAttribute('content', THEME_COLOR[theme])
     try { localStorage.setItem(STORAGE_KEY, theme) } catch { /* private mode */ }
+    return () => clearTimeout(t)
   }, [theme])
 
   const toggle = useCallback(() => {

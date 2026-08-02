@@ -36,7 +36,6 @@ export default function Dashboard() {
   const [mounted, setMounted] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [paletteOpen, setPaletteOpen] = useState(false)
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const gh = useGithubData(github.username)
   const pd = usePortfolioData()
   const { isPaper, isBlueprint, toggle: toggleTheme, toggleBlueprint } = useTheme()
@@ -154,11 +153,9 @@ export default function Dashboard() {
         onNavClick={scrollTo}
         mobileOpen={mobileOpen}
         onMobileClose={() => setMobileOpen(false)}
-        collapsed={sidebarCollapsed}
-        onToggleCollapsed={() => setSidebarCollapsed((v) => !v)}
       />
 
-      <div className={`transition-[padding] duration-360 ease-machine ${sidebarCollapsed ? 'lg:pl-[72px]' : 'lg:pl-[260px]'}`}>
+      <div className="lg:pl-[72px]">
         <TopBar
           profile={mergedProfile}
           onMenuToggle={() => setMobileOpen((v) => !v)}

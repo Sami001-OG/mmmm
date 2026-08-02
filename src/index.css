@@ -92,6 +92,20 @@
     transition: background-color 480ms var(--ease-brake), color 480ms var(--ease-brake);
   }
 
+  /* Theme-switch animation — `theme-anim` is attached to <html> by
+     useTheme for the duration of a theme change, so every surface, border,
+     and ink color eases over (never transforms). Gated for reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    html.theme-anim,
+    html.theme-anim *,
+    html.theme-anim *::before,
+    html.theme-anim *::after {
+      transition: background-color 480ms var(--ease-brake),
+        border-color 480ms var(--ease-brake),
+        color 480ms var(--ease-brake) !important;
+    }
+  }
+
   ::selection {
     @apply bg-yellow text-paper;
   }
