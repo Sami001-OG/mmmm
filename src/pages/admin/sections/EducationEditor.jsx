@@ -40,7 +40,7 @@ export default function EducationEditor() {
               <span className="mono-label">Entry {String(idx + 1).padStart(2, '0')}</span>
               {items.length > 1 && <button onClick={() => remove(idx)} className="admin-remove">Remove</button>}
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="admin-label">School / University</label>
                 <input value={item.school} onChange={(e) => update(idx, 'school', e.target.value)} className="admin-input" />
@@ -50,7 +50,7 @@ export default function EducationEditor() {
                 <input value={item.degree} onChange={(e) => update(idx, 'degree', e.target.value)} placeholder="BSc, HSC, etc." className="admin-input" />
               </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="admin-label">Field of Study</label>
                 <input value={item.field} onChange={(e) => update(idx, 'field', e.target.value)} placeholder="Computer Science" className="admin-input" />

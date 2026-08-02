@@ -4,8 +4,7 @@ import Icon from '../ui/Icon'
 import Avatar from '../ui/Avatar'
 import Logo from '../brand/Logo'
 
-export default function Sidebar({ profile, navItems, activeSection, onNavClick, mobileOpen, onMobileClose }) {
-  const [collapsed, setCollapsed] = useState(false)
+export default function Sidebar({ profile, navItems, activeSection, onNavClick, mobileOpen, onMobileClose, collapsed, onToggleCollapsed }) {
   const navigate = useNavigate()
   const location = useLocation()
   const railRef = useRef(null)
@@ -41,7 +40,7 @@ export default function Sidebar({ profile, navItems, activeSection, onNavClick, 
       <div className="flex items-center gap-3 px-5 pt-6 pb-5 border-b border-line">
         <Logo variant={collapsed ? 'icon' : 'full'} size="sm" collapsed={collapsed} />
         <button
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={onToggleCollapsed}
           aria-label={collapsed ? 'Expand sidebar' : 'Collapse sidebar'}
           className="ml-auto p-1.5 text-ink-dim hover:text-ink transition-colors duration-240 hidden lg:block"
         >

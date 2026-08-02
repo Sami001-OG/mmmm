@@ -113,9 +113,9 @@ export default function AdminPanel() {
   }
 
   return (
-    <div className="min-h-screen bg-paper flex">
-      {/* Sidebar */}
-      <div className="w-56 shrink-0 bg-sunken border-r border-line flex flex-col">
+    <div className="min-h-screen bg-paper flex flex-col lg:flex-row">
+      {/* Sidebar (desktop) */}
+      <aside className="hidden lg:flex w-56 shrink-0 bg-sunken border-r border-line flex-col">
         <div className="px-4 pt-6 pb-4 border-b border-line">
           <Logo variant="icon" size="sm" />
           <h2 className="h3 mt-3">Admin</h2>
@@ -143,11 +143,38 @@ export default function AdminPanel() {
           <a href="/" className="admin-btn w-full justify-center">← View portfolio</a>
           <button onClick={logout} className="admin-btn w-full justify-center">Log out</button>
         </div>
+      </aside>
+
+      {/* Mobile header — tabs + actions, scrollable */}
+      <div className="lg:hidden bg-sunken border-b border-line">
+        <div className="flex items-center gap-3 px-4 pt-4 pb-3">
+          <Logo variant="icon" size="sm" />
+          <div>
+            <h2 className="h3">Admin</h2>
+            <p className="mono-label">Manage content</p>
+          </div>
+          <button onClick={handlePublish} disabled={publishing} className="ml-auto btn-yellow px-3 py-1.5 disabled:opacity-50">
+            <span>{publishing ? 'Publishing…' : 'Publish'}</span>
+          </button>
+        </div>
+        <nav className="flex gap-1.5 overflow-x-auto scrollbar-thin px-4 pb-3">
+          {sections.map((s) => (
+            <button
+              key={s.id}
+              onClick={() => setActive(s.id)}
+              className={`shrink-0 whitespace-nowrap px-3 py-1.5 font-mono text-[12px] uppercase tracking-label border transition-colors duration-240 ${
+                active === s.id ? 'bg-yellow text-paper border-yellow' : 'bg-surface text-ink-dim border-line hover:border-line-strong hover:text-ink'
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </nav>
       </div>
 
       {/* Content */}
-      <div className="flex-1 overflow-y-auto">
-        <div className="max-w-2xl mx-auto px-8 py-8">
+      <div className="flex-1 min-w-0 overflow-y-auto">
+        <div className="max-w-2xl mx-auto px-4 sm:px-8 py-6 lg:py-8">
           {notice && (
             <div className={`mb-6 px-4 py-3 border mono-data ${
               noticeKind === 'err'

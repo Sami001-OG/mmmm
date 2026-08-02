@@ -62,8 +62,8 @@ export default function SkillsEditor() {
               <button onClick={() => removeCategory(ci)} className="admin-remove">Remove</button>
             </div>
             {cat.skills.map((sk, si) => (
-              <div key={si} className="flex items-center gap-3">
-                <input value={sk.name} onChange={(e) => updateSkill(ci, si, 'name', e.target.value)} placeholder="Skill name" className="admin-input flex-1" />
+              <div key={si} className="flex flex-wrap items-center gap-3">
+                <input value={sk.name} onChange={(e) => updateSkill(ci, si, 'name', e.target.value)} placeholder="Skill name" className="admin-input flex-1 min-w-[140px]" />
                 <div className="flex items-center gap-2 shrink-0">
                   <input
                     type="range"

@@ -9,12 +9,12 @@ export default function SectionHeader({ title, description, action, index }) {
   const padded = typeof index === 'number' ? String(index).padStart(2, '0') : null
 
   return (
-    <div className="flex items-end justify-between gap-4 mb-6">
+    <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
       <div className="relative min-w-0">
         {padded && (
           <span
             aria-hidden
-            className="section-index absolute -top-6 -left-1 text-[64px] leading-none"
+            className="section-index absolute -top-7 -left-1 text-[76px] leading-none"
           >
             {padded}
           </span>

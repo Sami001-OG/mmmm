@@ -156,7 +156,7 @@ export default function CommandPalette({ open, onClose, navItems = [], social = 
         </ul>
 
         {/* Footer hint bar */}
-        <div className="flex items-center gap-4 px-4 py-2.5 border-t border-line mono-data text-ink-faint text-[11px]">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 px-4 py-2.5 border-t border-line mono-data text-ink-faint text-[11px]">
           <span className="flex items-center gap-1.5"><kbd className="px-1 bg-surface-hi border border-line">↑↓</kbd> navigate</span>
           <span className="flex items-center gap-1.5"><kbd className="px-1 bg-surface-hi border border-line">↵</kbd> select</span>
           <span className="flex items-center gap-1.5"><kbd className="px-1 bg-surface-hi border border-line">esc</kbd> close</span>

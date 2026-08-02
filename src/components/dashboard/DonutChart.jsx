@@ -31,7 +31,7 @@ export default function DonutChart({ data, size = 176 }) {
   })
 
   return (
-    <div ref={ref} className="card p-5 flex items-center gap-6">
+    <div ref={ref} className="card p-5 flex items-center gap-4 sm:gap-6">
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`} className="shrink-0">
         <circle cx={cx} cy={cy} r={radius} fill="none" stroke="#232228" strokeWidth={strokeWidth} />
         {segments.map((seg, idx) => {

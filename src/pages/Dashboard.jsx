@@ -36,6 +36,7 @@ export default function Dashboard() {
   const [mounted, setMounted] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [paletteOpen, setPaletteOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const gh = useGithubData(github.username)
   const pd = usePortfolioData()
   const { isPaper, isBlueprint, toggle: toggleTheme, toggleBlueprint } = useTheme()
@@ -153,9 +154,11 @@ export default function Dashboard() {
         onNavClick={scrollTo}
         mobileOpen={mobileOpen}
         onMobileClose={() => setMobileOpen(false)}
+        collapsed={sidebarCollapsed}
+        onToggleCollapsed={() => setSidebarCollapsed((v) => !v)}
       />
 
-      <div className="lg:pl-[260px]">
+      <div className={`transition-[padding] duration-360 ease-machine ${sidebarCollapsed ? 'lg:pl-[72px]' : 'lg:pl-[260px]'}`}>
         <TopBar
           profile={mergedProfile}
           onMenuToggle={() => setMobileOpen((v) => !v)}
@@ -185,8 +188,8 @@ export default function Dashboard() {
                 <div>
                   <p className="h3">GitHub data unavailable</p>
                   <p className="text-ink-dim text-sm mt-1 leading-relaxed">
-                    {gh.error || 'Could not load GitHub data.'} The site still works — project
-                    and activity data will appear after the next successful build.
+                    {gh.error || 'Could not load GitHub data.'} The site still works — projects
+                    and stats refresh automatically from GitHub on the next visit.
                   </p>
                 </div>
               </div>

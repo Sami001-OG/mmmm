@@ -7,9 +7,9 @@ export default function SystemsBoard({ systems }) {
 
   return (
     <div className="card mt-4">
-      <div className="flex items-center justify-between px-5 py-3 border-b border-line">
-        <span className="mono-label">Systems</span>
-        <span className="mono-data text-[11px] text-ink-faint">
+      <div className="flex items-center justify-between gap-2 px-5 py-3 border-b border-line">
+        <span className="mono-label shrink-0">Systems</span>
+        <span className="mono-data text-[11px] text-ink-faint text-right truncate">
           {up}/{systems.length} OPERATIONAL · CHECKED AT BUILD
         </span>
       </div>

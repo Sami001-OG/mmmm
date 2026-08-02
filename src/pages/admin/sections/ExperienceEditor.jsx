@@ -49,7 +49,7 @@ export default function ExperienceEditor() {
               <span className="mono-label">Entry {String(idx + 1).padStart(2, '0')}</span>
               <button onClick={() => remove(idx)} className="admin-remove">Remove</button>
             </div>
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="admin-label">Company</label>
                 <input value={item.company} onChange={(e) => update(idx, 'company', e.target.value)} className="admin-input" />

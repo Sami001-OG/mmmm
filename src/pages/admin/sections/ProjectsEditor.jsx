@@ -167,7 +167,7 @@ export default function ProjectsEditor() {
               </div>
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="admin-label">Title</label>
                 <input value={item.title} onChange={(e) => update(idx, 'title', e.target.value)} className="admin-input" />
@@ -183,7 +183,7 @@ export default function ProjectsEditor() {
               <input value={item.repo || ''} onChange={(e) => update(idx, 'repo', e.target.value)} placeholder="https://github.com/user/repo" className="admin-input" />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               <div>
                 <label className="admin-label">Started (shows on timeline)</label>
                 <input value={item.started || ''} onChange={(e) => update(idx, 'started', e.target.value)} placeholder="2026-03" className="admin-input" />
@@ -204,7 +204,7 @@ export default function ProjectsEditor() {
               <input value={item.tags} onChange={(e) => update(idx, 'tags', e.target.value)} placeholder="React, TypeScript, Vite" className="admin-input" />
             </div>
 
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               <div>
                 <label className="admin-label">Stars</label>
                 <input type="number" min="0" value={item.stars} onChange={(e) => update(idx, 'stars', Number(e.target.value) || 0)} className="admin-input" />

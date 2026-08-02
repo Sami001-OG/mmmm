@@ -233,7 +233,13 @@
   /* Section index numeral — oversized ghost behind the title. */
   .section-index {
     @apply font-display font-black tabular-nums text-ink pointer-events-none select-none;
-    opacity: 0.12;
+    opacity: 0.28;
+  }
+
+  /* Paper inverts the ink → near-black on cream; give the index a touch
+     more presence so it reads as a deliberate mark, not a smudge. */
+  [data-theme='paper'] .section-index {
+    opacity: 0.34;
   }
 
   /* ── Admin form primitives (Dessau, shared by every editor) ───────── */
