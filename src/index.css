@@ -123,6 +123,12 @@
     outline: none;
   }
 
+  /* Nav jumps (rail, bottom bar, palette) land on the section header —
+     its title + ghost numeral — clear of the sticky TopBar. */
+  main section[id] {
+    scroll-margin-top: 96px;
+  }
+
   ::-webkit-scrollbar { width: 10px; height: 10px; }
   ::-webkit-scrollbar-track { @apply bg-sunken; }
   ::-webkit-scrollbar-thumb { @apply bg-line-strong; border: 2px solid theme('colors.sunken'); }

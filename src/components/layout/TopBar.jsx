@@ -28,13 +28,6 @@ export default function TopBar({ profile, onMenuToggle, onSearchOpen, isPaper, o
     <header className="sticky top-0 z-20 bg-paper border-b border-line">
       <div className="flex items-center justify-between px-4 sm:px-8 py-4">
         <div className="flex items-center gap-3">
-          <button
-            onClick={onMenuToggle}
-            className="p-2 text-ink-dim hover:text-ink transition-colors duration-240 lg:hidden"
-            aria-label="Toggle menu"
-          >
-            <Icon name="menu" size={18} />
-          </button>
           <div className="hidden sm:flex flex-col leading-none">
             <span className="mono-label">portfolio // 2026</span>
           </div>
@@ -67,7 +60,14 @@ export default function TopBar({ profile, onMenuToggle, onSearchOpen, isPaper, o
             <Icon name={isPaper ? 'moon' : 'sun'} size={16} />
           </button>
 
-          <Avatar initials={profile.avatar} src={profile.avatarUrl} size="sm" status="online" />
+          <button
+            onClick={onMenuToggle}
+            className="p-1 rounded-full hover:opacity-80 transition-opacity duration-240"
+            aria-label="Open menu"
+            title="Menu"
+          >
+            <Avatar initials={profile.avatar} src={profile.avatarUrl} size="sm" status="online" />
+          </button>
         </div>
       </div>
     </header>

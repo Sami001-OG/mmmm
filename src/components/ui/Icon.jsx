@@ -53,8 +53,8 @@ export default function Icon({ name, size = 18, className = '', strokeWidth }) {
       fill={isSocial ? 'currentColor' : 'none'}
       stroke={isSocial ? 'none' : 'currentColor'}
       strokeWidth={strokeWidth ?? 2}
-      strokeLinecap="square"
-      strokeLinejoin="miter"
+      strokeLinecap="round"
+      strokeLinejoin="round"
       className={className}
     >
       <path d={path} />

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Sidebar from '../components/layout/Sidebar'
 import TopBar from '../components/layout/TopBar'
+import MobileNav from '../components/layout/MobileNav'
 import StatCard from '../components/dashboard/StatCard'
 import ProjectCard from '../components/dashboard/ProjectCard'
 import SkillBar from '../components/dashboard/SkillBar'
@@ -164,7 +165,7 @@ export default function Dashboard() {
           onToggleTheme={toggleTheme}
         />
 
-        <main id="main" className={`px-4 sm:px-8 py-8 space-y-16 transition-opacity duration-480 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+        <main id="main" className={`px-4 sm:px-8 pt-8 pb-24 lg:pb-8 space-y-16 transition-opacity duration-480 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
           {/* Hero */}
           <Hero profile={mergedProfile} languages={gh.data?.languages} />
 
@@ -457,6 +458,7 @@ export default function Dashboard() {
           </div>
         </main>
       </div>
+      <MobileNav navItems={pd.navItems} activeSection={activeSection} onNavClick={scrollTo} />
     </div>
   )
 }
