@@ -19,6 +19,7 @@ import Badge from '../components/ui/Badge'
 import useGithubData from '../hooks/useGithubData'
 import usePortfolioData from '../hooks/usePortfolioData'
 import useTheme from '../hooks/useTheme'
+import { downloadPoster } from '../lib/poster-svg'
 import { github } from '../data/portfolio'
 
 // Fixed exposed-grid backdrop — 12-col ruled field, aria-hidden, SSR-safe.
@@ -345,15 +346,28 @@ export default function Dashboard() {
           <section id="activity">
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <SectionHeader index={7} title="Activity" description="Contribution calendar + deployed-system status" />
-              <a
-                href="/poster.png"
-                download={`sami-${new Date().getFullYear()}.png`}
+              <button
+                type="button"
+                onClick={() => {
+                  const d = gh.data
+                  if (!d) return
+                  downloadPoster({
+                    name: (d.name || 'sami').toLowerCase(),
+                    login: d.login,
+                    weeks: d.contributions?.weeks || [],
+                    totalContributions: d.contributions?.totalContributions || 0,
+                    repoCount: d.repos.length + (d.pinnedRepos?.length || 0),
+                    totalStars: d.totalStars || 0,
+                    languages: d.languages || [],
+                    year: new Date().getFullYear(),
+                  })
+                }}
                 className="btn-ghost shrink-0 gap-2"
-                title="Download the year-in-code poster (print quality)"
+                title="Download the year-in-code poster — generated live from your GitHub data"
               >
                 <Icon name="download" size={14} />
                 <span className="mono-label">{new Date().getFullYear()} poster</span>
-              </a>
+              </button>
             </div>
             {gh.data?.contributions ? (
               <ContributionGraph data={gh.data.contributions} />
