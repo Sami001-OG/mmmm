@@ -68,6 +68,24 @@ export default function Dashboard() {
     }
   }
 
+  // Poster is generated on-demand from live GitHub data; falls back to the
+  // build-time PNG if the endpoint is unavailable (e.g. local dev).
+  const downloadPoster = async () => {
+    try {
+      const res = await fetch('/api/poster')
+      if (!res.ok) throw new Error('poster endpoint failed')
+      const blob = await res.blob()
+      const url = URL.createObjectURL(blob)
+      const a = document.createElement('a')
+      a.href = url
+      a.download = `sami-${new Date().getFullYear()}.png`
+      a.click()
+      URL.revokeObjectURL(url)
+    } catch {
+      window.location.href = '/poster.png'
+    }
+  }
+
   const mergedProfile = {
     ...pd.profile,
     name: gh.data?.name || pd.profile.name,
@@ -347,9 +365,12 @@ export default function Dashboard() {
               <SectionHeader index={7} title="Activity" description="Contribution calendar + deployed-system status" />
               <a
                 href="/poster.png"
-                download={`sami-${new Date().getFullYear()}.png`}
+                onClick={(e) => {
+                  e.preventDefault()
+                  downloadPoster()
+                }}
                 className="btn-ghost shrink-0 gap-2"
-                title="Download the year-in-code poster (print quality)"
+                title="Download the year-in-code poster — generated live from GitHub (print quality)"
               >
                 <Icon name="download" size={14} />
                 <span className="mono-label">{new Date().getFullYear()} poster</span>
