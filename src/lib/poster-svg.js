@@ -86,7 +86,7 @@ export function buildPosterSVG({
       lx += w
       if (w < 90) return ''
       const color = LANG_COLORS[l.name] || FALLBACK[0]
-      return `<text x="${x}" y="${barY + barH + 34}" font-family="'Chivo Mono', monospace" font-size="15" letter-spacing="1.5" fill="${color}">${l.name.toUpperCase()} ${l.percentage}%</text>`
+      return `<text x="${x}" y="${barY + barH + 34}" font-family="'Chivo Mono Variable', 'Chivo Mono', ui-monospace, monospace" font-size="15" letter-spacing="1.5" fill="${color}">${l.name.toUpperCase()} ${l.percentage}%</text>`
     }).join('\n  ')
   })()
 
@@ -102,8 +102,8 @@ export function buildPosterSVG({
     return `
   <rect x="${x}" y="${plateY}" width="${plateW}" height="150" fill="none" stroke="${LINE_STRONG}" stroke-width="1.5"/>
   <rect x="${x}" y="${plateY}" width="${plateW}" height="5" fill="${s.accent}"/>
-  <text x="${x + 24}" y="${plateY + 48}" font-family="'Chivo Mono', monospace" font-size="15" letter-spacing="2.5" fill="${FAINT}">${s.label}</text>
-  <text x="${x + 22}" y="${plateY + 118}" font-family="'Archivo Black', 'Arial Black', sans-serif" font-size="58" fill="${INK}">${s.value}</text>`
+  <text x="${x + 24}" y="${plateY + 48}" font-family="'Chivo Mono Variable', 'Chivo Mono', ui-monospace, monospace" font-size="15" letter-spacing="2.5" fill="${FAINT}">${s.label}</text>
+  <text x="${x + 22}" y="${plateY + 118}" font-family="'Archivo Variable', 'Archivo Black', 'Arial Black', sans-serif" font-weight="900" font-size="58" fill="${INK}">${s.value}</text>`
   }).join('\n')
 
   return `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">
@@ -120,25 +120,25 @@ export function buildPosterSVG({
   <path d="M${M + 84} ${M + 26} L${M + 136} ${M + 26} L${M + 110} ${M + 72} Z" fill="${YELLOW}"/>
   <rect x="${M + 152}" y="${M + 30}" width="44" height="44" fill="${RED}"/>
 
-  <text x="${W - M}" y="${M + 46}" text-anchor="end" font-family="'Chivo Mono', monospace" font-size="17" letter-spacing="3" fill="${DIM}">ANNUAL REPORT — ${year}</text>
-  <text x="${W - M}" y="${M + 74}" text-anchor="end" font-family="'Chivo Mono', monospace" font-size="17" letter-spacing="3" fill="${FAINT}">GITHUB/${String(login).toUpperCase()}</text>
+  <text x="${W - M}" y="${M + 46}" text-anchor="end" font-family="'Chivo Mono Variable', 'Chivo Mono', ui-monospace, monospace" font-size="17" letter-spacing="3" fill="${DIM}">ANNUAL REPORT — ${year}</text>
+  <text x="${W - M}" y="${M + 74}" text-anchor="end" font-family="'Chivo Mono Variable', 'Chivo Mono', ui-monospace, monospace" font-size="17" letter-spacing="3" fill="${FAINT}">GITHUB/${String(login).toUpperCase()}</text>
 
-  <text x="${M - 8}" y="330" font-family="'Archivo Black', 'Arial Black', sans-serif" font-size="190" fill="${INK}">${name}</text>
+  <text x="${M - 8}" y="330" font-family="'Archivo Variable', 'Archivo Black', 'Arial Black', sans-serif" font-weight="900" font-size="190" fill="${INK}">${name}</text>
   <rect x="${M}" y="356" width="230" height="10" fill="${YELLOW}"/>
-  <text x="${M}" y="405" font-family="'Chivo Mono', monospace" font-size="19" letter-spacing="4" fill="${DIM}">A YEAR IN CODE — EVERY DAY, RECORDED</text>
+  <text x="${M}" y="405" font-family="'Chivo Mono Variable', 'Chivo Mono', ui-monospace, monospace" font-size="19" letter-spacing="4" fill="${DIM}">A YEAR IN CODE — EVERY DAY, RECORDED</text>
 
   ${contribCells}
-  <text x="${M}" y="${contribY + contribH + 44}" font-family="'Chivo Mono', monospace" font-size="15" letter-spacing="2.5" fill="${FAINT}">FIG 01 — CONTRIBUTION CALENDAR · ${totalContributions} COMMITS/PRS/ISSUES</text>
+  <text x="${M}" y="${contribY + contribH + 44}" font-family="'Chivo Mono Variable', 'Chivo Mono', ui-monospace, monospace" font-size="15" letter-spacing="2.5" fill="${FAINT}">FIG 01 — CONTRIBUTION CALENDAR · ${totalContributions} COMMITS/PRS/ISSUES</text>
 
-  <text x="${M}" y="${barY - 28}" font-family="'Chivo Mono', monospace" font-size="15" letter-spacing="2.5" fill="${FAINT}">FIG 02 — LANGUAGE COMPOSITION BY CODE VOLUME</text>
+  <text x="${M}" y="${barY - 28}" font-family="'Chivo Mono Variable', 'Chivo Mono', ui-monospace, monospace" font-size="15" letter-spacing="2.5" fill="${FAINT}">FIG 02 — LANGUAGE COMPOSITION BY CODE VOLUME</text>
   ${langSegs}
   ${langLabels}
 
   ${statPlates}
 
   <line x1="${M}" y1="${H - 150}" x2="${W - M}" y2="${H - 150}" stroke="${LINE_STRONG}" stroke-width="1.5"/>
-  <text x="${M}" y="${H - 108}" font-family="'Chivo Mono', monospace" font-size="15" letter-spacing="2.5" fill="${DIM}">PORTFOLIOFSAMI.VERCEL.APP</text>
-  <text x="${W - M}" y="${H - 108}" text-anchor="end" font-family="'Chivo Mono', monospace" font-size="15" letter-spacing="2.5" fill="${FAINT}">DHAKA, BANGLADESH · UNIT PORTFOLIO-01</text>
+  <text x="${M}" y="${H - 108}" font-family="'Chivo Mono Variable', 'Chivo Mono', ui-monospace, monospace" font-size="15" letter-spacing="2.5" fill="${DIM}">PORTFOLIOFSAMI.VERCEL.APP</text>
+  <text x="${W - M}" y="${H - 108}" text-anchor="end" font-family="'Chivo Mono Variable', 'Chivo Mono', ui-monospace, monospace" font-size="15" letter-spacing="2.5" fill="${FAINT}">DHAKA, BANGLADESH · UNIT PORTFOLIO-01</text>
 </svg>`
 }
 
@@ -151,4 +151,57 @@ export function downloadPoster(data) {
   a.download = `sami-${new Date().getFullYear()}.svg`
   a.click()
   URL.revokeObjectURL(url)
+}
+
+const SCALE = 3 // 1191×1684 → 3573×5052, print-crisp
+
+// Renders the poster to a PNG via an offscreen canvas. Returns true on
+// success, false if the browser can't rasterize (falls back to SVG).
+export async function downloadPosterPNG(data) {
+  try {
+    if (typeof document === 'undefined' || typeof Image === 'undefined') return false
+    const svg = buildPosterSVG(data)
+    const url = URL.createObjectURL(new Blob([svg], { type: 'image/svg+xml;charset=utf-8' }))
+
+    try {
+      // Wait for the poster fonts so text rasterizes correctly.
+      if (document.fonts?.ready) {
+        await Promise.all([
+          document.fonts.ready,
+          document.fonts.load("12px 'Archivo Variable'").catch(() => {}),
+          document.fonts.load("12px 'Chivo Mono Variable'").catch(() => {}),
+        ])
+      }
+
+      const img = new Image()
+      await new Promise((resolve, reject) => {
+        img.onload = resolve
+        img.onerror = reject
+        img.src = url
+      })
+
+      const canvas = document.createElement('canvas')
+      canvas.width = W * SCALE
+      canvas.height = H * SCALE
+      const ctx = canvas.getContext('2d')
+      ctx.scale(SCALE, SCALE)
+      ctx.fillStyle = BG
+      ctx.fillRect(0, 0, W, H)
+      ctx.drawImage(img, 0, 0, W, H)
+
+      const png = await new Promise((resolve) => canvas.toBlob(resolve, 'image/png'))
+      if (!png) return false
+      const pngUrl = URL.createObjectURL(png)
+      const a = document.createElement('a')
+      a.href = pngUrl
+      a.download = `sami-${new Date().getFullYear()}.png`
+      a.click()
+      URL.revokeObjectURL(pngUrl)
+      return true
+    } finally {
+      URL.revokeObjectURL(url)
+    }
+  } catch {
+    return false
+  }
 }

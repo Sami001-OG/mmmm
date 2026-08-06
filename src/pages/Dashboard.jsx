@@ -19,7 +19,7 @@ import Badge from '../components/ui/Badge'
 import useGithubData from '../hooks/useGithubData'
 import usePortfolioData from '../hooks/usePortfolioData'
 import useTheme from '../hooks/useTheme'
-import { downloadPoster } from '../lib/poster-svg'
+import { downloadPosterPNG, downloadPoster } from '../lib/poster-svg'
 import { github } from '../data/portfolio'
 
 // Fixed exposed-grid backdrop — 12-col ruled field, aria-hidden, SSR-safe.
@@ -348,10 +348,10 @@ export default function Dashboard() {
               <SectionHeader index={7} title="Activity" description="Contribution calendar + deployed-system status" />
               <button
                 type="button"
-                onClick={() => {
+                onClick={async () => {
                   const d = gh.data
                   if (!d) return
-                  downloadPoster({
+                  const opts = {
                     name: (d.name || 'sami').toLowerCase(),
                     login: d.login,
                     weeks: d.contributions?.weeks || [],
@@ -360,10 +360,12 @@ export default function Dashboard() {
                     totalStars: d.totalStars || 0,
                     languages: d.languages || [],
                     year: new Date().getFullYear(),
-                  })
+                  }
+                  const ok = await downloadPosterPNG(opts)
+                  if (!ok) downloadPoster(opts)
                 }}
                 className="btn-ghost shrink-0 gap-2"
-                title="Download the year-in-code poster — generated live from your GitHub data"
+                title="Download the year-in-code poster as PNG — generated live from your GitHub data"
               >
                 <Icon name="download" size={14} />
                 <span className="mono-label">{new Date().getFullYear()} poster</span>
