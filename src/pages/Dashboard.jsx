@@ -85,7 +85,7 @@ export default function Dashboard() {
 
   const stats = gh.data
     ? [
-        { label: 'Repositories', value: String(gh.data.repos.length + (gh.data.pinnedRepos?.length || 0)), icon: 'folder', accent: 'blue' },
+        { label: 'Repositories', value: String(gh.data.publicRepos ?? gh.data.repos.length + (gh.data.pinnedRepos?.length || 0)), icon: 'folder', accent: 'blue' },
         { label: 'Languages', value: String(gh.data.languages.length), icon: 'terminal', accent: 'yellow' },
         { label: 'Total Stars', value: String(gh.data.totalStars), icon: 'star', accent: 'red' },
         { label: 'Followers', value: String(gh.data.followers), icon: 'users', accent: 'blue' },
@@ -378,7 +378,7 @@ export default function Dashboard() {
                 <p className="text-ink-dim text-sm">Contribution data unavailable.</p>
               </div>
             )}
-            <SystemsBoard systems={gh.data?.systems} />
+            <SystemsBoard systems={gh.data?.systems} checkedAt={gh.data?.systemsCheckedAt} />
           </section>
 
           {/* Contact */}

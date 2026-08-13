@@ -4,12 +4,17 @@
 const BUILD = typeof __BUILD_INFO__ !== 'undefined' ? __BUILD_INFO__ : { sha: 'dev', builtAt: '' }
 
 export default function Nameplate({ dataSync, onActivate }) {
+  const synced = dataSync
+    ? new Date(dataSync).toLocaleString('en-GB', {
+        year: 'numeric', month: 'short', day: '2-digit', hour: '2-digit', minute: '2-digit', timeZone: 'UTC',
+      })
+    : ''
   const fields = (
     <>
       <span>UNIT PORTFOLIO-01</span>
       {BUILD.builtAt && <span>BUILT {BUILD.builtAt}</span>}
       <span>SHA {BUILD.sha}</span>
-      {dataSync && <span>DATA {dataSync}</span>}
+      {synced && <span>DATA {synced} UTC</span>}
       <span className="hidden sm:inline sm:ml-auto">DHAKA · 23.8103°N 90.4125°E</span>
     </>
   )

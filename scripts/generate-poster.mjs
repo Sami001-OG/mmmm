@@ -65,10 +65,10 @@ function levelFor(count, max) {
 }
 
 let maxDay = 1
-for (const w of weeks) for (const d of w.days || []) maxDay = Math.max(maxDay, d.count || 0)
+for (const week of weeks) for (const day of week) maxDay = Math.max(maxDay, day.count || 0)
 
-const contribCells = weeks.slice(0, 53).map((w, wi) =>
-  (w.days || []).map((d, di) => {
+const contribCells = weeks.slice(0, 53).map((week, wi) =>
+  week.map((d, di) => {
     const lvl = levelFor(d.count || 0, maxDay)
     const x = contribX + wi * cell
     const y = contribY + di * cell

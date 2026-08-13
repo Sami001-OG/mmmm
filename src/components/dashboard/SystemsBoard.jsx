@@ -1,7 +1,6 @@
-// Systems board — the deployed projects as a status wall. Results come from
-// build-time pings (scripts/fetch-github.mjs), so this is the state as of the
-// last deploy, not a live probe: honest, and free of client-side CORS pain.
-export default function SystemsBoard({ systems }) {
+// Systems board — server-side probes avoid browser CORS limitations and are
+// shared through a short CDN cache rather than repeated for every visitor.
+export default function SystemsBoard({ systems, checkedAt }) {
   if (!systems || systems.length === 0) return null
   const up = systems.filter((s) => s.ok).length
 
@@ -10,7 +9,7 @@ export default function SystemsBoard({ systems }) {
       <div className="flex items-center justify-between gap-2 px-5 py-3 border-b border-line">
         <span className="mono-label shrink-0">Systems</span>
         <span className="mono-data text-[11px] text-ink-faint text-right truncate">
-          {up}/{systems.length} OPERATIONAL · CHECKED AT BUILD
+          {up}/{systems.length} OPERATIONAL{checkedAt ? ` · ${new Date(checkedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}` : ''}
         </span>
       </div>
       <ul className="divide-y divide-line">

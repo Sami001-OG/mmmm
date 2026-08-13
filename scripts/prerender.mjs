@@ -136,7 +136,7 @@ function buildProfileJson(siteUrl) {
     stats: {
       repositories: (gh.repos?.length || 0) + (gh.pinnedRepos?.length || 0),
       stars: gh.totalStars || 0,
-      contributionsLastYear: gh.contributions?.total || 0,
+      contributionsLastYear: gh.contributions?.totalContributions || 0,
     },
     projects: [...manualProjects, ...ghProjects],
   }

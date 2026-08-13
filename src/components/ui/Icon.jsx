@@ -1,64 +1,87 @@
+import {
+  Activity,
+  ArrowUpRight,
+  Bell,
+  BriefcaseBusiness,
+  CalendarDays,
+  Check,
+  ChevronDown,
+  ChevronRight,
+  CircleUserRound,
+  Cloud,
+  Code2,
+  Command,
+  Copy,
+  Download,
+  ExternalLink,
+  FolderGit2,
+  GitFork,
+  Github,
+  GitCommitHorizontal,
+  Grid2X2,
+  Linkedin,
+  Mail,
+  MapPin,
+  Menu,
+  Monitor,
+  Moon,
+  Palette,
+  Phone,
+  Search,
+  Server,
+  Settings2,
+  SlidersHorizontal,
+  Star,
+  Sun,
+  TerminalSquare,
+  Twitter,
+  UsersRound,
+  X,
+} from 'lucide-react'
+
 const icons = {
-  grid: 'M3 3h7v7H3V3Zm11 0h7v7h-7V3zM3 14h7v7H3v-7zm11 0h7v7h-7v-7z',
-  folder: 'M4 4h5l2 2h9a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z',
-  code: 'M16 18l6-6-6-6M8 6l-6 6 6 6',
-  briefcase: 'M2 7h20v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V7Zm4 0V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v2',
-  activity: 'M22 12h-4l-3 9L9 3l-3 9H2',
-  terminal: 'M4 17l6-6-6-6M12 19h8',
-  'git-commit': 'M3 12h6m6 0h6M12 9a3 3 0 1 0 0 6 3 3 0 0 0 0-6z',
-  monitor: 'M2 3h20v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3ZM8 21h8M12 17v4',
-  server: 'M2 6a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6Zm0 8a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2v-4ZM6 8h.01M6 16h.01',
-  cloud: 'M17.5 19H9a7 7 0 1 1 6.71-9h1.79a4.5 4.5 0 1 1 0 9Z',
-  palette: 'M7 21a4 4 0 0 1-4-4V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v12a4 4 0 0 1-4 4Zm0 0h12a2 2 0 0 0 2-2v-4a2 2 0 0 0-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 0 1 2.828 0l2.829 2.829a2 2 0 0 1 0 2.828l-8.486 8.485M7 17h.01',
-  'external-link': 'M15 3h6v6M10 14 21 3M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6',
-  star: 'M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 0 0 .95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 0 0-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 0 0-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 0 0-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 0 0 .951-.69l1.519-4.674z',
-  fork: 'M12 15v3M6 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM18 3a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM12 15a3 3 0 1 0 0 6 3 3 0 0 0 0-6ZM18 9v1a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V9M12 12v3',
-  calendar: 'M8 3v4m8-4v4M3 10h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z',
-  chevronRight: 'M9 5l7 7-7 7',
-  chevronDown: 'M19 9l-7 7-7-7',
-  search: 'M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm10 2-4.35-4.35',
-  bell: 'M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9M10.3 21a1.94 1.94 0 0 0 3.4 0',
-  mail: 'M21 6a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6Zm-20 1 8.03 5.7a1.94 1.94 0 0 0 2.06 0L21 7',
-  phone: 'M3 5a2 2 0 0 1 2-2h3.28a1 1 0 0 1 .948.684l1.498 4.493a1 1 0 0 1-.502 1.21l-2.257 1.13a11.042 11.042 0 0 0 5.516 5.516l1.13-2.257a1 1 0 0 1 1.21-.502l4.493 1.498a1 1 0 0 1 .684.949V19a2 2 0 0 1-2 2h-1C9.716 21 3 14.284 3 7V5z',
-  mapPin: 'M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z M15 11a3 3 0 1 1-6 0 3 3 0 0 1 6 0z',
-  users: 'M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8ZM22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75',
-  menu: 'M3 6h18M3 12h18M3 18h18',
-  x: 'M18 6 6 18M6 6l12 12',
-  copy: 'M8 4h10a2 2 0 0 1 2 2v10M4 8h10a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2z',
-  check: 'M20 6 9 17l-5-5',
-  download: 'M7 10l5 5 5-5M12 15V3M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4',
-  command: 'M15 6v12a3 3 0 1 0 3-3H6a3 3 0 1 0 3 3V6a3 3 0 1 0-3 3h12a3 3 0 1 0-3-3',
-  arrowUpRight: 'M7 7h10v10M7 17 17 7',
-  settings: 'M3 4h7m4 0h7M10 2v4M3 12h5m4 0h9M8 10v4M3 20h9m4 0h5M16 18v4',
-  gear: 'M3 4h7m4 0h7M10 2v4M3 12h5m4 0h9M8 10v4M3 20h9m4 0h5M16 18v4',
-  sun: 'M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8zM12 4v2M12 18v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M4 12h2M18 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41',
-  moon: 'M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z',
+  activity: Activity,
+  arrowUpRight: ArrowUpRight,
+  bell: Bell,
+  briefcase: BriefcaseBusiness,
+  calendar: CalendarDays,
+  check: Check,
+  chevronDown: ChevronDown,
+  chevronRight: ChevronRight,
+  cloud: Cloud,
+  code: Code2,
+  command: Command,
+  copy: Copy,
+  download: Download,
+  'external-link': ExternalLink,
+  folder: FolderGit2,
+  fork: GitFork,
+  gear: Settings2,
+  github: Github,
+  'git-commit': GitCommitHorizontal,
+  grid: Grid2X2,
+  linkedin: Linkedin,
+  mail: Mail,
+  mapPin: MapPin,
+  menu: Menu,
+  monitor: Monitor,
+  moon: Moon,
+  palette: Palette,
+  phone: Phone,
+  search: Search,
+  server: Server,
+  settings: SlidersHorizontal,
+  star: Star,
+  sun: Sun,
+  terminal: TerminalSquare,
+  twitter: Twitter,
+  users: UsersRound,
+  user: CircleUserRound,
+  x: X,
 }
 
-const socialIcons = {
-  github: 'M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z',
-  linkedin: 'M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2V9zm4-4a2 2 0 11-4 0 2 2 0 014 0z',
-  twitter: 'M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z',
-  dribbble: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm6.605 4.61a8.502 8.502 0 011.93 5.314c-.281-.054-3.101-.629-5.943-.271-.065-.141-.12-.293-.184-.445a25.416 25.416 0 00-.564-1.236c3.145-1.28 4.577-3.124 4.761-3.362zM12 3.475c2.17 0 4.154.813 5.662 2.148-.152.216-1.443 1.941-4.48 3.08-1.399-2.57-2.95-4.675-3.189-5A8.687 8.687 0 0112 3.475zm-3.633.803a53.896 53.896 0 013.167 4.935c-3.992 1.063-7.517 1.04-7.896 1.04a8.581 8.581 0 014.729-5.975zM3.453 12.01v-.26c.37.01 4.512.065 8.775-1.215.245.477.477.965.694 1.453-.109.033-.228.065-.336.098-4.404 1.42-6.747 5.303-6.942 5.629a8.522 8.522 0 01-2.19-5.705zM12 20.547a8.482 8.482 0 01-5.239-1.8c.152-.315 1.888-3.656 6.703-5.337.022-.01.033-.01.054-.022a35.318 35.318 0 011.823 6.475 8.4 8.4 0 01-3.341.684zm4.761-1.465c-.086-.52-.542-3.015-1.659-6.084 2.679-.423 5.022.271 5.314.369a8.468 8.468 0 01-3.655 5.715z',
-}
-
-export default function Icon({ name, size = 18, className = '', strokeWidth }) {
-  const path = icons[name] || socialIcons[name]
-  if (!path) return null
-  const isSocial = !!socialIcons[name] && !icons[name]
-  return (
-    <svg
-      width={size}
-      height={size}
-      viewBox="0 0 24 24"
-      fill={isSocial ? 'currentColor' : 'none'}
-      stroke={isSocial ? 'none' : 'currentColor'}
-      strokeWidth={strokeWidth ?? 2}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={className}
-    >
-      <path d={path} />
-    </svg>
-  )
+export default function Icon({ name, size = 18, className = '', strokeWidth = 1.8 }) {
+  const Component = icons[name]
+  if (!Component) return null
+  return <Component size={size} strokeWidth={strokeWidth} className={className} aria-hidden="true" />
 }

@@ -3,5 +3,11 @@
   "buildCommand": "npm run build:ssr",
   "outputDirectory": "dist",
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "crons": [
+    {
+      "path": "/api/github",
+      "schedule": "17 2 * * *"
+    }
+  ]
 }
