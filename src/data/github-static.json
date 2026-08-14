@@ -1,0 +1,262 @@
+{
+  "avatarUrl": "https://avatars.githubusercontent.com/u/216241748?v=4",
+  "name": "Sami",
+  "login": "Sami001-OG",
+  "bio": "In the depth of codes,a little brain working harder than before.",
+  "location": "",
+  "twitter": "Sami38174202",
+  "blog": "",
+  "email": "",
+  "followers": 37,
+  "following": 12,
+  "publicRepos": 14,
+  "totalStars": 17,
+  "pinnedRepos": [],
+  "repos": [
+    {
+      "id": 1184960488,
+      "title": "Winning-AI",
+      "description": "A high-performance, automated trading bot designed for Binance Futures, utilizing a tiered, multi-timeframe analysis funnel to identify high-probability trade signals.",
+      "tags": [
+        "TypeScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 6,
+      "forks": 1,
+      "href": "https://github.com/Sami001-OG/Winning-AI",
+      "homepage": "https://endellion-trade.onrender.com/",
+      "createdAt": "2026-03-18T05:12:15Z",
+      "updatedAt": "2026-06-19T04:52:40Z"
+    },
+    {
+      "id": 1260394541,
+      "title": "Crypto-Backtester-and-Strategy-Optimizer",
+      "description": "Crypto Backtester & Strategy Optimizer is a professional-grade cryptocurrency strategy research platform built for traders, quants, and developers. The system enables realistic historical backtesting, parameter optimization, walk-forward validation, and performance analysis across multiple crypto assets and timeframes. ",
+      "tags": [
+        "Python"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 5,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer",
+      "homepage": "",
+      "createdAt": "2026-06-05T12:56:14Z",
+      "updatedAt": "2026-07-15T23:19:16Z"
+    },
+    {
+      "id": 1190748151,
+      "title": "Sami001-OG",
+      "description": "No description provided.",
+      "tags": [],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 2,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/Sami001-OG",
+      "homepage": "",
+      "createdAt": "2026-03-24T15:25:32Z",
+      "updatedAt": "2026-03-24T15:26:11Z"
+    },
+    {
+      "id": 1217029816,
+      "title": "Flow",
+      "description": "this is a chat about you can chat with artificial intelligence completely anonymously. because you will use a empty memory artificial intelligent. just make an API through open router and then put it into the application. you are ready to go. you can use different models even the free ones.",
+      "tags": [
+        "TypeScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 1,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/Flow",
+      "homepage": "https://flow-7qiy.onrender.com/",
+      "createdAt": "2026-04-21T13:27:18Z",
+      "updatedAt": "2026-07-21T18:49:26Z"
+    },
+    {
+      "id": 1305621624,
+      "title": "scrybe",
+      "description": "No description provided.",
+      "tags": [
+        "Python"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 1,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/scrybe",
+      "homepage": "",
+      "createdAt": "2026-07-19T10:37:16Z",
+      "updatedAt": "2026-07-21T05:23:33Z"
+    },
+    {
+      "id": 1267763847,
+      "title": "GGShot",
+      "description": "let see if its make me winner",
+      "tags": [
+        "TypeScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 1,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/GGShot",
+      "homepage": "https://gg-shot.vercel.app",
+      "createdAt": "2026-06-12T20:55:44Z",
+      "updatedAt": "2026-07-10T06:46:56Z"
+    },
+    {
+      "id": 1290168139,
+      "title": "VDOC",
+      "description": "No description provided.",
+      "tags": [
+        "Python"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 1,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/VDOC",
+      "homepage": "",
+      "createdAt": "2026-07-05T16:52:28Z",
+      "updatedAt": "2026-07-07T20:39:03Z"
+    },
+    {
+      "id": 1328682393,
+      "title": "appinstanttranslate",
+      "description": "No description provided.",
+      "tags": [
+        "Python"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/appinstanttranslate",
+      "homepage": "",
+      "createdAt": "2026-08-09T10:21:24Z",
+      "updatedAt": "2026-08-09T17:52:36Z"
+    },
+    {
+      "id": 1325837156,
+      "title": "bot_and_mcp",
+      "description": "A bot and mcp which allows user to automate their trading journey",
+      "tags": [
+        "TypeScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/bot_and_mcp",
+      "homepage": "",
+      "createdAt": "2026-08-06T20:24:54Z",
+      "updatedAt": "2026-08-09T10:07:34Z"
+    },
+    {
+      "id": 1315450453,
+      "title": "Betweenle",
+      "description": "Solver for betweenle",
+      "tags": [
+        "HTML"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/Betweenle",
+      "homepage": "https://sami001-og.github.io/Betweenle/",
+      "createdAt": "2026-07-28T21:39:08Z",
+      "updatedAt": "2026-07-29T12:42:31Z"
+    },
+    {
+      "id": 1310048915,
+      "title": "flow-agent",
+      "description": "an ai agent",
+      "tags": [],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/flow-agent",
+      "homepage": "",
+      "createdAt": "2026-07-23T14:45:10Z",
+      "updatedAt": "2026-07-23T14:45:15Z"
+    },
+    {
+      "id": 1141930460,
+      "title": "profit-calculator",
+      "description": "No description provided.",
+      "tags": [
+        "HTML"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/profit-calculator",
+      "homepage": "",
+      "createdAt": "2026-01-25T17:16:12Z",
+      "updatedAt": "2026-04-29T18:54:54Z"
+    }
+  ],
+  "languages": [
+    {
+      "name": "TypeScript",
+      "percentage": 59
+    },
+    {
+      "name": "Python",
+      "percentage": 30
+    },
+    {
+      "name": "HTML",
+      "percentage": 8
+    },
+    {
+      "name": "CSS",
+      "percentage": 2
+    },
+    {
+      "name": "JavaScript",
+      "percentage": 2
+    }
+  ],
+  "contributions": null,
+  "fetchedAt": "2026-08-14T04:18:02.374Z",
+  "githubFetchedAt": "2026-08-14T04:18:02.374Z",
+  "contributionsFetchedAt": null,
+  "systems": [
+    {
+      "name": "Winning-AI",
+      "url": "https://endellion-trade.onrender.com/",
+      "ok": true,
+      "status": 200,
+      "ms": 279
+    },
+    {
+      "name": "Flow",
+      "url": "https://flow-7qiy.onrender.com/",
+      "ok": false,
+      "status": 503,
+      "ms": 541
+    },
+    {
+      "name": "GGShot",
+      "url": "https://gg-shot.vercel.app",
+      "ok": false,
+      "status": 404,
+      "ms": 49
+    },
+    {
+      "name": "Betweenle",
+      "url": "https://sami001-og.github.io/Betweenle/",
+      "ok": true,
+      "status": 200,
+      "ms": 135
+    }
+  ],
+  "systemsCheckedAt": "2026-08-14T04:18:02.917Z"
+}
