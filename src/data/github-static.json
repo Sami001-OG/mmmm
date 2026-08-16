@@ -9,7 +9,7 @@
   "email": "",
   "followers": 37,
   "following": 12,
-  "publicRepos": 14,
+  "publicRepos": 15,
   "totalStars": 17,
   "pinnedRepos": [],
   "repos": [
@@ -124,6 +124,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1334936036,
+      "title": "starshooter",
+      "description": "No description provided.",
+      "tags": [
+        "JavaScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/starshooter",
+      "homepage": "",
+      "createdAt": "2026-08-15T08:53:22Z",
+      "updatedAt": "2026-08-15T09:12:09Z"
+    },
+    {
       "id": 1328682393,
       "title": "appinstanttranslate",
       "description": "No description provided.",
@@ -184,49 +200,33 @@
       "homepage": "",
       "createdAt": "2026-07-23T14:45:10Z",
       "updatedAt": "2026-07-23T14:45:15Z"
-    },
-    {
-      "id": 1141930460,
-      "title": "profit-calculator",
-      "description": "No description provided.",
-      "tags": [
-        "HTML"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/profit-calculator",
-      "homepage": "",
-      "createdAt": "2026-01-25T17:16:12Z",
-      "updatedAt": "2026-04-29T18:54:54Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 59
+      "percentage": 56
     },
     {
       "name": "Python",
-      "percentage": 30
+      "percentage": 29
     },
     {
       "name": "HTML",
       "percentage": 8
     },
     {
-      "name": "CSS",
-      "percentage": 2
+      "name": "JavaScript",
+      "percentage": 5
     },
     {
-      "name": "JavaScript",
+      "name": "CSS",
       "percentage": 2
     }
   ],
   "contributions": null,
-  "fetchedAt": "2026-08-15T03:03:28.539Z",
-  "githubFetchedAt": "2026-08-15T03:03:28.539Z",
+  "fetchedAt": "2026-08-16T03:11:37.127Z",
+  "githubFetchedAt": "2026-08-16T03:11:37.127Z",
   "contributionsFetchedAt": "2026-08-14T04:18:02.374Z",
   "systems": [
     {
@@ -234,29 +234,29 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": true,
       "status": 200,
-      "ms": 336
+      "ms": 455
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 318
+      "ms": 298
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 136
+      "ms": 159
     },
     {
       "name": "Betweenle",
       "url": "https://sami001-og.github.io/Betweenle/",
       "ok": true,
       "status": 200,
-      "ms": 111
+      "ms": 290
     }
   ],
-  "systemsCheckedAt": "2026-08-15T03:03:28.876Z"
+  "systemsCheckedAt": "2026-08-16T03:11:37.583Z"
 }
