@@ -153,7 +153,7 @@
       "href": "https://github.com/Sami001-OG/Endellion-Tradingview-",
       "homepage": "",
       "createdAt": "2026-08-21T11:10:48Z",
-      "updatedAt": "2026-08-21T15:58:31Z"
+      "updatedAt": "2026-08-24T10:45:18Z"
     },
     {
       "id": 1334936036,
@@ -227,8 +227,8 @@
     }
   ],
   "contributions": null,
-  "fetchedAt": "2026-08-24T03:15:22.003Z",
-  "githubFetchedAt": "2026-08-24T03:15:22.003Z",
+  "fetchedAt": "2026-08-25T03:11:53.399Z",
+  "githubFetchedAt": "2026-08-25T03:11:53.399Z",
   "contributionsFetchedAt": "2026-08-14T04:18:02.374Z",
   "systems": [
     {
@@ -236,36 +236,36 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 268
+      "ms": 792
     },
     {
       "name": "bot_and_mcp",
       "url": "https://web-blue-delta-17.vercel.app",
       "ok": true,
       "status": 200,
-      "ms": 677
+      "ms": 324
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 285
+      "ms": 370
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 184
+      "ms": 166
     },
     {
       "name": "Betweenle",
       "url": "https://sami001-og.github.io/Betweenle/",
       "ok": true,
       "status": 200,
-      "ms": 211
+      "ms": 205
     }
   ],
-  "systemsCheckedAt": "2026-08-24T03:15:22.683Z"
+  "systemsCheckedAt": "2026-08-25T03:11:54.191Z"
 }
