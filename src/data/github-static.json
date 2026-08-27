@@ -9,8 +9,8 @@
   "email": "",
   "followers": 37,
   "following": 12,
-  "publicRepos": 16,
-  "totalStars": 19,
+  "publicRepos": 15,
+  "totalStars": 17,
   "pinnedRepos": [],
   "repos": [
     {
@@ -44,22 +44,6 @@
       "homepage": "",
       "createdAt": "2026-06-05T12:56:14Z",
       "updatedAt": "2026-07-15T23:19:16Z"
-    },
-    {
-      "id": 1325837156,
-      "title": "bot_and_mcp",
-      "description": "A bot and mcp which allows user to automate their trading journey",
-      "tags": [
-        "TypeScript"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 2,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/bot_and_mcp",
-      "homepage": "https://web-blue-delta-17.vercel.app",
-      "createdAt": "2026-08-06T20:24:54Z",
-      "updatedAt": "2026-08-25T14:50:53Z"
     },
     {
       "id": 1190748151,
@@ -202,33 +186,47 @@
       "homepage": "https://sami001-og.github.io/Betweenle/",
       "createdAt": "2026-07-28T21:39:08Z",
       "updatedAt": "2026-07-29T12:42:31Z"
+    },
+    {
+      "id": 1310048915,
+      "title": "flow-agent",
+      "description": "an ai agent",
+      "tags": [],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/flow-agent",
+      "homepage": "",
+      "createdAt": "2026-07-23T14:45:10Z",
+      "updatedAt": "2026-07-23T14:45:15Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 64
+      "percentage": 58
     },
     {
       "name": "Python",
-      "percentage": 23
+      "percentage": 28
     },
     {
       "name": "HTML",
-      "percentage": 6
+      "percentage": 8
     },
     {
       "name": "JavaScript",
-      "percentage": 4
+      "percentage": 5
     },
     {
       "name": "CSS",
-      "percentage": 3
+      "percentage": 1
     }
   ],
   "contributions": null,
-  "fetchedAt": "2026-08-26T03:16:34.177Z",
-  "githubFetchedAt": "2026-08-26T03:16:34.177Z",
+  "fetchedAt": "2026-08-27T12:45:27.864Z",
+  "githubFetchedAt": "2026-08-27T12:45:27.864Z",
   "contributionsFetchedAt": "2026-08-14T04:18:02.374Z",
   "systems": [
     {
@@ -236,36 +234,29 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 338
-    },
-    {
-      "name": "bot_and_mcp",
-      "url": "https://web-blue-delta-17.vercel.app",
-      "ok": true,
-      "status": 200,
-      "ms": 885
+      "ms": 315
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 356
+      "ms": 269
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 134
+      "ms": 132
     },
     {
       "name": "Betweenle",
       "url": "https://sami001-og.github.io/Betweenle/",
       "ok": true,
       "status": 200,
-      "ms": 249
+      "ms": 174
     }
   ],
-  "systemsCheckedAt": "2026-08-26T03:16:35.063Z"
+  "systemsCheckedAt": "2026-08-27T12:45:28.179Z"
 }
