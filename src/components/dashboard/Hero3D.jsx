@@ -117,8 +117,7 @@ export default function Hero3D({ palette = [], onReady }) {
     resize()
     window.addEventListener('resize', resize)
 
-    // Interaction: drag-to-rotate with 15° snap on release + subtle pointer parallax.
-    const SNAP = Math.PI / 12
+    // Interaction: drag-to-rotate (smooth damped) + smoothed pointer parallax.
     let targetRX = 0.08
     let targetRY = -0.12
     let curRX = targetRX
@@ -128,6 +127,8 @@ export default function Hero3D({ palette = [], onReady }) {
     let py = 0
     let parX = 0
     let parY = 0
+    let smParX = 0
+    let smParY = 0
 
     const onDown = (e) => {
       dragging = true
@@ -148,9 +149,7 @@ export default function Hero3D({ palette = [], onReady }) {
     }
     const onUp = () => {
       dragging = false
-      // Mechanical snap — Dessau stepped motion, not free spin.
-      targetRY = Math.round(targetRY / SNAP) * SNAP
-      targetRX = Math.round(targetRX / SNAP) * SNAP
+      // No snap — release glides back into the smooth idle drift.
     }
     mount.style.touchAction = 'pan-y'
     mount.style.cursor = 'grab'
@@ -169,28 +168,35 @@ export default function Hero3D({ palette = [], onReady }) {
     const onVis = () => { visible = document.visibilityState === 'visible' }
     document.addEventListener('visibilitychange', onVis)
 
-    // Stepped gear idle — 8 steps per 6s cycle, like the site's gear-step token.
-    const GEAR_STEPS = 8
-    const GEAR_CYCLE = 6000
-    const startT = performance.now()
-
+    // Smooth idle drift — slow continuous sway + gentle bob, eased every frame.
     const renderFrame = (t) => {
-      curRX += (targetRX - curRX) * 0.08
-      curRY += (targetRY - curRY) * 0.08
-      group.rotation.x = curRX + parY * 0.05
-      group.rotation.y = curRY + parX * 0.08
-      if (!reduceMotion && !dragging) {
-        const step = Math.floor((t - startT) / (GEAR_CYCLE / GEAR_STEPS)) % GEAR_STEPS
-        const idle = (step / GEAR_STEPS) * (Math.PI / 4)
-        box.rotation.y = 0.5 + idle * 0.25
-        tri.rotation.y = idle * 0.2
-        tri.position.y = 0.35 + (step % 2 === 0 ? 0.015 : -0.015)
+      const s = t * 0.001
+      // Critically-damped-feel smoothing for rotation + parallax.
+      curRX += (targetRX - curRX) * 0.055
+      curRY += (targetRY - curRY) * 0.055
+      smParX += (parX - smParX) * 0.045
+      smParY += (parY - smParY) * 0.045
+      group.rotation.x = curRX + smParY * 0.06
+      group.rotation.y = curRY + smParX * 0.1
+      if (!reduceMotion) {
+        const sway = Math.sin(s * 0.35) * 0.06
+        group.rotation.z = sway * 0.3
+        group.position.y = Math.sin(s * 0.5) * 0.05
+        if (!dragging) {
+          // Barely-there continuous spin — shapes breathe instead of stepping.
+          box.rotation.y += 0.0022
+          box.rotation.x = 0.35 + Math.sin(s * 0.4) * 0.04
+          tri.rotation.y += 0.0028
+          tri.position.y = 0.35 + Math.sin(s * 0.55) * 0.06
+          sphere.position.y = -0.7 + Math.sin(s * 0.45 + 1.2) * 0.05
+          sphere.position.x = -0.5 + Math.cos(s * 0.3) * 0.03
+        }
       }
       renderer.render(scene, camera)
     }
 
     if (reduceMotion) {
-      renderFrame(startT) // single static frame, no loop
+      renderFrame(performance.now()) // single static frame, no loop
       readyRef.current?.()
     } else {
       let firstFrame = true
