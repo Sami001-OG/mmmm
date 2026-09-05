@@ -102,13 +102,19 @@ export default function Hero({ profile, languages }) {
         </div>
 
         {/* ── Right: 3D artifact (SVG is SSR LCP + fallback only) ────── */}
-        <div ref={posterRef} className="relative w-full max-w-[340px] mx-auto lg:mx-0 aspect-square">
+        <div
+          ref={posterRef}
+          className="relative w-full max-w-[340px] mx-auto lg:mx-0 aspect-square border-2 border-line-strong bg-paper"
+        >
           {!ready3D && <KineticComposition palette={palette} />}
           {load3D && (
             <Suspense fallback={null}>
               <Hero3D palette={palette} onReady={() => setReady3D(true)} />
             </Suspense>
           )}
+          {/* Corner registration marks — technical-drawing cue, same as SVG poster */}
+          <span aria-hidden className="pointer-events-none absolute left-2 top-2 h-[18px] w-[18px] border-l-2 border-t-2 border-ink opacity-50" />
+          <span aria-hidden className="pointer-events-none absolute bottom-2 right-2 h-[18px] w-[18px] border-b-2 border-r-2 border-ink opacity-50" />
         </div>
       </div>
     </section>
