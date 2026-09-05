@@ -1,6 +1,5 @@
 import React from 'react'
 import { hydrateRoot } from 'react-dom/client'
-import { inject } from '@vercel/analytics'
 import App from './App'
 import ErrorBoundary from './components/ErrorBoundary'
 import './index.css'
@@ -18,5 +17,15 @@ hydrateRoot(
 
 // Vercel Web Analytics — cookieless page views. No-ops outside Vercel;
 // requires Analytics to be enabled once in the Vercel project dashboard.
-inject()
+// Deferred to idle so it never blocks hydration/LCP.
+function injectAnalyticsIdle() {
+  const run = () => import('@vercel/analytics').then((m) => m.inject()).catch(() => {})
+  if ('requestIdleCallback' in window) {
+    window.requestIdleCallback(run, { timeout: 4000 })
+  } else {
+    window.setTimeout(run, 2500)
+  }
+}
+
+injectAnalyticsIdle()
 

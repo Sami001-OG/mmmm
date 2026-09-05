@@ -60,27 +60,40 @@ export default function useGithubData(username) {
     let cancelled = false
     setState((current) => ({ ...current, refreshing: true }))
 
-    fetchLive(username).then(async (data) => {
+    // Parallel: GitHub payload + systems status are independent.
+    // Previously systems waited for GitHub (waterfall); now both race together.
+    Promise.allSettled([fetchLive(username), fetchSystems()]).then(([ghRes, sysRes]) => {
       if (cancelled) return
-      writeCache(username, data)
-      setState({ data, error: data.refreshError || null, loading: false, refreshing: false, source: 'live' })
-      try {
-        const systems = await fetchSystems()
-        if (!cancelled) setState((current) => ({
-          ...current,
-          data: current.data ? { ...current.data, ...systems } : current.data,
-        }))
-      } catch {
-        // The GitHub payload remains useful when the independent status check fails.
+      if (ghRes.status === 'fulfilled') {
+        const data = ghRes.value
+        writeCache(username, data)
+        const systems = sysRes.status === 'fulfilled' ? sysRes.value : {}
+        setState({
+          data: { ...data, ...systems },
+          error: data.refreshError || null,
+          loading: false,
+          refreshing: false,
+          source: 'live',
+        })
+      } else {
+        // GitHub failed but systems may still be useful; keep snapshot/cache.
+        if (sysRes.status === 'fulfilled') {
+          setState((current) => ({
+            ...current,
+            data: current.data ? { ...current.data, ...sysRes.value } : current.data,
+            error: ghRes.reason?.message || 'Could not refresh GitHub data.',
+            loading: false,
+            refreshing: false,
+          }))
+        } else {
+          setState((current) => ({
+            ...current,
+            error: ghRes.reason?.message || 'Could not refresh GitHub data.',
+            loading: false,
+            refreshing: false,
+          }))
+        }
       }
-    }).catch((error) => {
-      if (cancelled) return
-      setState((current) => ({
-        ...current,
-        error: error.message || 'Could not refresh GitHub data.',
-        loading: false,
-        refreshing: false,
-      }))
     })
 
     return () => { cancelled = true }

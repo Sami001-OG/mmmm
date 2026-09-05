@@ -3,14 +3,31 @@ import Icon from '../ui/Icon'
 import Avatar from '../ui/Avatar'
 
 // Mono UTC clock + blue data dot. Mounted-gate so SSR HTML has no time string
-// (hydration parity — server can't know the clock).
+// (hydration parity — server can't know the clock). Pauses when tab hidden
+// so it never wakes the CPU in background.
 function UTCClock() {
   const [now, setNow] = useState(null)
   useEffect(() => {
+    let id = 0
     const tick = () => setNow(new Date())
-    tick()
-    const id = setInterval(tick, 1000)
-    return () => clearInterval(id)
+    const start = () => {
+      tick()
+      if (!id) id = setInterval(tick, 1000)
+    }
+    const stop = () => {
+      if (id) clearInterval(id)
+      id = 0
+    }
+    const onVis = () => {
+      if (document.visibilityState === 'visible') start()
+      else stop()
+    }
+    start()
+    document.addEventListener('visibilitychange', onVis)
+    return () => {
+      stop()
+      document.removeEventListener('visibilitychange', onVis)
+    }
   }, [])
   const label = now
     ? now.toISOString().slice(11, 19) + ' UTC'

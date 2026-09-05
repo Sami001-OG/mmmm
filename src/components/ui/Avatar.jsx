@@ -25,6 +25,9 @@ export default function Avatar({ initials, src, size = 'md', status, className =
         <img
           src={src}
           alt={initials}
+          loading="lazy"
+          decoding="async"
+          draggable={false}
           className={`${sizes[size]} rounded-full object-cover border-2 border-line-strong`}
         />
       ) : (

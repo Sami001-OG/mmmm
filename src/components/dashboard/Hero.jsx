@@ -1,13 +1,17 @@
-import { useMemo } from 'react'
+import { useEffect, useMemo, useRef, useState, lazy, Suspense } from 'react'
 import Icon from '../ui/Icon'
 import KineticComposition from './KineticComposition'
 import { paletteFromLanguages } from '../../data/langColors'
+
+const Hero3D = lazy(() => import('./Hero3D'))
 
 /**
  * Hero band — type-as-architecture. Oversized lowercase display name on the
  * left, the Kinetic Composition poster on the right. Fully server-rendered
  * (no typewriter/scramble JS), so it paints as the LCP element immediately.
  * Poster accent colors are seeded from the user's real top GitHub languages.
+ * 3D enhances on the client only: SVG stays as LCP + fallback, WebGL loads
+ * idle + in-view, pauses offscreen, honors reduced-motion.
  */
 export default function Hero({ profile, languages }) {
   const name = profile.name || 'Sami'
@@ -16,6 +20,37 @@ export default function Hero({ profile, languages }) {
   const status = profile.status || 'online'
   const login = profile.login
   const palette = useMemo(() => paletteFromLanguages(languages), [languages])
+  const posterRef = useRef(null)
+  const [load3D, setLoad3D] = useState(false)
+
+  // Load 3D only when hero is visible + browser is idle. SSR/LCP stays SVG.
+  useEffect(() => {
+    const el = posterRef.current
+    if (!el) return undefined
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined
+    let idleId = 0
+    let cancelled = false
+    const io = new IntersectionObserver(
+      (entries) => {
+        if (entries[0]?.isIntersecting && !cancelled) {
+          const kick = () => { if (!cancelled) setLoad3D(true) }
+          if ('requestIdleCallback' in window) {
+            idleId = window.requestIdleCallback(kick, { timeout: 2500 })
+          } else {
+            window.setTimeout(kick, 900)
+          }
+          io.disconnect()
+        }
+      },
+      { threshold: 0.2 }
+    )
+    io.observe(el)
+    return () => {
+      cancelled = true
+      io.disconnect()
+      if ('cancelIdleCallback' in window && idleId) window.cancelIdleCallback(idleId)
+    }
+  }, [])
 
   return (
     <section className="relative pt-2 pb-8">
@@ -66,8 +101,13 @@ export default function Hero({ profile, languages }) {
         </div>
 
         {/* ── Right: Kinetic Composition poster ────────────────────────── */}
-        <div className="w-full max-w-[340px] mx-auto lg:mx-0 aspect-square">
+        <div ref={posterRef} className="relative w-full max-w-[340px] mx-auto lg:mx-0 aspect-square">
           <KineticComposition palette={palette} />
+          {load3D && (
+            <Suspense fallback={null}>
+              <Hero3D palette={palette} />
+            </Suspense>
+          )}
         </div>
       </div>
     </section>

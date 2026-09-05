@@ -62,12 +62,13 @@ export default defineConfig({
         // Split vendors so the admin panel / markdown / motion libs don't
         // ship in the critical path for every visitor.
         manualChunks(id) {
+          // Keep hero 3D (component + three runtime) in one lazy chunk.
+          if (id.includes('Hero3D') || id.includes('node_modules/three')) return 'three'
           if (!id.includes('node_modules')) return
           if (id.includes('react-router') || id.includes('react-dom') || id.includes('/react/')) {
             return 'vendor-react'
           }
           if (id.includes('gsap') || id.includes('lenis')) return 'motion'
-          if (id.includes('three')) return 'three'
           if (id.includes('cmdk')) return 'cmdk'
           if (id.includes('react-markdown') || id.includes('remark') || id.includes('micromark') || id.includes('mdast')) {
             return 'markdown'

@@ -1,26 +1,32 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 import Sidebar from '../components/layout/Sidebar'
 import TopBar from '../components/layout/TopBar'
 import MobileNav from '../components/layout/MobileNav'
 import StatCard from '../components/dashboard/StatCard'
 import ProjectCard from '../components/dashboard/ProjectCard'
 import SkillBar from '../components/dashboard/SkillBar'
-import DonutChart from '../components/dashboard/DonutChart'
-import ContributionGraph from '../components/dashboard/ContributionGraph'
-import Timeline from '../components/dashboard/Timeline'
-import SystemsBoard from '../components/dashboard/SystemsBoard'
 import SectionHeader from '../components/dashboard/SectionHeader'
 import Hero from '../components/dashboard/Hero'
 import Nameplate from '../components/Nameplate'
 import Reveal from '../components/ui/Reveal'
-import CommandPalette from '../components/ui/CommandPalette'
 import Icon from '../components/ui/Icon'
 import Badge from '../components/ui/Badge'
 import useGithubData from '../hooks/useGithubData'
 import usePortfolioData from '../hooks/usePortfolioData'
 import useTheme from '../hooks/useTheme'
-import { downloadPosterPNG, downloadPoster } from '../lib/poster-svg'
 import { github } from '../data/portfolio'
+
+// Below-fold / on-demand splits — same UI, smaller initial bundle.
+// SSR still renders eager path; these hydrate lazily on the client.
+const DonutChart = lazy(() => import('../components/dashboard/DonutChart'))
+const ContributionGraph = lazy(() => import('../components/dashboard/ContributionGraph'))
+const Timeline = lazy(() => import('../components/dashboard/Timeline'))
+const SystemsBoard = lazy(() => import('../components/dashboard/SystemsBoard'))
+const CommandPalette = lazy(() => import('../components/ui/CommandPalette'))
+
+function LazySection({ children }) {
+  return <Suspense fallback={<div className="card p-5 min-h-[120px]" aria-hidden />}>{children}</Suspense>
+}
 
 // Fixed exposed-grid backdrop — 12-col ruled field, aria-hidden, SSR-safe.
 // Flat: no auroras, no blur, no scanlines (the cyber layer is gone).
@@ -136,17 +142,21 @@ export default function Dashboard() {
 
       <GridField />
 
-      <CommandPalette
-        open={paletteOpen}
-        onClose={() => setPaletteOpen(false)}
-        navItems={pd.navItems}
-        social={mergedProfile.social}
-        onNavigate={scrollTo}
-        isPaper={isPaper}
-        onToggleTheme={toggleTheme}
-        isBlueprint={isBlueprint}
-        onToggleBlueprint={toggleBlueprint}
-      />
+      {paletteOpen && (
+        <Suspense fallback={null}>
+          <CommandPalette
+            open={paletteOpen}
+            onClose={() => setPaletteOpen(false)}
+            navItems={pd.navItems}
+            social={mergedProfile.social}
+            onNavigate={scrollTo}
+            isPaper={isPaper}
+            onToggleTheme={toggleTheme}
+            isBlueprint={isBlueprint}
+            onToggleBlueprint={toggleBlueprint}
+          />
+        </Suspense>
+      )}
 
       <Sidebar
         profile={mergedProfile}
@@ -239,18 +249,20 @@ export default function Dashboard() {
 
           {/* Timeline — proof of work */}
           {timelineItems.length > 0 && (
-            <section id="timeline">
+            <section id="timeline" style={{ contentVisibility: 'auto', containIntrinsicSize: '320px' }}>
               <SectionHeader
                 index={3}
                 title="Timeline"
                 description="Proof of work — first commit to last push, per project"
               />
-              <Timeline items={timelineItems} />
+              <LazySection>
+                <Timeline items={timelineItems} />
+              </LazySection>
             </section>
           )}
 
           {/* Skills */}
-          <section id="skills">
+          <section id="skills" style={{ contentVisibility: 'auto', containIntrinsicSize: '320px' }}>
             <SectionHeader
               index={4}
               title="Skills"
@@ -258,7 +270,11 @@ export default function Dashboard() {
             />
             <div className="space-y-6">
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-                {gh.data?.languages?.length > 0 && <DonutChart data={gh.data.languages} />}
+                {gh.data?.languages?.length > 0 && (
+                  <LazySection>
+                    <DonutChart data={gh.data.languages} />
+                  </LazySection>
+                )}
                 {languagesCategory && <SkillBar category={languagesCategory} />}
               </div>
               {pd.skills.length > 0 && (
@@ -343,7 +359,7 @@ export default function Dashboard() {
           )}
 
           {/* Activity */}
-          <section id="activity">
+          <section id="activity" style={{ contentVisibility: 'auto', containIntrinsicSize: '400px' }}>
             <div className="flex items-start justify-between gap-4 flex-wrap">
               <SectionHeader index={7} title="Activity" description="Contribution calendar + deployed-system status" />
               <button
@@ -361,6 +377,8 @@ export default function Dashboard() {
                     languages: d.languages || [],
                     year: new Date().getFullYear(),
                   }
+                  // Poster libs load on demand — keeps initial bundle lean, same feature.
+                  const { downloadPosterPNG, downloadPoster } = await import('../lib/poster-svg')
                   const ok = await downloadPosterPNG(opts)
                   if (!ok) downloadPoster(opts)
                 }}
@@ -372,13 +390,17 @@ export default function Dashboard() {
               </button>
             </div>
             {gh.data?.contributions ? (
-              <ContributionGraph data={gh.data.contributions} />
+              <LazySection>
+                <ContributionGraph data={gh.data.contributions} />
+              </LazySection>
             ) : (
               <div className="card p-5">
                 <p className="text-ink-dim text-sm">Contribution data unavailable.</p>
               </div>
             )}
-            <SystemsBoard systems={gh.data?.systems} checkedAt={gh.data?.systemsCheckedAt} />
+            <LazySection>
+              <SystemsBoard systems={gh.data?.systems} checkedAt={gh.data?.systemsCheckedAt} />
+            </LazySection>
           </section>
 
           {/* Contact */}

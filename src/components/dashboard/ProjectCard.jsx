@@ -33,6 +33,8 @@ export default function ProjectCard({ project, featured = false }) {
             src={project.image}
             alt=""
             loading="lazy"
+            decoding="async"
+            draggable={false}
             onError={() => setImgFailed(true)}
             className="w-full h-full object-cover transition-transform duration-480 ease-machine group-hover:scale-[1.03]"
           />
