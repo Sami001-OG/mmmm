@@ -3,15 +3,17 @@ import * as THREE from 'three'
 
 /**
  * Hero3D — Interactive Bauhaus 3D, speed-first.
- * Same grammar as KineticComposition SVG: blue sphere (data),
- * red box (work), yellow tetra (action) + construction grid + diagonal.
+ * Clean artifact: blue sphere (data), red box (work), yellow tetra (action)
+ * + subtle accent ring. No grid plane, no construction lines.
  * - Vanilla three only (no fiber/drei) to keep bundle minimal.
  * - Transparent renderer so Dessau/paper/blueprint CSS bg shows through.
  * - DPR capped 1-1.75, pauses offscreen / tab-hidden, disposes on unmount.
  * - Reduced-motion or WebGL failure: renders single static frame, no loop.
  */
-export default function Hero3D({ palette = [] }) {
+export default function Hero3D({ palette = [], onReady }) {
   const mountRef = useRef(null)
+  const readyRef = useRef(onReady)
+  readyRef.current = onReady
 
   useEffect(() => {
     const mount = mountRef.current
@@ -82,40 +84,6 @@ export default function Hero3D({ palette = [] }) {
     )
     ring.position.set(1.7, -1.25, 0.5)
     group.add(ring)
-
-    // Construction grid — flat backdrop, theme-aware via data-theme.
-    const gridColors = () => {
-      const theme = document.documentElement.getAttribute('data-theme')
-      if (theme === 'paper') return { grid: 0xd2cdbf, diag: 0x928b7a }
-      if (theme === 'blueprint') return { grid: 0x385c82, diag: 0x608ab4 }
-      return { grid: 0x2a2930, diag: 0x3b3a41 }
-    }
-    let { grid: gridColor, diag: diagColor } = gridColors()
-    const grid = new THREE.GridHelper(8, 8, gridColor, gridColor)
-    grid.position.set(0, 0, -1.6)
-    grid.rotation.x = 0
-    grid.material.transparent = true
-    grid.material.opacity = 0.55
-    scene.add(grid)
-
-    // Single diagonal — Kandinsky tension line.
-    const diagGeo = new THREE.BufferGeometry().setFromPoints([
-      new THREE.Vector3(-2.8, -2.4, -1.5),
-      new THREE.Vector3(2.8, 2.4, -1.5),
-    ])
-    const diag = new THREE.Line(
-      diagGeo,
-      new THREE.LineBasicMaterial({ color: diagColor, transparent: true, opacity: 0.9 })
-    )
-    scene.add(diag)
-
-    const syncTheme = () => {
-      const c = gridColors()
-      grid.material.color.setHex(c.grid)
-      diag.material.color.setHex(c.diag)
-    }
-    const themeObs = new MutationObserver(syncTheme)
-    themeObs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
 
     const resize = () => {
       const w = mount.clientWidth || 340
@@ -195,11 +163,17 @@ export default function Hero3D({ palette = [] }) {
 
     if (reduceMotion) {
       renderFrame(0) // single static frame, no loop
+      readyRef.current?.()
     } else {
+      let firstFrame = true
       const loop = (t) => {
         raf = requestAnimationFrame(loop)
         if (!visible || !inView) return
         renderFrame(t)
+        if (firstFrame) {
+          firstFrame = false
+          readyRef.current?.()
+        }
       }
       raf = requestAnimationFrame(loop)
     }
@@ -207,13 +181,11 @@ export default function Hero3D({ palette = [] }) {
     return () => {
       cancelAnimationFrame(raf)
       io.disconnect()
-      themeObs.disconnect()
       window.removeEventListener('resize', resize)
       window.removeEventListener('pointermove', onMove)
       window.removeEventListener('pointerup', onUp)
       document.removeEventListener('visibilitychange', onVis)
       mount.removeEventListener('pointerdown', onDown)
-      diagGeo.dispose()
       scene.traverse((o) => {
         if (o.geometry) o.geometry.dispose?.()
         if (o.material) {

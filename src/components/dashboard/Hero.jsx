@@ -22,6 +22,7 @@ export default function Hero({ profile, languages }) {
   const palette = useMemo(() => paletteFromLanguages(languages), [languages])
   const posterRef = useRef(null)
   const [load3D, setLoad3D] = useState(false)
+  const [ready3D, setReady3D] = useState(false)
 
   // Load 3D only when hero is visible + browser is idle. SSR/LCP stays SVG.
   useEffect(() => {
@@ -100,12 +101,12 @@ export default function Hero({ profile, languages }) {
           </div>
         </div>
 
-        {/* ── Right: Kinetic Composition poster ────────────────────────── */}
+        {/* ── Right: 3D artifact (SVG is SSR LCP + fallback only) ────── */}
         <div ref={posterRef} className="relative w-full max-w-[340px] mx-auto lg:mx-0 aspect-square">
-          <KineticComposition palette={palette} />
+          {!ready3D && <KineticComposition palette={palette} />}
           {load3D && (
             <Suspense fallback={null}>
-              <Hero3D palette={palette} />
+              <Hero3D palette={palette} onReady={() => setReady3D(true)} />
             </Suspense>
           )}
         </div>
