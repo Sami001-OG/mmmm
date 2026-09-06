@@ -9,7 +9,7 @@
   "email": "",
   "followers": 38,
   "following": 12,
-  "publicRepos": 16,
+  "publicRepos": 18,
   "totalStars": 17,
   "pinnedRepos": [],
   "repos": [
@@ -124,6 +124,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1358736168,
+      "title": "Js-Assignment",
+      "description": "No description provided.",
+      "tags": [
+        "JavaScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/Js-Assignment",
+      "homepage": "",
+      "createdAt": "2026-09-06T02:59:38Z",
+      "updatedAt": "2026-09-06T03:08:23Z"
+    },
+    {
       "id": 1348901822,
       "title": "scode",
       "description": "No description provided.",
@@ -186,22 +202,6 @@
       "homepage": "",
       "createdAt": "2026-08-09T10:21:24Z",
       "updatedAt": "2026-08-09T17:52:36Z"
-    },
-    {
-      "id": 1315450453,
-      "title": "Betweenle",
-      "description": "Solver for betweenle",
-      "tags": [
-        "HTML"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/Betweenle",
-      "homepage": "https://sami001-og.github.io/Betweenle/",
-      "createdAt": "2026-07-28T21:39:08Z",
-      "updatedAt": "2026-07-29T12:42:31Z"
     }
   ],
   "languages": [
@@ -227,8 +227,8 @@
     }
   ],
   "contributions": null,
-  "fetchedAt": "2026-09-05T18:13:43.165Z",
-  "githubFetchedAt": "2026-09-05T18:13:43.165Z",
+  "fetchedAt": "2026-09-06T07:06:19.098Z",
+  "githubFetchedAt": "2026-09-06T07:06:19.098Z",
   "contributionsFetchedAt": "2026-08-14T04:18:02.374Z",
   "systems": [
     {
@@ -236,29 +236,22 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 280
+      "ms": 666
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 216
+      "ms": 254
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 307
-    },
-    {
-      "name": "Betweenle",
-      "url": "https://sami001-og.github.io/Betweenle/",
-      "ok": true,
-      "status": 200,
-      "ms": 358
+      "ms": 121
     }
   ],
-  "systemsCheckedAt": "2026-09-05T18:13:43.551Z"
+  "systemsCheckedAt": "2026-09-06T07:06:19.765Z"
 }
