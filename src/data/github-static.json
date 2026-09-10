@@ -207,19 +207,15 @@
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 56
+      "percentage": 51
     },
     {
       "name": "Python",
-      "percentage": 31
-    },
-    {
-      "name": "HTML",
-      "percentage": 8
+      "percentage": 46
     },
     {
       "name": "JavaScript",
-      "percentage": 4
+      "percentage": 2
     },
     {
       "name": "CSS",
@@ -227,8 +223,8 @@
     }
   ],
   "contributions": null,
-  "fetchedAt": "2026-09-09T07:21:36.783Z",
-  "githubFetchedAt": "2026-09-09T07:21:36.783Z",
+  "fetchedAt": "2026-09-10T07:17:02.983Z",
+  "githubFetchedAt": "2026-09-10T07:17:02.983Z",
   "contributionsFetchedAt": "2026-08-14T04:18:02.374Z",
   "systems": [
     {
@@ -236,22 +232,22 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 447
+      "ms": 239
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 330
+      "ms": 593
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 69
+      "ms": 46
     }
   ],
-  "systemsCheckedAt": "2026-09-09T07:21:37.231Z"
+  "systemsCheckedAt": "2026-09-10T07:17:03.579Z"
 }
