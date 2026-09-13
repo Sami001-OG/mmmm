@@ -19,7 +19,7 @@ export const SHELL_ROUTES = [ROUTES.admin, ROUTES.adminPanel]
 // build time with SITE_URL; falls back to the production domain. No trailing slash.
 export const SITE_URL = (
   (typeof process !== 'undefined' && process.env && process.env.SITE_URL) ||
-  'https://portfoliofsami.vercel.app'
+  'https://samish.me'
 ).replace(/\/$/, '')
 
 // Per-route <head> content baked into prerendered HTML. Keeps titles,
