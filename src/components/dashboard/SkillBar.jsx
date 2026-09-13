@@ -24,11 +24,11 @@ export default function SkillBar({ category }) {
             </div>
             <div className="relative h-1.5 bg-surface-hi overflow-hidden">
               <div
-                className="absolute inset-y-0 left-0 bg-yellow origin-left transition-transform duration-[900ms] ease-machine"
+                className="absolute inset-y-0 left-0 bg-yellow origin-left transition-transform duration-480 ease-brake"
                 style={{
                   width: `${skill.level}%`,
                   transform: inView ? 'scaleX(1)' : 'scaleX(0)',
-                  transitionDelay: `${i * 110 + 80}ms`,
+                  transitionDelay: `${i * 70 + 40}ms`,
                 }}
               />
             </div>

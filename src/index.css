@@ -155,8 +155,15 @@
   }
   /* Hover: outline thickens to 2px + lifts 4px. Never glows or scales. */
   .card-lift {
-    @apply transition-[transform,border-color] duration-240 ease-machine
-      hover:-translate-y-1 hover:border-line-strong;
+    @apply transition-[transform,border-color] duration-240 ease-brake
+      hover:-translate-y-1 hover:border-line-strong
+      active:translate-y-0 active:scale-[0.99];
+  }
+  /* Touch devices: hover lift sticks on tap — kill the lift, keep the border. */
+  @media (hover: none) {
+    .card-lift:hover {
+      transform: none;
+    }
   }
 
   /* Accent rules — 4px section-accent header bars replace all dividers. */
@@ -201,15 +208,18 @@
   }
 
   /* ── Buttons: accent block-wipe, text inverts to ink-on-color ─────── */
+  /* Emil: every pressable scales 0.97 on :active for instant tactility.
+     Ease-brake (ease-out) on entry — never ease-in, never 480ms on UI. */
   .btn {
     @apply relative inline-flex items-center gap-2 px-4 py-2 font-mono text-[12px]
       font-semibold uppercase tracking-label border overflow-hidden
-      transition-colors duration-240 ease-machine;
+      transition-[transform,colors] duration-240 ease-brake
+      active:scale-[0.97];
   }
   .btn::before {
     content: '';
     @apply absolute inset-0 -z-0 origin-left scale-x-0
-      transition-transform duration-240 ease-machine;
+      transition-transform duration-240 ease-brake;
   }
   .btn > * { @apply relative z-[1]; }
   .btn:hover::before { @apply scale-x-100; }
@@ -225,8 +235,15 @@
   .btn-ghost {
     @apply inline-flex items-center gap-2 px-3 py-1.5 font-mono text-[12px]
       font-medium uppercase tracking-label border border-line text-ink-dim
-      transition-colors duration-240 ease-machine
-      hover:border-line-strong hover:text-ink;
+      transition-[transform,border-color,color] duration-240 ease-brake
+      hover:border-line-strong hover:text-ink
+      active:scale-[0.97];
+  }
+  /* Paper mode: yellow text on cream fails AA — darken the resting label.
+     Hover still inverts to near-black on yellow (passes). */
+  [data-theme='paper'] .btn-yellow {
+    color: #7a5c00;
+    border-color: #b88900;
   }
 
   /* ── Shape markers (functional, not decorative) ───────────────────── */

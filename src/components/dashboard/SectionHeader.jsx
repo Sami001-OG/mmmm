@@ -24,7 +24,7 @@ export default function SectionHeader({ title, description, action, index }) {
             <span className="h-6 w-1 bg-yellow shrink-0" aria-hidden />
             <h2 className="h2">{title}</h2>
           </div>
-          {description && <p className="mono-label mt-2 ml-4">{description}</p>}
+          {description && <p className="font-mono text-[12px] normal-case tracking-normal text-ink-dim mt-2 ml-4">{description}</p>}
         </div>
       </div>
 

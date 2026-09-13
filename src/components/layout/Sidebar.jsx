@@ -80,7 +80,7 @@ export default function Sidebar({ profile, navItems, activeSection, onNavClick, 
               onClick={() => handleClick(item)}
               title={expanded ? undefined : item.label}
               aria-label={expanded ? undefined : item.label}
-              className={`group relative z-[1] w-full text-left flex items-center font-mono text-[13px] uppercase tracking-label transition-colors duration-240 ${
+              className={`group relative z-[1] w-full text-left flex items-center font-mono text-[13px] uppercase tracking-label active:scale-[0.98] transition-[transform,color] duration-240 ease-brake ${
                 active ? 'text-ink' : 'text-ink-dim hover:text-ink'
               } ${expanded ? 'gap-3 px-3 py-2.5' : 'justify-center px-2 py-3'}`}
             >

@@ -22,8 +22,8 @@ export default function Reveal({
   const [ref, inView] = useInView({ once: true, threshold: 0.12 })
 
   const hidden = {
-    up: 'opacity-0 translate-y-6',
-    right: 'opacity-0 -translate-x-6',
+    up: 'opacity-0 translate-y-4',
+    right: 'opacity-0 -translate-x-4',
     wipe: 'opacity-0 [clip-path:inset(0_100%_0_0)]',
   }
   const shown = 'opacity-100 translate-x-0 translate-y-0 [clip-path:inset(0_0_0_0)]'
@@ -33,7 +33,7 @@ export default function Reveal({
       ref={ref}
       style={delay ? { transitionDelay: `${delay}ms` } : undefined}
       className={[
-        'transition-[transform,opacity,clip-path] duration-480 ease-machine',
+        'transition-[transform,opacity,clip-path] duration-240 ease-brake',
         inView ? shown : hidden[variant],
         className,
       ].join(' ')}

@@ -50,6 +50,24 @@ export default function Dashboard() {
 
   useEffect(() => { setMounted(true) }, [])
 
+  // Scrollspy — keeps rail + mobile nav in sync while scrolling (Operate mode
+  // scanability). IntersectionObserver only, never window scroll listeners.
+  useEffect(() => {
+    const ids = (pd.navItems || []).filter((i) => !i.href).map((i) => i.id)
+    if (!ids.length || typeof IntersectionObserver === 'undefined') return undefined
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActiveSection(entry.target.id)
+        })
+      },
+      { rootMargin: '-30% 0px -60% 0px', threshold: 0 }
+    )
+    const els = ids.map((id) => document.getElementById(id)).filter(Boolean)
+    els.forEach((el) => observer.observe(el))
+    return () => observer.disconnect()
+  }, [pd.navItems])
+
   // Global ⌘K / Ctrl+K toggles the command palette.
   useEffect(() => {
     const onKey = (e) => {
@@ -176,7 +194,7 @@ export default function Dashboard() {
           onToggleTheme={toggleTheme}
         />
 
-        <main id="main" className={`px-4 sm:px-8 pt-8 pb-24 lg:pb-8 space-y-16 transition-opacity duration-480 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
+        <main id="main" className={`px-4 sm:px-8 pt-8 pb-24 lg:pb-8 space-y-16 transition-opacity duration-360 ${mounted ? 'opacity-100' : 'opacity-0'}`}>
           {/* Hero */}
           <Hero profile={mergedProfile} languages={gh.data?.languages} />
 

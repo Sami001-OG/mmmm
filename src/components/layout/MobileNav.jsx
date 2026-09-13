@@ -25,7 +25,7 @@ export default function MobileNav({ navItems = [], activeSection, onNavClick }) 
               aria-label={item.label}
               aria-current={active ? 'true' : undefined}
               title={item.label}
-              className={`relative flex items-center justify-center py-3 transition-colors duration-240 ${
+              className={`relative flex items-center justify-center py-3 active:scale-[0.95] transition-[transform,color] duration-240 ease-brake ${
                 active ? 'text-yellow' : 'text-ink-dim hover:text-ink'
               }`}
             >

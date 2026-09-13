@@ -56,7 +56,7 @@ export default function TopBar({ profile, onMenuToggle, onSearchOpen, isPaper, o
           {/* cmdk trigger — sharp 2px outline, square kbd chip */}
           <button
             onClick={onSearchOpen}
-            className="group flex items-center gap-2 px-3 py-2 border border-line hover:border-line-strong transition-colors duration-240"
+            className="group flex items-center gap-2 px-3 py-2 border border-line hover:border-line-strong active:scale-[0.97] transition-[transform,border-color] duration-240 ease-brake"
             aria-label="Open command palette"
           >
             <Icon name="search" size={14} className="text-ink-dim group-hover:text-ink transition-colors" />
@@ -69,7 +69,7 @@ export default function TopBar({ profile, onMenuToggle, onSearchOpen, isPaper, o
           {/* Paper-mode toggle — one keystroke inverts to 1923 white-poster. */}
           <button
             onClick={onToggleTheme}
-            className="p-2 border border-line text-ink-dim hover:text-ink hover:border-line-strong transition-colors duration-240"
+            className="p-2 border border-line text-ink-dim hover:text-ink hover:border-line-strong active:scale-[0.97] transition-[transform,border-color,color] duration-240 ease-brake"
             aria-label={isPaper ? 'Switch to dark mode' : 'Switch to paper mode'}
             aria-pressed={isPaper}
             title={isPaper ? 'Dark mode' : 'Paper mode'}
@@ -79,7 +79,7 @@ export default function TopBar({ profile, onMenuToggle, onSearchOpen, isPaper, o
 
           <button
             onClick={onMenuToggle}
-            className="p-1 rounded-full hover:opacity-80 transition-opacity duration-240"
+            className="p-1 rounded-full hover:opacity-80 active:scale-[0.97] transition-[transform,opacity] duration-240 ease-brake"
             aria-label="Open menu"
             title="Menu"
           >
