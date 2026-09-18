@@ -496,7 +496,7 @@ export default function Dashboard() {
           </section>
 
           <div>
-          <footer className="flex flex-col sm:flex-row items-center justify-between gap-3 py-8 border-t border-line mono-data text-ink-faint">
+          <footer className="flex flex-col items-center justify-center gap-3 py-8 border-t border-line mono-data text-ink-faint text-center">
             <span>© {new Date().getFullYear()} {mergedProfile.name} — built with React &amp; Tailwind.</span>
             <div className="flex items-center gap-4">
               {liveSocial.map((s) => (
