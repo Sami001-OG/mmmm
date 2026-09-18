@@ -59,21 +59,6 @@
     color-scheme: light;
   }
 
-  /* BLUEPRINT — construction-document mode. Prussian-blue field, exposed
-     grid, self-annotating components. Accents inherit the dark palette.
-     Entered via the footer nameplate, the command palette, or ?theme=blueprint. */
-  [data-theme='blueprint'] {
-    --c-paper: 14 40 66;
-    --c-sunken: 10 31 52;
-    --c-surface: 17 47 77;
-    --c-surface-hi: 22 58 94;
-    --c-line: 56 92 130;
-    --c-line-strong: 96 138 180;
-    --c-ink: 234 242 250;
-    --c-ink-dim: 168 192 216;
-    --c-ink-faint: 118 148 180;
-  }
-
   *,
   *::before,
   *::after {
@@ -94,7 +79,9 @@
 
   /* Theme-switch animation — `theme-anim` is attached to <html> by
      useTheme for the duration of a theme change, so every surface, border,
-     and ink color eases over (never transforms). Gated for reduced motion. */
+     and ink color eases over (never transforms). Only used as a fallback
+     for browsers without the View Transitions API (see below); gated for
+     reduced motion. */
   @media (prefers-reduced-motion: no-preference) {
     html.theme-anim,
     html.theme-anim *,
@@ -104,6 +91,43 @@
         border-color 480ms var(--ease-brake),
         color 480ms var(--ease-brake) !important;
     }
+  }
+
+  /* Theme-switch reveal — when the browser supports View Transitions,
+     useTheme wraps the attribute swap in document.startViewTransition()
+     instead of animating every node. The two full-page snapshots it
+     produces are composited here: the old one just sits still, the new
+     one wipes in through a circle centered on wherever the toggle was
+     pressed (--vt-x/--vt-y, set right before the transition starts).
+     One compositor-only animation, independent of DOM size — this is
+     what keeps the switch smooth regardless of page weight. */
+  @media (prefers-reduced-motion: no-preference) {
+    ::view-transition-old(root) {
+      animation: none;
+    }
+
+    ::view-transition-new(root) {
+      animation: theme-reveal 640ms var(--ease-brake) forwards;
+    }
+  }
+
+  @keyframes theme-reveal {
+    from { clip-path: circle(0% at var(--vt-x, 100%) var(--vt-y, 0%)); }
+    to { clip-path: circle(140% at var(--vt-x, 100%) var(--vt-y, 0%)); }
+  }
+
+  /* Sun/moon glyph swap on the theme toggle — a quick pop+spin instead of
+     an instant cut, so the one element that can't cross-fade its colors
+     still feels intentional inside the broader reveal. */
+  @media (prefers-reduced-motion: no-preference) {
+    .theme-icon-pop {
+      animation: theme-icon-pop 380ms var(--ease-brake);
+    }
+  }
+
+  @keyframes theme-icon-pop {
+    from { transform: scale(0.5) rotate(-40deg); opacity: 0; }
+    to { transform: scale(1) rotate(0deg); opacity: 1; }
   }
 
   ::selection {
@@ -344,68 +368,4 @@
 .kc-drift-b { animation: kc-drift-b 11s var(--ease-machine) infinite; }
 .kc-drift-c { animation: kc-drift-c 8s var(--ease-machine) infinite; }
 
-/* ── Blueprint annotation layer — the site exhibits its own construction.
-   Active only under [data-theme='blueprint']; pure overlay, zero layout
-   shift. Labels use the mono stack; nothing is interactive. ──────────── */
-[data-theme='blueprint'] .grid-lines {
-  opacity: 0.55 !important;
-}
 
-/* Every dashboard section becomes a numbered figure */
-[data-theme='blueprint'] main section[id] {
-  position: relative;
-  outline: 1px dashed rgb(var(--c-line) / 0.7);
-  outline-offset: 14px;
-}
-[data-theme='blueprint'] main section[id]::after {
-  content: 'FIG · ' attr(id);
-  position: absolute;
-  top: -26px;
-  right: 0;
-  font-family: 'Chivo Mono Variable', ui-monospace, monospace;
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: rgb(var(--c-line-strong));
-  pointer-events: none;
-}
-
-/* Cards declare their construction */
-[data-theme='blueprint'] .card {
-  position: relative;
-}
-[data-theme='blueprint'] .card::after {
-  content: 'CARD · SURFACE · 1PX LINE';
-  position: absolute;
-  right: 8px;
-  bottom: 6px;
-  z-index: 2;
-  font-family: 'Chivo Mono Variable', ui-monospace, monospace;
-  font-size: 8px;
-  letter-spacing: 0.1em;
-  color: rgb(var(--c-line-strong) / 0.9);
-  pointer-events: none;
-}
-
-/* Reference stamp — fixed, dashboard only, never printed */
-[data-theme='blueprint'] #main::after {
-  content: 'BLUEPRINT — FOR REFERENCE ONLY · PORTFOLIO-01';
-  position: fixed;
-  bottom: 14px;
-  right: 14px;
-  z-index: 40;
-  padding: 6px 10px;
-  border: 1px solid rgb(var(--c-line-strong));
-  background: rgb(var(--c-paper) / 0.85);
-  font-family: 'Chivo Mono Variable', ui-monospace, monospace;
-  font-size: 9px;
-  letter-spacing: 0.12em;
-  color: rgb(var(--c-ink-dim));
-  pointer-events: none;
-}
-@media print {
-  [data-theme='blueprint'] main section[id] { outline: none; }
-  [data-theme='blueprint'] main section[id]::after,
-  [data-theme='blueprint'] .card::after,
-  [data-theme='blueprint'] #main::after { display: none; }
-}

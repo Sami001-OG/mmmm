@@ -33,9 +33,9 @@
     <div id="root"><!--app-html--></div>
     <script>
       // Apply persisted (or ?theme= linked) theme before paint — no flash.
-      // ?theme=paper|blueprint persists, so React hydrates in agreement.
+      // ?theme=paper persists, so React hydrates in agreement.
       try {
-        var themeColors = { paper: '#F4F1EA', blueprint: '#0E2842' }
+        var themeColors = { paper: '#F4F1EA' }
         var q = new URLSearchParams(location.search).get('theme')
         var t = themeColors[q] ? q : localStorage.getItem('portfolio_theme')
         if (themeColors[t]) {

@@ -7,7 +7,6 @@ import ProjectCard from '../components/dashboard/ProjectCard'
 import SkillBar from '../components/dashboard/SkillBar'
 import SectionHeader from '../components/dashboard/SectionHeader'
 import Hero from '../components/dashboard/Hero'
-import Nameplate from '../components/Nameplate'
 import Reveal from '../components/ui/Reveal'
 import Icon from '../components/ui/Icon'
 import Badge from '../components/ui/Badge'
@@ -46,7 +45,7 @@ export default function Dashboard() {
   const [paletteOpen, setPaletteOpen] = useState(false)
   const gh = useGithubData(github.username)
   const pd = usePortfolioData()
-  const { isPaper, isBlueprint, toggle: toggleTheme, toggleBlueprint } = useTheme()
+  const { isPaper, toggle: toggleTheme } = useTheme()
 
   useEffect(() => { setMounted(true) }, [])
 
@@ -170,8 +169,6 @@ export default function Dashboard() {
             onNavigate={scrollTo}
             isPaper={isPaper}
             onToggleTheme={toggleTheme}
-            isBlueprint={isBlueprint}
-            onToggleBlueprint={toggleBlueprint}
           />
         </Suspense>
       )}
@@ -499,8 +496,6 @@ export default function Dashboard() {
           </section>
 
           <div>
-          <Nameplate dataSync={gh.data?.fetchedAt} onActivate={toggleBlueprint} />
-
           <footer className="flex flex-col sm:flex-row items-center justify-between gap-3 py-8 border-t border-line mono-data text-ink-faint">
             <span>© {new Date().getFullYear()} {mergedProfile.name} — built with React &amp; Tailwind.</span>
             <div className="flex items-center gap-4">

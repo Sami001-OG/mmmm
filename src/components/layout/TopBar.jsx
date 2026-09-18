@@ -74,7 +74,7 @@ export default function TopBar({ profile, onMenuToggle, onSearchOpen, isPaper, o
             aria-pressed={isPaper}
             title={isPaper ? 'Dark mode' : 'Paper mode'}
           >
-            <Icon name={isPaper ? 'moon' : 'sun'} size={16} />
+            <Icon key={isPaper ? 'moon' : 'sun'} name={isPaper ? 'moon' : 'sun'} size={16} className="theme-icon-pop" />
           </button>
 
           <button

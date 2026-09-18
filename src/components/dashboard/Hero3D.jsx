@@ -6,8 +6,8 @@ import * as THREE from 'three'
  * Same poster as KineticComposition SVG, in real 3D: blue sphere (data),
  * red box (work), yellow extruded triangle (action). Flat Basic fills
  * (zero lights/gradients), orthographic camera, drafting edge outlines,
- * stepped mechanical motion. Transparent bg so Dessau/paper/blueprint
- * CSS shows through. Speed-first: DPR capped, pauses offscreen/hidden,
+ * stepped mechanical motion. Transparent bg so Dessau/paper CSS shows
+ * through. Speed-first: DPR capped, pauses offscreen/hidden,
  * disposes on unmount, reduced-motion = single static frame.
  */
 export default function Hero3D({ palette = [], onReady }) {
@@ -47,7 +47,7 @@ export default function Hero3D({ palette = [], onReady }) {
     camera.position.set(0.6, 0.5, 10)
     camera.lookAt(0, 0, 0)
 
-    // Theme edge color — resolved from the Dessau tokens so dark/paper/blueprint stay correct.
+    // Theme edge color — resolved from the Dessau tokens so dark/paper stay correct.
     const edgeColor = () => {
       try {
         const raw = getComputedStyle(document.documentElement).getPropertyValue('--c-line-strong').trim()
