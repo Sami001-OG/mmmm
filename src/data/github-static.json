@@ -9,7 +9,7 @@
   "email": "",
   "followers": 38,
   "following": 12,
-  "publicRepos": 20,
+  "publicRepos": 21,
   "totalStars": 18,
   "pinnedRepos": [],
   "repos": [
@@ -140,6 +140,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1393668521,
+      "title": "Builder",
+      "description": "No description provided.",
+      "tags": [
+        "TypeScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/Builder",
+      "homepage": "",
+      "createdAt": "2026-09-28T19:02:34Z",
+      "updatedAt": "2026-09-29T07:17:50Z"
+    },
+    {
       "id": 1385975464,
       "title": "blyatt",
       "description": "a 3D portfolio ",
@@ -186,32 +202,16 @@
       "homepage": "",
       "createdAt": "2026-08-27T20:09:25Z",
       "updatedAt": "2026-08-28T06:27:04Z"
-    },
-    {
-      "id": 1341719425,
-      "title": "Endellion-Tradingview-",
-      "description": "My Trading Harness",
-      "tags": [
-        "TypeScript"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/Endellion-Tradingview-",
-      "homepage": "",
-      "createdAt": "2026-08-21T11:10:48Z",
-      "updatedAt": "2026-08-24T10:45:18Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 55
+      "percentage": 57
     },
     {
       "name": "Python",
-      "percentage": 29
+      "percentage": 27
     },
     {
       "name": "HTML",
@@ -223,7 +223,7 @@
     },
     {
       "name": "CSS",
-      "percentage": 3
+      "percentage": 4
     }
   ],
   "contributions": {
@@ -2164,8 +2164,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-09-28T08:39:46.939Z",
-  "githubFetchedAt": "2026-09-28T08:39:46.939Z",
+  "fetchedAt": "2026-09-29T08:26:15.014Z",
+  "githubFetchedAt": "2026-09-29T08:26:15.014Z",
   "contributionsFetchedAt": "2026-09-13T14:10:19.356Z",
   "systems": [
     {
@@ -2173,36 +2173,36 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 616
+      "ms": 244
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": true,
       "status": 200,
-      "ms": 203
+      "ms": 175
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 244
+      "ms": 594
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 50
+      "ms": 43
     },
     {
       "name": "blyatt",
       "url": "https://union-opens-graph-boards.trycloudflare.com/",
       "ok": false,
       "status": 0,
-      "ms": 41
+      "ms": 32
     }
   ],
-  "systemsCheckedAt": "2026-09-28T08:39:47.556Z"
+  "systemsCheckedAt": "2026-09-29T08:26:15.611Z"
 }
