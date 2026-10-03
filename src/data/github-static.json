@@ -9,7 +9,7 @@
   "email": "",
   "followers": 39,
   "following": 12,
-  "publicRepos": 20,
+  "publicRepos": 21,
   "totalStars": 18,
   "pinnedRepos": [],
   "repos": [
@@ -140,6 +140,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1402445924,
+      "title": "Portfolio_Idunno",
+      "description": "No description provided.",
+      "tags": [
+        "HTML"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/Portfolio_Idunno",
+      "homepage": "",
+      "createdAt": "2026-10-02T23:15:22Z",
+      "updatedAt": "2026-10-03T04:57:22Z"
+    },
+    {
       "id": 1393668521,
       "title": "Builder",
       "description": "No description provided.",
@@ -186,28 +202,12 @@
       "homepage": "",
       "createdAt": "2026-09-06T02:59:38Z",
       "updatedAt": "2026-09-06T03:08:23Z"
-    },
-    {
-      "id": 1348901822,
-      "title": "scode",
-      "description": "No description provided.",
-      "tags": [
-        "Python"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/scode",
-      "homepage": "",
-      "createdAt": "2026-08-27T20:09:25Z",
-      "updatedAt": "2026-08-28T06:27:04Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 57
+      "percentage": 56
     },
     {
       "name": "Python",
@@ -215,7 +215,7 @@
     },
     {
       "name": "HTML",
-      "percentage": 7
+      "percentage": 8
     },
     {
       "name": "JavaScript",
@@ -2164,8 +2164,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-10-02T08:28:14.965Z",
-  "githubFetchedAt": "2026-10-02T08:28:14.965Z",
+  "fetchedAt": "2026-10-03T08:03:30.741Z",
+  "githubFetchedAt": "2026-10-03T08:03:30.741Z",
   "contributionsFetchedAt": "2026-09-13T14:10:19.356Z",
   "systems": [
     {
@@ -2173,36 +2173,36 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 259
+      "ms": 668
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": true,
       "status": 200,
-      "ms": 378
+      "ms": 271
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 619
+      "ms": 711
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 122
+      "ms": 153
     },
     {
       "name": "blyatt",
       "url": "https://union-opens-graph-boards.trycloudflare.com/",
       "ok": false,
       "status": 0,
-      "ms": 78
+      "ms": 113
     }
   ],
-  "systemsCheckedAt": "2026-10-02T08:28:15.589Z"
+  "systemsCheckedAt": "2026-10-03T08:03:31.454Z"
 }
