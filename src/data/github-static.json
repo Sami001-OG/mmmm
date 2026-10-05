@@ -9,7 +9,7 @@
   "email": "",
   "followers": 39,
   "following": 12,
-  "publicRepos": 21,
+  "publicRepos": 22,
   "totalStars": 18,
   "pinnedRepos": [],
   "repos": [
@@ -140,6 +140,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1360583786,
+      "title": "OpenCode-Gateway",
+      "description": "No description provided.",
+      "tags": [
+        "JavaScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/OpenCode-Gateway",
+      "homepage": "",
+      "createdAt": "2026-09-07T19:12:08Z",
+      "updatedAt": "2026-10-04T12:41:09Z"
+    },
+    {
       "id": 1402445924,
       "title": "Portfolio_Idunno",
       "description": "No description provided.",
@@ -186,40 +202,24 @@
       "homepage": "https://union-opens-graph-boards.trycloudflare.com/",
       "createdAt": "2026-09-24T16:54:37Z",
       "updatedAt": "2026-09-24T22:59:02Z"
-    },
-    {
-      "id": 1358736168,
-      "title": "Js-Assignment",
-      "description": "No description provided.",
-      "tags": [
-        "JavaScript"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/Js-Assignment",
-      "homepage": "",
-      "createdAt": "2026-09-06T02:59:38Z",
-      "updatedAt": "2026-09-06T03:08:23Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 56
+      "percentage": 54
     },
     {
       "name": "Python",
-      "percentage": 27
+      "percentage": 26
+    },
+    {
+      "name": "JavaScript",
+      "percentage": 9
     },
     {
       "name": "HTML",
       "percentage": 8
-    },
-    {
-      "name": "JavaScript",
-      "percentage": 5
     },
     {
       "name": "CSS",
@@ -2164,8 +2164,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-10-04T08:24:49.125Z",
-  "githubFetchedAt": "2026-10-04T08:24:49.125Z",
+  "fetchedAt": "2026-10-05T08:58:42.615Z",
+  "githubFetchedAt": "2026-10-05T08:58:42.615Z",
   "contributionsFetchedAt": "2026-09-13T14:10:19.356Z",
   "systems": [
     {
@@ -2173,36 +2173,36 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 315
+      "ms": 249
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": true,
       "status": 200,
-      "ms": 298
+      "ms": 48
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 332
+      "ms": 245
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 172
+      "ms": 54
     },
     {
       "name": "blyatt",
       "url": "https://union-opens-graph-boards.trycloudflare.com/",
       "ok": false,
       "status": 0,
-      "ms": 93
+      "ms": 39
     }
   ],
-  "systemsCheckedAt": "2026-10-04T08:24:49.459Z"
+  "systemsCheckedAt": "2026-10-05T08:58:42.864Z"
 }
