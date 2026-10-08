@@ -9,7 +9,7 @@
   "email": "",
   "followers": 39,
   "following": 12,
-  "publicRepos": 22,
+  "publicRepos": 23,
   "totalStars": 18,
   "pinnedRepos": [],
   "repos": [
@@ -140,6 +140,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1409381990,
+      "title": "singularity-portfolio",
+      "description": "3D particle-morph portfolio — three.js, 140k GPU particles, 8 scenes, interactive terminal",
+      "tags": [
+        "HTML"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/singularity-portfolio",
+      "homepage": "",
+      "createdAt": "2026-10-07T21:09:30Z",
+      "updatedAt": "2026-10-07T21:17:10Z"
+    },
+    {
       "id": 1360583786,
       "title": "OpenCode-Gateway",
       "description": "No description provided.",
@@ -186,44 +202,28 @@
       "homepage": "",
       "createdAt": "2026-09-28T19:02:34Z",
       "updatedAt": "2026-10-01T18:15:37Z"
-    },
-    {
-      "id": 1385975464,
-      "title": "blyatt",
-      "description": "a 3D portfolio ",
-      "tags": [
-        "TypeScript"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/blyatt",
-      "homepage": "https://union-opens-graph-boards.trycloudflare.com/",
-      "createdAt": "2026-09-24T16:54:37Z",
-      "updatedAt": "2026-09-24T22:59:02Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 54
+      "percentage": 53
     },
     {
       "name": "Python",
-      "percentage": 26
+      "percentage": 25
+    },
+    {
+      "name": "HTML",
+      "percentage": 9
     },
     {
       "name": "JavaScript",
       "percentage": 9
     },
     {
-      "name": "HTML",
-      "percentage": 8
-    },
-    {
       "name": "CSS",
-      "percentage": 4
+      "percentage": 3
     }
   ],
   "contributions": {
@@ -2164,8 +2164,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-10-07T08:36:13.950Z",
-  "githubFetchedAt": "2026-10-07T08:36:13.950Z",
+  "fetchedAt": "2026-10-08T08:54:53.376Z",
+  "githubFetchedAt": "2026-10-08T08:54:53.376Z",
   "contributionsFetchedAt": "2026-09-13T14:10:19.356Z",
   "systems": [
     {
@@ -2173,36 +2173,29 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 270
+      "ms": 306
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": true,
       "status": 200,
-      "ms": 342
+      "ms": 149
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 286
+      "ms": 319
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 122
-    },
-    {
-      "name": "blyatt",
-      "url": "https://union-opens-graph-boards.trycloudflare.com/",
-      "ok": false,
-      "status": 0,
-      "ms": 75
+      "ms": 138
     }
   ],
-  "systemsCheckedAt": "2026-10-07T08:36:14.293Z"
+  "systemsCheckedAt": "2026-10-08T08:54:53.698Z"
 }
