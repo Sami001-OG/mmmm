@@ -9,7 +9,7 @@
   "email": "",
   "followers": 39,
   "following": 12,
-  "publicRepos": 23,
+  "publicRepos": 24,
   "totalStars": 18,
   "pinnedRepos": [],
   "repos": [
@@ -140,6 +140,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1413050499,
+      "title": "storyvid",
+      "description": "Prompt to narrated video: NVIDIA NIM story, Gemini images, local TTS, FFmpeg render, with an interactive web UI.",
+      "tags": [
+        "Python"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/storyvid",
+      "homepage": "",
+      "createdAt": "2026-10-10T10:20:51Z",
+      "updatedAt": "2026-10-10T17:55:40Z"
+    },
+    {
       "id": 1409381990,
       "title": "singularity-portfolio",
       "description": "3D particle-morph portfolio — three.js, 140k GPU particles, 8 scenes, interactive terminal",
@@ -186,36 +202,20 @@
       "homepage": "",
       "createdAt": "2026-10-02T23:15:22Z",
       "updatedAt": "2026-10-03T04:57:22Z"
-    },
-    {
-      "id": 1393668521,
-      "title": "Builder",
-      "description": "No description provided.",
-      "tags": [
-        "TypeScript"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/Builder",
-      "homepage": "",
-      "createdAt": "2026-09-28T19:02:34Z",
-      "updatedAt": "2026-10-01T18:15:37Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 53
+      "percentage": 51
     },
     {
       "name": "Python",
-      "percentage": 25
+      "percentage": 27
     },
     {
       "name": "HTML",
-      "percentage": 9
+      "percentage": 10
     },
     {
       "name": "JavaScript",
@@ -2164,8 +2164,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-10-10T08:27:19.384Z",
-  "githubFetchedAt": "2026-10-10T08:27:19.384Z",
+  "fetchedAt": "2026-10-11T08:45:47.330Z",
+  "githubFetchedAt": "2026-10-11T08:45:47.330Z",
   "contributionsFetchedAt": "2026-09-13T14:10:19.356Z",
   "systems": [
     {
@@ -2173,29 +2173,29 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 657
+      "ms": 347
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": true,
       "status": 200,
-      "ms": 170
+      "ms": 230
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 263
+      "ms": 358
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 34
+      "ms": 188
     }
   ],
-  "systemsCheckedAt": "2026-10-10T08:27:20.041Z"
+  "systemsCheckedAt": "2026-10-11T08:45:47.691Z"
 }
