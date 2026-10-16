@@ -9,7 +9,7 @@
   "email": "",
   "followers": 39,
   "following": 12,
-  "publicRepos": 24,
+  "publicRepos": 25,
   "totalStars": 18,
   "pinnedRepos": [],
   "repos": [
@@ -140,6 +140,27 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1420690785,
+      "title": "forge",
+      "description": "Autonomous build loop for Claude Code: a supervisor and adversarial critic drive the builder and verify the real product until it is world-class.",
+      "tags": [
+        "JavaScript",
+        "ai-agents",
+        "autonomous-agents",
+        "claude-code",
+        "claude-code-plugin",
+        "developer-tools"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/forge",
+      "homepage": "",
+      "createdAt": "2026-10-15T12:28:52Z",
+      "updatedAt": "2026-10-15T12:28:58Z"
+    },
+    {
       "id": 1413050499,
       "title": "storyvid",
       "description": "Prompt to narrated video: NVIDIA NIM story, Gemini images, local TTS, FFmpeg render, with an interactive web UI.",
@@ -186,39 +207,23 @@
       "homepage": "",
       "createdAt": "2026-09-07T19:12:08Z",
       "updatedAt": "2026-10-04T12:41:09Z"
-    },
-    {
-      "id": 1402445924,
-      "title": "Portfolio_Idunno",
-      "description": "No description provided.",
-      "tags": [
-        "HTML"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/Portfolio_Idunno",
-      "homepage": "",
-      "createdAt": "2026-10-02T23:15:22Z",
-      "updatedAt": "2026-10-03T04:57:22Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 51
+      "percentage": 49
     },
     {
       "name": "Python",
-      "percentage": 27
-    },
-    {
-      "name": "HTML",
-      "percentage": 10
+      "percentage": 26
     },
     {
       "name": "JavaScript",
+      "percentage": 12
+    },
+    {
+      "name": "HTML",
       "percentage": 9
     },
     {
@@ -2164,8 +2169,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-10-15T07:23:09.872Z",
-  "githubFetchedAt": "2026-10-15T07:23:09.872Z",
+  "fetchedAt": "2026-10-16T07:06:37.179Z",
+  "githubFetchedAt": "2026-10-16T07:06:37.179Z",
   "contributionsFetchedAt": "2026-09-13T14:10:19.356Z",
   "systems": [
     {
@@ -2173,29 +2178,29 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 913
+      "ms": 348
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": true,
       "status": 200,
-      "ms": 104
+      "ms": 282
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 934
+      "ms": 378
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 103
+      "ms": 240
     }
   ],
-  "systemsCheckedAt": "2026-10-15T07:23:10.809Z"
+  "systemsCheckedAt": "2026-10-16T07:06:37.560Z"
 }
