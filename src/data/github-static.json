@@ -7,12 +7,36 @@
   "twitter": "Sami38174202",
   "blog": "",
   "email": "",
-  "followers": 39,
+  "followers": 40,
   "following": 12,
   "publicRepos": 25,
-  "totalStars": 18,
+  "totalStars": 24,
   "pinnedRepos": [],
   "repos": [
+    {
+      "id": 1420690785,
+      "title": "forge",
+      "description": "Autonomous build loop for Claude Code: a supervisor and adversarial critic drive the builder and verify the real product until it is world-class.",
+      "tags": [
+        "JavaScript",
+        "agentic-workflows",
+        "ai-agents",
+        "autonomous-agents",
+        "claude-code",
+        "claude-code-plugin",
+        "developer-tools",
+        "mit-license",
+        "quality-gate"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 6,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/forge",
+      "homepage": "",
+      "createdAt": "2026-10-15T12:28:52Z",
+      "updatedAt": "2026-10-17T04:53:02Z"
+    },
     {
       "id": 1184960488,
       "title": "Winning-AI",
@@ -140,27 +164,6 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
-      "id": 1420690785,
-      "title": "forge",
-      "description": "Autonomous build loop for Claude Code: a supervisor and adversarial critic drive the builder and verify the real product until it is world-class.",
-      "tags": [
-        "JavaScript",
-        "ai-agents",
-        "autonomous-agents",
-        "claude-code",
-        "claude-code-plugin",
-        "developer-tools"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/forge",
-      "homepage": "",
-      "createdAt": "2026-10-15T12:28:52Z",
-      "updatedAt": "2026-10-15T12:28:58Z"
-    },
-    {
       "id": 1413050499,
       "title": "storyvid",
       "description": "Prompt to narrated video: NVIDIA NIM story, Gemini images, local TTS, FFmpeg render, with an interactive web UI.",
@@ -220,7 +223,7 @@
     },
     {
       "name": "JavaScript",
-      "percentage": 12
+      "percentage": 13
     },
     {
       "name": "HTML",
@@ -2169,8 +2172,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-10-16T07:06:37.179Z",
-  "githubFetchedAt": "2026-10-16T07:06:37.179Z",
+  "fetchedAt": "2026-10-17T06:54:02.929Z",
+  "githubFetchedAt": "2026-10-17T06:54:02.929Z",
   "contributionsFetchedAt": "2026-09-13T14:10:19.356Z",
   "systems": [
     {
@@ -2178,29 +2181,29 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 348
+      "ms": 313
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": true,
       "status": 200,
-      "ms": 282
+      "ms": 311
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 378
+      "ms": 348
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 240
+      "ms": 197
     }
   ],
-  "systemsCheckedAt": "2026-10-16T07:06:37.560Z"
+  "systemsCheckedAt": "2026-10-17T06:54:03.279Z"
 }
