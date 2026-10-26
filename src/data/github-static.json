@@ -9,7 +9,7 @@
   "email": "",
   "followers": 40,
   "following": 12,
-  "publicRepos": 25,
+  "publicRepos": 27,
   "totalStars": 26,
   "pinnedRepos": [],
   "repos": [
@@ -164,6 +164,46 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1433903648,
+      "title": "rubiks-cube-solver",
+      "description": "3D Rubik cube solver: scramble or paint your own cube, Kociemba two-phase solver, three.js",
+      "tags": [
+        "HTML"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/rubiks-cube-solver",
+      "homepage": "",
+      "createdAt": "2026-10-26T04:32:41Z",
+      "updatedAt": "2026-10-26T04:40:58Z"
+    },
+    {
+      "id": 1433588137,
+      "title": "forge-opencode",
+      "description": "Forge for OpenCode: autonomous supervisor-driven build loop with an adversarial critic and a deterministic verification gate.",
+      "tags": [
+        "JavaScript",
+        "agentic-workflows",
+        "ai-agents",
+        "autonomous-agents",
+        "developer-tools",
+        "opencode",
+        "opencode-plugin",
+        "quality-gate",
+        "verification"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/forge-opencode",
+      "homepage": "",
+      "createdAt": "2026-10-25T20:11:54Z",
+      "updatedAt": "2026-10-25T20:17:02Z"
+    },
+    {
       "id": 1413050499,
       "title": "storyvid",
       "description": "Prompt to narrated video: NVIDIA NIM story, Gemini images, local TTS, FFmpeg render, with an interactive web UI.",
@@ -178,60 +218,28 @@
       "homepage": "",
       "createdAt": "2026-10-10T10:20:51Z",
       "updatedAt": "2026-10-10T17:55:40Z"
-    },
-    {
-      "id": 1409381990,
-      "title": "singularity-portfolio",
-      "description": "3D particle-morph portfolio — three.js, 140k GPU particles, 8 scenes, interactive terminal",
-      "tags": [
-        "HTML"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/singularity-portfolio",
-      "homepage": "",
-      "createdAt": "2026-10-07T21:09:30Z",
-      "updatedAt": "2026-10-07T21:17:10Z"
-    },
-    {
-      "id": 1360583786,
-      "title": "OpenCode-Gateway",
-      "description": "No description provided.",
-      "tags": [
-        "JavaScript"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/OpenCode-Gateway",
-      "homepage": "",
-      "createdAt": "2026-09-07T19:12:08Z",
-      "updatedAt": "2026-10-04T12:41:09Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 42
-    },
-    {
-      "name": "Python",
-      "percentage": 38
-    },
-    {
-      "name": "JavaScript",
-      "percentage": 14
+      "percentage": 37
     },
     {
       "name": "HTML",
-      "percentage": 4
+      "percentage": 24
+    },
+    {
+      "name": "Python",
+      "percentage": 19
+    },
+    {
+      "name": "JavaScript",
+      "percentage": 16
     },
     {
       "name": "CSS",
-      "percentage": 1
+      "percentage": 2
     }
   ],
   "contributions": {
@@ -2172,8 +2180,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-10-25T07:33:16.812Z",
-  "githubFetchedAt": "2026-10-25T07:33:16.812Z",
+  "fetchedAt": "2026-10-26T07:45:17.707Z",
+  "githubFetchedAt": "2026-10-26T07:45:17.707Z",
   "contributionsFetchedAt": "2026-09-13T14:10:19.356Z",
   "systems": [
     {
@@ -2181,29 +2189,29 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 240
+      "ms": 317
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": true,
       "status": 200,
-      "ms": 56
+      "ms": 145
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 232
+      "ms": 312
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 57
+      "ms": 204
     }
   ],
-  "systemsCheckedAt": "2026-10-25T07:33:17.052Z"
+  "systemsCheckedAt": "2026-10-26T07:45:18.024Z"
 }
