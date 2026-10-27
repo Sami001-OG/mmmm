@@ -9,7 +9,7 @@
   "email": "",
   "followers": 40,
   "following": 12,
-  "publicRepos": 27,
+  "publicRepos": 28,
   "totalStars": 26,
   "pinnedRepos": [],
   "repos": [
@@ -164,6 +164,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1434363138,
+      "title": "lumen-world",
+      "description": "No description provided.",
+      "tags": [
+        "TypeScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/lumen-world",
+      "homepage": "",
+      "createdAt": "2026-10-26T12:39:35Z",
+      "updatedAt": "2026-10-26T13:29:51Z"
+    },
+    {
       "id": 1433903648,
       "title": "rubiks-cube-solver",
       "description": "3D Rubik cube solver: scramble or paint your own cube, Kociemba two-phase solver, three.js",
@@ -202,44 +218,28 @@
       "homepage": "",
       "createdAt": "2026-10-25T20:11:54Z",
       "updatedAt": "2026-10-25T20:17:02Z"
-    },
-    {
-      "id": 1413050499,
-      "title": "storyvid",
-      "description": "Prompt to narrated video: NVIDIA NIM story, Gemini images, local TTS, FFmpeg render, with an interactive web UI.",
-      "tags": [
-        "Python"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/storyvid",
-      "homepage": "",
-      "createdAt": "2026-10-10T10:20:51Z",
-      "updatedAt": "2026-10-10T17:55:40Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 37
+      "percentage": 53
     },
     {
       "name": "HTML",
-      "percentage": 24
-    },
-    {
-      "name": "Python",
-      "percentage": 19
-    },
-    {
-      "name": "JavaScript",
       "percentage": 16
     },
     {
+      "name": "Python",
+      "percentage": 12
+    },
+    {
+      "name": "JavaScript",
+      "percentage": 11
+    },
+    {
       "name": "CSS",
-      "percentage": 2
+      "percentage": 8
     }
   ],
   "contributions": {
@@ -2180,8 +2180,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-10-26T07:45:17.707Z",
-  "githubFetchedAt": "2026-10-26T07:45:17.707Z",
+  "fetchedAt": "2026-10-27T07:47:04.845Z",
+  "githubFetchedAt": "2026-10-27T07:47:04.845Z",
   "contributionsFetchedAt": "2026-09-13T14:10:19.356Z",
   "systems": [
     {
@@ -2189,29 +2189,29 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 317
+      "ms": 280
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": true,
       "status": 200,
-      "ms": 145
+      "ms": 260
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 312
+      "ms": 307
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 204
+      "ms": 182
     }
   ],
-  "systemsCheckedAt": "2026-10-26T07:45:18.024Z"
+  "systemsCheckedAt": "2026-10-27T07:47:05.154Z"
 }
