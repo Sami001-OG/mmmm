@@ -10,6 +10,7 @@ const draftKeys = {
   social: 'portfolio_draft_social',
   projects: 'portfolio_draft_projects',
   repoImages: 'portfolio_draft_repo_images',
+  repoLinks: 'portfolio_draft_repo_links',
 }
 
 function loadDraft(key) {
@@ -44,6 +45,9 @@ function buildData() {
   // Map of GitHub repo title (lowercase) → image URL, editable in the admin
   // panel. Lets fetched repos carry cover images (e.g. imgbb links).
   const draftRepoImages = loadDraft(draftKeys.repoImages) || content.repoImages || {}
+  // Map of GitHub repo title (lowercase) → live URL, editable in the admin
+  // panel. Attaches "Live" buttons to repos without a GitHub "Website" field.
+  const draftRepoLinks = loadDraft(draftKeys.repoLinks) || content.repoLinks || {}
 
   const mergedProfile = {
     ...profile,
@@ -63,6 +67,7 @@ function buildData() {
     skills: draftSkills || [],
     projects: normalizeProjects(draftProjects),
     repoImages: draftRepoImages,
+    repoLinks: draftRepoLinks,
     navItems,
     github,
   }

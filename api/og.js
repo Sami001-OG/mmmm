@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   const snapshot = readJson(SNAPSHOT, {})
   const content = readJson(CONTENT, {})
   try {
-    const result = await fetchProjectImages(snapshot, content.projects || [])
+    const result = await fetchProjectImages(snapshot, content.projects || [], content.repoLinks || {})
     // Card images change rarely — cache hard and revalidate in the background.
     res.setHeader('Cache-Control', 'public, s-maxage=21600, stale-while-revalidate=86400')
     res.status(200).json(result)

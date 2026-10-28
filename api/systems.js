@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   const snapshot = readJson(SNAPSHOT, {})
   const content = readJson(CONTENT, {})
   try {
-    const result = await checkSystems(getSystemTargets(snapshot, content.projects || []))
+    const result = await checkSystems(getSystemTargets(snapshot, content.projects || [], content.repoLinks || {}))
     res.setHeader('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=3600')
     res.status(200).json(result)
   } catch (error) {

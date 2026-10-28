@@ -12,7 +12,7 @@
 //   ADMIN_PASSWORD  — server-side admin password (falls back to
 //                     VITE_ADMIN_PASSWORD, which the login screen uses)
 
-const ALLOWED_KEYS = ['profile', 'social', 'experience', 'education', 'skills', 'projects', 'repoImages']
+const ALLOWED_KEYS = ['profile', 'social', 'experience', 'education', 'skills', 'projects', 'repoImages', 'repoLinks']
 const FILE_PATH = 'src/data/content.json'
 const API = 'https://api.github.com'
 

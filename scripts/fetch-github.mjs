@@ -33,12 +33,12 @@ async function main() {
   try {
     const data = await getGithubData({ username, token, previous })
     const content = readJson(CONTENT, {})
-    const targets = getSystemTargets(data, content.projects || [])
+    const targets = getSystemTargets(data, content.projects || [], content.repoLinks || [])
     // Systems status + OG card images are independent scrapes — run together.
     // fetchProjectImages covers live sites AND GitHub's repo social cards.
     const [status, ogImages] = await Promise.all([
       checkSystems(targets),
-      fetchProjectImages(data, content.projects || []).catch(() => ({})),
+      fetchProjectImages(data, content.projects || [], content.repoLinks || []).catch(() => ({})),
     ])
     const result = { ...data, ...status, ...ogImages }
     writeFileSync(OUTPUT, `${JSON.stringify(result, null, 2)}\n`)

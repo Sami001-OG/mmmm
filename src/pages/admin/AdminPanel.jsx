@@ -26,6 +26,7 @@ const DRAFT_KEYS = {
   skills: 'portfolio_draft_skills',
   projects: 'portfolio_draft_projects',
   repoImages: 'portfolio_draft_repo_images',
+  repoLinks: 'portfolio_draft_repo_links',
 }
 
 function collectDrafts() {

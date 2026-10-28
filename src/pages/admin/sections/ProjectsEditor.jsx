@@ -4,6 +4,7 @@ import { github } from '../../../data/portfolio'
 
 const DRAFT_KEY = 'portfolio_draft_projects'
 const REPO_IMAGES_KEY = 'portfolio_draft_repo_images'
+const REPO_LINKS_KEY = 'portfolio_draft_repo_links'
 const MAX_IMAGE_BYTES = 600 * 1024 // ~600KB base64 cap keeps localStorage sane
 
 const emptyProject = {
@@ -36,9 +37,17 @@ function loadRepoImages() {
   } catch { return {} }
 }
 
+function loadRepoLinks() {
+  try {
+    const raw = localStorage.getItem(REPO_LINKS_KEY)
+    return raw ? JSON.parse(raw) : {}
+  } catch { return {} }
+}
+
 export default function ProjectsEditor() {
   const [items, setItems] = useState(load)
   const [repoImages, setRepoImages] = useState(loadRepoImages)
+  const [repoLinks, setRepoLinks] = useState(loadRepoLinks)
   const [error, setError] = useState('')
   const fileRefs = useRef(new Map())
   const gh = useGithubData(github.username)
@@ -56,6 +65,19 @@ export default function ProjectsEditor() {
       localStorage.setItem(REPO_IMAGES_KEY, JSON.stringify(next))
     } catch {
       setError('Could not save image URL to browser storage.')
+    }
+  }
+
+  const setRepoLink = (title, url) => {
+    const key = title.toLowerCase()
+    const next = { ...repoLinks }
+    if (url.trim()) next[key] = url.trim()
+    else delete next[key]
+    setRepoLinks(next)
+    try {
+      localStorage.setItem(REPO_LINKS_KEY, JSON.stringify(next))
+    } catch {
+      setError('Could not save link to browser storage.')
     }
   }
 
@@ -260,6 +282,35 @@ export default function ProjectsEditor() {
                       />
                     </div>
                   </div>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+      {/* Live links for fetched GitHub repos — keyed by repo name. Fills the
+          "Live" button for repos whose GitHub "Website" field is empty.
+          GitHub Pages deployments are picked up automatically. */}
+      {ghRepos.length > 0 && (
+        <div className="mt-10">
+          <h2 className="h3 mb-1">GitHub repo links</h2>
+          <p className="text-ink-dim text-sm mb-4">
+            Attach a deployed URL to give a repo its <em>Live</em> button. Leave blank to use the
+            repo&apos;s GitHub &ldquo;Website&rdquo; field — GitHub Pages deployments are detected
+            automatically.
+          </p>
+          <div className="space-y-3">
+            {ghRepos.map((repo) => {
+              const link = repoLinks[repo.title.toLowerCase()] || ''
+              return (
+                <div key={repo.id} className="admin-card">
+                  <span className="mono-label">{repo.title}</span>
+                  <input
+                    value={link}
+                    onChange={(e) => setRepoLink(repo.title, e.target.value)}
+                    placeholder="https://myproject.vercel.app"
+                    className="admin-input mt-1.5"
+                  />
                 </div>
               )
             })}

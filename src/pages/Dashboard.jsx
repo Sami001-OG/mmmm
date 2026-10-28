@@ -128,24 +128,32 @@ export default function Dashboard() {
 
   // Merge manual projects (from admin) with GitHub repos. Manual entries win
   // on title collision; featured (pinned GitHub repos + manual-featured) lead.
-  // Image priority: admin-set URL (repoImages / manual image) > og:image
-  // scraped from the project's own live site > GitHub's auto-generated repo
-  // social card (projectImages maps both homepage and repo-page URLs).
+  // Per repo: admin-curated live link (repoLinks, keyed by repo name) overrides
+  // the GitHub "Website" field; GitHub Pages deployments already fall back in
+  // server-side. Image priority: admin URL > og:image of the live site >
+  // GitHub's auto-generated repo social card.
   const manual = pd.projects || []
   const manualTitles = new Set(manual.map((p) => p.title.toLowerCase()))
   const repoImages = pd.repoImages || {}
+  const repoLinks = pd.repoLinks || {}
   const projectImages = gh.data?.projectImages || {}
-  const withImage = (r) => {
-    const img = repoImages[r.title?.toLowerCase()] || projectImages[r.homepage] || projectImages[r.href]
-    return img ? { ...r, image: img } : r
+  const withData = (r) => {
+    const title = r.title?.toLowerCase()
+    const homepage = normUrl(repoLinks[title]) || r.homepage
+    const img = repoImages[title] || projectImages[homepage] || projectImages[r.href]
+    return {
+      ...r,
+      ...(homepage ? { homepage } : {}),
+      ...(img ? { image: img } : {}),
+    }
   }
   const manualWithImage = manual.map((p) => {
     if (p.image) return p
     const img = projectImages[normUrl(p.href)] || projectImages[normUrl(p.repo)]
     return img ? { ...p, image: img } : p
   })
-  const ghPinned = (gh.data?.pinnedRepos || []).filter((r) => !manualTitles.has(r.title.toLowerCase())).map(withImage)
-  const ghRepos = (gh.data?.repos || []).filter((r) => !manualTitles.has(r.title.toLowerCase())).map(withImage)
+  const ghPinned = (gh.data?.pinnedRepos || []).filter((r) => !manualTitles.has(r.title.toLowerCase())).map(withData)
+  const ghRepos = (gh.data?.repos || []).filter((r) => !manualTitles.has(r.title.toLowerCase())).map(withData)
 
   const pinned = [...manualWithImage.filter((p) => p.featured), ...ghPinned]
   const regular = [...manualWithImage.filter((p) => !p.featured), ...ghRepos]
