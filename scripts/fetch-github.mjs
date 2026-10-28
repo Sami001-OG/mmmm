@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { checkSystems, getGithubData, getSystemTargets } from '../lib/github-data.js'
+import { checkSystems, fetchOgImages, getGithubData, getSystemTargets } from '../lib/github-data.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const OUTPUT = resolve(__dirname, '../src/data/github-static.json')
@@ -33,10 +33,16 @@ async function main() {
   try {
     const data = await getGithubData({ username, token, previous })
     const content = readJson(CONTENT, {})
-    const status = await checkSystems(getSystemTargets(data, content.projects || []))
-    const result = { ...data, ...status }
+    const targets = getSystemTargets(data, content.projects || [])
+    // Systems status + OG card images are independent scrapes — run together.
+    const [status, ogImages] = await Promise.all([
+      checkSystems(targets),
+      fetchOgImages(targets).catch(() => ({})),
+    ])
+    const result = { ...data, ...status, ...ogImages }
     writeFileSync(OUTPUT, `${JSON.stringify(result, null, 2)}\n`)
-    console.log(`Synced ${result.login}: ${result.repos.length} repos, ${result.totalStars} stars, ${result.systems.length} systems`)
+    const imageCount = Object.keys(result.projectImages || {}).length
+    console.log(`Synced ${result.login}: ${result.repos.length} repos, ${result.totalStars} stars, ${result.systems.length} systems, ${imageCount} project images`)
   } catch (error) {
     if (previous && !previous._empty) {
       console.warn(`GitHub sync failed: ${error.message}. Keeping the previous snapshot.`)

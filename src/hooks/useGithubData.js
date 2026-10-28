@@ -47,6 +47,12 @@ async function fetchSystems() {
   return response.json()
 }
 
+async function fetchProjectImages() {
+  const response = await fetch('/api/og', { headers: { Accept: 'application/json' } })
+  if (!response.ok) throw new Error(`OG images API responded ${response.status}`)
+  return response.json()
+}
+
 export default function useGithubData(username) {
   const [state, setState] = useState(() => {
     if (!username) return { data: null, error: 'No GitHub username configured', loading: false, refreshing: false }
@@ -62,7 +68,13 @@ export default function useGithubData(username) {
 
     // Parallel: GitHub payload + systems status are independent.
     // Previously systems waited for GitHub (waterfall); now both race together.
-    Promise.allSettled([fetchLive(username), fetchSystems()]).then(([ghRes, sysRes]) => {
+    const mainPromise = Promise.allSettled([fetchLive(username), fetchSystems()])
+    // OG card images scrape N live sites — slower than everything else, and
+    // purely decorative. Fired in parallel but merged only after the main
+    // payload has landed, so it can never delay or overwrite the real data.
+    const imagePromise = fetchProjectImages().catch(() => null)
+
+    mainPromise.then(([ghRes, sysRes]) => {
       if (cancelled) return
       if (ghRes.status === 'fulfilled') {
         const data = ghRes.value
@@ -77,23 +89,22 @@ export default function useGithubData(username) {
         })
       } else {
         // GitHub failed but systems may still be useful; keep snapshot/cache.
-        if (sysRes.status === 'fulfilled') {
-          setState((current) => ({
-            ...current,
-            data: current.data ? { ...current.data, ...sysRes.value } : current.data,
-            error: ghRes.reason?.message || 'Could not refresh GitHub data.',
-            loading: false,
-            refreshing: false,
-          }))
-        } else {
-          setState((current) => ({
-            ...current,
-            error: ghRes.reason?.message || 'Could not refresh GitHub data.',
-            loading: false,
-            refreshing: false,
-          }))
-        }
+        const systems = sysRes.status === 'fulfilled' ? sysRes.value : {}
+        setState((current) => ({
+          ...current,
+          data: current.data ? { ...current.data, ...systems } : current.data,
+          error: ghRes.reason?.message || 'Could not refresh GitHub data.',
+          loading: false,
+          refreshing: false,
+        }))
       }
+      // Merge scraped images once they arrive (or right away if already done).
+      imagePromise.then((images) => {
+        if (cancelled || !images) return
+        setState((current) => (
+          current.data ? { ...current, data: { ...current.data, ...images } } : current
+        ))
+      })
     })
 
     return () => { cancelled = true }

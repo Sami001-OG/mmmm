@@ -27,6 +27,13 @@ function LazySection({ children }) {
   return <Suspense fallback={<div className="card p-5 min-h-[120px]" aria-hidden />}>{children}</Suspense>
 }
 
+// Mirrors normUrl() in lib/github-data.js — projectImages from /api/og are
+// keyed by this normalized form of each project's live URL.
+function normUrl(url) {
+  if (!url || url === '#') return ''
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`
+}
+
 // Fixed exposed-grid backdrop — 12-col ruled field, aria-hidden, SSR-safe.
 // Flat: no auroras, no blur, no scanlines (the cyber layer is gone).
 function GridField() {
@@ -121,20 +128,26 @@ export default function Dashboard() {
 
   // Merge manual projects (from admin) with GitHub repos. Manual entries win
   // on title collision; featured (pinned GitHub repos + manual-featured) lead.
-  // Admin-set image URLs (repoImages, keyed by repo name) attach cover images
-  // to fetched GitHub repos.
+  // Image priority: admin-set URL (repoImages, keyed by repo name / manual
+  // image) > og:image/twitter:image scraped from the project's live site.
   const manual = pd.projects || []
   const manualTitles = new Set(manual.map((p) => p.title.toLowerCase()))
   const repoImages = pd.repoImages || {}
+  const projectImages = gh.data?.projectImages || {}
   const withImage = (r) => {
-    const img = repoImages[r.title?.toLowerCase()]
+    const img = repoImages[r.title?.toLowerCase()] || projectImages[r.homepage]
     return img ? { ...r, image: img } : r
   }
+  const manualWithImage = manual.map((p) => {
+    if (p.image) return p
+    const img = projectImages[normUrl(p.href)]
+    return img ? { ...p, image: img } : p
+  })
   const ghPinned = (gh.data?.pinnedRepos || []).filter((r) => !manualTitles.has(r.title.toLowerCase())).map(withImage)
   const ghRepos = (gh.data?.repos || []).filter((r) => !manualTitles.has(r.title.toLowerCase())).map(withImage)
 
-  const pinned = [...manual.filter((p) => p.featured), ...ghPinned]
-  const regular = [...manual.filter((p) => !p.featured), ...ghRepos]
+  const pinned = [...manualWithImage.filter((p) => p.featured), ...ghPinned]
+  const regular = [...manualWithImage.filter((p) => !p.featured), ...ghRepos]
   const totalRepos = pinned.length + regular.length
 
   // Proof-of-work timeline: GitHub repos span first commit → last push;
