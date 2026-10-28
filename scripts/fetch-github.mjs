@@ -1,7 +1,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { checkSystems, fetchOgImages, getGithubData, getSystemTargets } from '../lib/github-data.js'
+import { checkSystems, fetchProjectImages, getGithubData, getSystemTargets } from '../lib/github-data.js'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const OUTPUT = resolve(__dirname, '../src/data/github-static.json')
@@ -35,9 +35,10 @@ async function main() {
     const content = readJson(CONTENT, {})
     const targets = getSystemTargets(data, content.projects || [])
     // Systems status + OG card images are independent scrapes — run together.
+    // fetchProjectImages covers live sites AND GitHub's repo social cards.
     const [status, ogImages] = await Promise.all([
       checkSystems(targets),
-      fetchOgImages(targets).catch(() => ({})),
+      fetchProjectImages(data, content.projects || []).catch(() => ({})),
     ])
     const result = { ...data, ...status, ...ogImages }
     writeFileSync(OUTPUT, `${JSON.stringify(result, null, 2)}\n`)

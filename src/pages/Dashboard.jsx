@@ -128,19 +128,20 @@ export default function Dashboard() {
 
   // Merge manual projects (from admin) with GitHub repos. Manual entries win
   // on title collision; featured (pinned GitHub repos + manual-featured) lead.
-  // Image priority: admin-set URL (repoImages, keyed by repo name / manual
-  // image) > og:image/twitter:image scraped from the project's live site.
+  // Image priority: admin-set URL (repoImages / manual image) > og:image
+  // scraped from the project's own live site > GitHub's auto-generated repo
+  // social card (projectImages maps both homepage and repo-page URLs).
   const manual = pd.projects || []
   const manualTitles = new Set(manual.map((p) => p.title.toLowerCase()))
   const repoImages = pd.repoImages || {}
   const projectImages = gh.data?.projectImages || {}
   const withImage = (r) => {
-    const img = repoImages[r.title?.toLowerCase()] || projectImages[r.homepage]
+    const img = repoImages[r.title?.toLowerCase()] || projectImages[r.homepage] || projectImages[r.href]
     return img ? { ...r, image: img } : r
   }
   const manualWithImage = manual.map((p) => {
     if (p.image) return p
-    const img = projectImages[normUrl(p.href)]
+    const img = projectImages[normUrl(p.href)] || projectImages[normUrl(p.repo)]
     return img ? { ...p, image: img } : p
   })
   const ghPinned = (gh.data?.pinnedRepos || []).filter((r) => !manualTitles.has(r.title.toLowerCase())).map(withImage)
