@@ -7,10 +7,10 @@
   "twitter": "Sami38174202",
   "blog": "",
   "email": "",
-  "followers": 39,
+  "followers": 40,
   "following": 12,
   "publicRepos": 28,
-  "totalStars": 26,
+  "totalStars": 27,
   "pinnedRepos": [],
   "repos": [
     {
@@ -38,6 +38,22 @@
       "updatedAt": "2026-10-24T06:37:31Z"
     },
     {
+      "id": 1260394541,
+      "title": "Crypto-Backtester-and-Strategy-Optimizer",
+      "description": "Crypto Backtester & Strategy Optimizer is a professional-grade cryptocurrency strategy research platform built for traders, quants, and developers. The system enables realistic historical backtesting, parameter optimization, walk-forward validation, and performance analysis across multiple crypto assets and timeframes. ",
+      "tags": [
+        "Python"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 6,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer",
+      "homepage": "",
+      "createdAt": "2026-06-05T12:56:14Z",
+      "updatedAt": "2026-07-15T23:19:16Z"
+    },
+    {
       "id": 1184960488,
       "title": "Winning-AI",
       "description": "A high-performance, automated trading bot designed for Binance Futures, utilizing a tiered, multi-timeframe analysis funnel to identify high-probability trade signals.",
@@ -52,22 +68,6 @@
       "homepage": "https://endellion-trade.onrender.com/",
       "createdAt": "2026-03-18T05:12:15Z",
       "updatedAt": "2026-06-19T04:52:40Z"
-    },
-    {
-      "id": 1260394541,
-      "title": "Crypto-Backtester-and-Strategy-Optimizer",
-      "description": "Crypto Backtester & Strategy Optimizer is a professional-grade cryptocurrency strategy research platform built for traders, quants, and developers. The system enables realistic historical backtesting, parameter optimization, walk-forward validation, and performance analysis across multiple crypto assets and timeframes. ",
-      "tags": [
-        "Python"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 5,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer",
-      "homepage": "",
-      "createdAt": "2026-06-05T12:56:14Z",
-      "updatedAt": "2026-07-15T23:19:16Z"
     },
     {
       "id": 1190748151,
@@ -2200,8 +2200,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-11-02T09:25:21.737Z",
-  "githubFetchedAt": "2026-11-02T09:25:21.737Z",
+  "fetchedAt": "2026-11-04T09:06:01.933Z",
+  "githubFetchedAt": "2026-11-04T09:06:01.933Z",
   "contributionsFetchedAt": "2026-10-28T19:36:40.127Z",
   "systems": [
     {
@@ -2209,50 +2209,50 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 312
+      "ms": 327
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": false,
       "status": 404,
-      "ms": 112
+      "ms": 45
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 345
+      "ms": 295
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 185
+      "ms": 82
     },
     {
       "name": "lumen-world",
       "url": "https://sami001-og.github.io/lumen-world/",
       "ok": true,
       "status": 200,
-      "ms": 247
+      "ms": 173
     },
     {
       "name": "rubiks-cube-solver",
       "url": "https://sami001-og.github.io/rubiks-cube-solver/",
       "ok": true,
       "status": 200,
-      "ms": 341
+      "ms": 128
     }
   ],
-  "systemsCheckedAt": "2026-11-02T09:25:22.085Z",
+  "systemsCheckedAt": "2026-11-04T09:06:02.260Z",
   "projectImages": {
     "https://sami001-og.github.io/rubiks-cube-solver/": "https://sami001-og.github.io/rubiks-cube-solver/og-image.png",
     "https://github.com/Sami001-OG/forge": "https://opengraph.githubassets.com/560cf7283804b52dfe8b6fa75d38d51eed8d237c4ca0d69abb1760e323aa3e68/Sami001-OG/forge",
+    "https://github.com/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer": "https://opengraph.githubassets.com/943e8d6aea0406499f2190bd2ea24593a82f18b88f75a6d4f9cd15b9554b2d77/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer",
     "https://github.com/Sami001-OG/Winning-AI": "https://opengraph.githubassets.com/2699e6315135772fa6967af1148a1a8d47c6b06b2788b2321326e9be0e70e3db/Sami001-OG/Winning-AI",
-    "https://github.com/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer": "https://opengraph.githubassets.com/1bfe6d3ed6c1a000f801a08e0c3ee5ba8e7144ba5b6388497f6ade8a1c286365/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer",
     "https://github.com/Sami001-OG/Sami001-OG": "https://opengraph.githubassets.com/a18618ff6ad853bc12768b5666049d8a3a0391c2cb522a2471cb38bcffffe085/Sami001-OG/Sami001-OG",
     "https://github.com/Sami001-OG/myReactApp": "https://opengraph.githubassets.com/35f5e9b1ba12a7dba8c5a8496643de7dce45713ff9873cedd3814d9da58ae488/Sami001-OG/myReactApp",
     "https://github.com/Sami001-OG/Flow": "https://opengraph.githubassets.com/d30e447cb39e63e78c64b7357d5cb34962b77332f2decf4dec7adb5bb2250b96/Sami001-OG/Flow",
@@ -2263,5 +2263,5 @@
     "https://github.com/Sami001-OG/rubiks-cube-solver": "https://opengraph.githubassets.com/ae4f250ecb6d3c2681623a3c52f85f8a099bdb0b3ae4e2264349dde9b44da667/Sami001-OG/rubiks-cube-solver",
     "https://github.com/Sami001-OG/forge-opencode": "https://opengraph.githubassets.com/086be4354af8a14feddd4a42061abd64f56f8715043632176664c2fcfa461813/Sami001-OG/forge-opencode"
   },
-  "projectImagesCheckedAt": "2026-11-02T09:25:23.411Z"
+  "projectImagesCheckedAt": "2026-11-04T09:06:02.452Z"
 }
