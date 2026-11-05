@@ -2,11 +2,13 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import githubHandler from './api/github.js'
 import systemsHandler from './api/systems.js'
+import ogHandler from './api/og.js'
 
 function localApi() {
   const handlers = new Map([
     ['/api/github', githubHandler],
     ['/api/systems', systemsHandler],
+    ['/api/og', ogHandler],
   ])
   return {
     name: 'local-api',
