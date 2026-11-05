@@ -9,7 +9,7 @@
   "email": "",
   "followers": 40,
   "following": 12,
-  "publicRepos": 28,
+  "publicRepos": 29,
   "totalStars": 27,
   "pinnedRepos": [],
   "repos": [
@@ -164,6 +164,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1445895348,
+      "title": "G",
+      "description": "No description provided.",
+      "tags": [
+        "HTML"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/G",
+      "homepage": "https://sami001-og.github.io/G/",
+      "createdAt": "2026-11-04T16:11:42Z",
+      "updatedAt": "2026-11-04T16:14:04Z"
+    },
+    {
       "id": 1434363138,
       "title": "lumen-world",
       "description": "No description provided.",
@@ -194,40 +210,16 @@
       "homepage": "https://sami001-og.github.io/rubiks-cube-solver/",
       "createdAt": "2026-10-26T04:32:41Z",
       "updatedAt": "2026-10-26T04:40:58Z"
-    },
-    {
-      "id": 1433588137,
-      "title": "forge-opencode",
-      "description": "Forge for OpenCode: autonomous supervisor-driven build loop with an adversarial critic and a deterministic verification gate.",
-      "tags": [
-        "JavaScript",
-        "agentic-workflows",
-        "ai-agents",
-        "autonomous-agents",
-        "developer-tools",
-        "opencode",
-        "opencode-plugin",
-        "quality-gate",
-        "verification"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/forge-opencode",
-      "homepage": "",
-      "createdAt": "2026-10-25T20:11:54Z",
-      "updatedAt": "2026-10-25T20:17:02Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 53
+      "percentage": 50
     },
     {
       "name": "HTML",
-      "percentage": 16
+      "percentage": 20
     },
     {
       "name": "Python",
@@ -235,7 +227,7 @@
     },
     {
       "name": "JavaScript",
-      "percentage": 11
+      "percentage": 10
     },
     {
       "name": "CSS",
@@ -2200,8 +2192,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-11-04T09:06:01.933Z",
-  "githubFetchedAt": "2026-11-04T09:06:01.933Z",
+  "fetchedAt": "2026-11-05T09:25:56.063Z",
+  "githubFetchedAt": "2026-11-05T09:25:56.063Z",
   "contributionsFetchedAt": "2026-10-28T19:36:40.127Z",
   "systems": [
     {
@@ -2209,45 +2201,52 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 327
+      "ms": 228
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": false,
       "status": 404,
-      "ms": 45
+      "ms": 53
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 295
+      "ms": 233
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 82
+      "ms": 75
+    },
+    {
+      "name": "G",
+      "url": "https://sami001-og.github.io/G/",
+      "ok": true,
+      "status": 200,
+      "ms": 168
     },
     {
       "name": "lumen-world",
       "url": "https://sami001-og.github.io/lumen-world/",
       "ok": true,
       "status": 200,
-      "ms": 173
+      "ms": 245
     },
     {
       "name": "rubiks-cube-solver",
       "url": "https://sami001-og.github.io/rubiks-cube-solver/",
       "ok": true,
       "status": 200,
-      "ms": 128
+      "ms": 203
     }
   ],
-  "systemsCheckedAt": "2026-11-04T09:06:02.260Z",
+  "systemsCheckedAt": "2026-11-05T09:25:56.313Z",
   "projectImages": {
     "https://sami001-og.github.io/rubiks-cube-solver/": "https://sami001-og.github.io/rubiks-cube-solver/og-image.png",
     "https://github.com/Sami001-OG/forge": "https://opengraph.githubassets.com/560cf7283804b52dfe8b6fa75d38d51eed8d237c4ca0d69abb1760e323aa3e68/Sami001-OG/forge",
@@ -2259,9 +2258,9 @@
     "https://github.com/Sami001-OG/scrybe": "https://opengraph.githubassets.com/6bfe7bed359f3439f3aee3cb9d5f7011b3c60c612f28ddd772f0896d4c8c462a/Sami001-OG/scrybe",
     "https://github.com/Sami001-OG/GGShot": "https://opengraph.githubassets.com/4db351772308e83c82a89311ed086c91033c31e9186ec661ff795bcdb359c273/Sami001-OG/GGShot",
     "https://github.com/Sami001-OG/VDOC": "https://opengraph.githubassets.com/75382613abd167a525fd8d5c83642b179d63e8d5ba482557ac8bbd44ab2079f7/Sami001-OG/VDOC",
+    "https://github.com/Sami001-OG/G": "https://opengraph.githubassets.com/1ab78982ee1afdc13deb47b21a497a15ff58d6b1a37e6579bacd03c275e77ca5/Sami001-OG/G",
     "https://github.com/Sami001-OG/lumen-world": "https://opengraph.githubassets.com/08b755bb8619554f1de251e18fccf41aa3e001659e4654aeb926d4320d936538/Sami001-OG/lumen-world",
-    "https://github.com/Sami001-OG/rubiks-cube-solver": "https://opengraph.githubassets.com/ae4f250ecb6d3c2681623a3c52f85f8a099bdb0b3ae4e2264349dde9b44da667/Sami001-OG/rubiks-cube-solver",
-    "https://github.com/Sami001-OG/forge-opencode": "https://opengraph.githubassets.com/086be4354af8a14feddd4a42061abd64f56f8715043632176664c2fcfa461813/Sami001-OG/forge-opencode"
+    "https://github.com/Sami001-OG/rubiks-cube-solver": "https://opengraph.githubassets.com/ae4f250ecb6d3c2681623a3c52f85f8a099bdb0b3ae4e2264349dde9b44da667/Sami001-OG/rubiks-cube-solver"
   },
-  "projectImagesCheckedAt": "2026-11-04T09:06:02.452Z"
+  "projectImagesCheckedAt": "2026-11-05T09:25:56.910Z"
 }
