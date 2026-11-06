@@ -9,7 +9,7 @@
   "email": "",
   "followers": 40,
   "following": 12,
-  "publicRepos": 29,
+  "publicRepos": 30,
   "totalStars": 27,
   "pinnedRepos": [],
   "repos": [
@@ -164,6 +164,22 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
+      "id": 1223246699,
+      "title": "mmmm",
+      "description": "asasasdsdsds",
+      "tags": [
+        "JavaScript"
+      ],
+      "status": "Live",
+      "statusColor": "emerald",
+      "stars": 0,
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/mmmm",
+      "homepage": "https://porfoliofsami.vercel.app",
+      "createdAt": "2026-04-28T06:26:28Z",
+      "updatedAt": "2026-11-05T11:43:55Z"
+    },
+    {
       "id": 1445895348,
       "title": "G",
       "description": "No description provided.",
@@ -194,40 +210,24 @@
       "homepage": "https://sami001-og.github.io/lumen-world/",
       "createdAt": "2026-10-26T12:39:35Z",
       "updatedAt": "2026-10-28T19:57:07Z"
-    },
-    {
-      "id": 1433903648,
-      "title": "rubiks-cube-solver",
-      "description": "3D Rubik cube solver: scramble or paint your own cube, Kociemba two-phase solver, three.js",
-      "tags": [
-        "HTML"
-      ],
-      "status": "Live",
-      "statusColor": "emerald",
-      "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/rubiks-cube-solver",
-      "homepage": "https://sami001-og.github.io/rubiks-cube-solver/",
-      "createdAt": "2026-10-26T04:32:41Z",
-      "updatedAt": "2026-10-26T04:40:58Z"
     }
   ],
   "languages": [
     {
       "name": "TypeScript",
-      "percentage": 50
+      "percentage": 49
     },
     {
       "name": "HTML",
-      "percentage": 20
-    },
-    {
-      "name": "Python",
-      "percentage": 12
+      "percentage": 19
     },
     {
       "name": "JavaScript",
-      "percentage": 10
+      "percentage": 13
+    },
+    {
+      "name": "Python",
+      "percentage": 11
     },
     {
       "name": "CSS",
@@ -2192,8 +2192,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-11-05T09:25:56.063Z",
-  "githubFetchedAt": "2026-11-05T09:25:56.063Z",
+  "fetchedAt": "2026-11-06T09:19:43.956Z",
+  "githubFetchedAt": "2026-11-06T09:19:43.956Z",
   "contributionsFetchedAt": "2026-10-28T19:36:40.127Z",
   "systems": [
     {
@@ -2201,54 +2201,53 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 228
+      "ms": 282
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": false,
       "status": 404,
-      "ms": 53
+      "ms": 154
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 233
+      "ms": 623
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 75
+      "ms": 162
+    },
+    {
+      "name": "mmmm",
+      "url": "https://porfoliofsami.vercel.app",
+      "ok": false,
+      "status": 404,
+      "ms": 207
     },
     {
       "name": "G",
       "url": "https://sami001-og.github.io/G/",
       "ok": true,
       "status": 200,
-      "ms": 168
+      "ms": 253
     },
     {
       "name": "lumen-world",
       "url": "https://sami001-og.github.io/lumen-world/",
       "ok": true,
       "status": 200,
-      "ms": 245
-    },
-    {
-      "name": "rubiks-cube-solver",
-      "url": "https://sami001-og.github.io/rubiks-cube-solver/",
-      "ok": true,
-      "status": 200,
-      "ms": 203
+      "ms": 265
     }
   ],
-  "systemsCheckedAt": "2026-11-05T09:25:56.313Z",
+  "systemsCheckedAt": "2026-11-06T09:19:44.582Z",
   "projectImages": {
-    "https://sami001-og.github.io/rubiks-cube-solver/": "https://sami001-og.github.io/rubiks-cube-solver/og-image.png",
     "https://github.com/Sami001-OG/forge": "https://opengraph.githubassets.com/560cf7283804b52dfe8b6fa75d38d51eed8d237c4ca0d69abb1760e323aa3e68/Sami001-OG/forge",
     "https://github.com/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer": "https://opengraph.githubassets.com/943e8d6aea0406499f2190bd2ea24593a82f18b88f75a6d4f9cd15b9554b2d77/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer",
     "https://github.com/Sami001-OG/Winning-AI": "https://opengraph.githubassets.com/2699e6315135772fa6967af1148a1a8d47c6b06b2788b2321326e9be0e70e3db/Sami001-OG/Winning-AI",
@@ -2258,9 +2257,9 @@
     "https://github.com/Sami001-OG/scrybe": "https://opengraph.githubassets.com/6bfe7bed359f3439f3aee3cb9d5f7011b3c60c612f28ddd772f0896d4c8c462a/Sami001-OG/scrybe",
     "https://github.com/Sami001-OG/GGShot": "https://opengraph.githubassets.com/4db351772308e83c82a89311ed086c91033c31e9186ec661ff795bcdb359c273/Sami001-OG/GGShot",
     "https://github.com/Sami001-OG/VDOC": "https://opengraph.githubassets.com/75382613abd167a525fd8d5c83642b179d63e8d5ba482557ac8bbd44ab2079f7/Sami001-OG/VDOC",
+    "https://github.com/Sami001-OG/mmmm": "https://opengraph.githubassets.com/70d2b5eae8cef69d9ffe81405983d1474353f22671d7270eb1ed0f839887d4f2/Sami001-OG/mmmm",
     "https://github.com/Sami001-OG/G": "https://opengraph.githubassets.com/1ab78982ee1afdc13deb47b21a497a15ff58d6b1a37e6579bacd03c275e77ca5/Sami001-OG/G",
-    "https://github.com/Sami001-OG/lumen-world": "https://opengraph.githubassets.com/08b755bb8619554f1de251e18fccf41aa3e001659e4654aeb926d4320d936538/Sami001-OG/lumen-world",
-    "https://github.com/Sami001-OG/rubiks-cube-solver": "https://opengraph.githubassets.com/ae4f250ecb6d3c2681623a3c52f85f8a099bdb0b3ae4e2264349dde9b44da667/Sami001-OG/rubiks-cube-solver"
+    "https://github.com/Sami001-OG/lumen-world": "https://opengraph.githubassets.com/08b755bb8619554f1de251e18fccf41aa3e001659e4654aeb926d4320d936538/Sami001-OG/lumen-world"
   },
-  "projectImagesCheckedAt": "2026-11-05T09:25:56.910Z"
+  "projectImagesCheckedAt": "2026-11-06T09:19:44.873Z"
 }
