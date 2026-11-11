@@ -9,7 +9,7 @@
   "email": "",
   "followers": 39,
   "following": 12,
-  "publicRepos": 29,
+  "publicRepos": 30,
   "totalStars": 25,
   "pinnedRepos": [],
   "repos": [
@@ -35,7 +35,7 @@
       "href": "https://github.com/Sami001-OG/forge",
       "homepage": "",
       "createdAt": "2026-10-15T12:28:52Z",
-      "updatedAt": "2026-10-24T06:37:31Z"
+      "updatedAt": "2026-11-11T02:13:49Z"
     },
     {
       "id": 1260394541,
@@ -177,7 +177,7 @@
       "href": "https://github.com/Sami001-OG/mmmm",
       "homepage": "https://porfoliofsami.vercel.app",
       "createdAt": "2026-04-28T06:26:28Z",
-      "updatedAt": "2026-11-09T09:44:18Z"
+      "updatedAt": "2026-11-10T09:43:51Z"
     },
     {
       "id": 1434363138,
@@ -2192,8 +2192,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-11-10T09:43:46.440Z",
-  "githubFetchedAt": "2026-11-10T09:43:46.440Z",
+  "fetchedAt": "2026-11-11T09:19:11.519Z",
+  "githubFetchedAt": "2026-11-11T09:19:11.519Z",
   "contributionsFetchedAt": "2026-10-28T19:36:40.127Z",
   "systems": [
     {
@@ -2201,55 +2201,55 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 285
+      "ms": 327
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": false,
       "status": 404,
-      "ms": 99
+      "ms": 116
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 334
+      "ms": 352
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 156
+      "ms": 211
     },
     {
       "name": "mmmm",
       "url": "https://porfoliofsami.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 210
+      "ms": 208
     },
     {
       "name": "lumen-world",
       "url": "https://sami001-og.github.io/lumen-world/",
       "ok": true,
       "status": 200,
-      "ms": 213
+      "ms": 233
     },
     {
       "name": "rubiks-cube-solver",
       "url": "https://sami001-og.github.io/rubiks-cube-solver/",
       "ok": true,
       "status": 200,
-      "ms": 224
+      "ms": 338
     }
   ],
-  "systemsCheckedAt": "2026-11-10T09:43:46.777Z",
+  "systemsCheckedAt": "2026-11-11T09:19:11.874Z",
   "projectImages": {
     "https://sami001-og.github.io/rubiks-cube-solver/": "https://sami001-og.github.io/rubiks-cube-solver/og-image.png",
-    "https://github.com/Sami001-OG/forge": "https://opengraph.githubassets.com/560cf7283804b52dfe8b6fa75d38d51eed8d237c4ca0d69abb1760e323aa3e68/Sami001-OG/forge",
+    "https://github.com/Sami001-OG/forge": "https://opengraph.githubassets.com/b3aadfd513224a118a77b45911e769001cc64f8e2f9a883a3f416c6cd4a34035/Sami001-OG/forge",
     "https://github.com/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer": "https://opengraph.githubassets.com/6223399c6e094475899e995e750bcef0c965a2ef6d23dbe43d7afe42e0c6db0c/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer",
     "https://github.com/Sami001-OG/Winning-AI": "https://opengraph.githubassets.com/00c179f8d223b28a2b98791a373acec93436607c009ce1ae9ba7adf02d1c7e97/Sami001-OG/Winning-AI",
     "https://github.com/Sami001-OG/Sami001-OG": "https://opengraph.githubassets.com/a18618ff6ad853bc12768b5666049d8a3a0391c2cb522a2471cb38bcffffe085/Sami001-OG/Sami001-OG",
@@ -2258,9 +2258,9 @@
     "https://github.com/Sami001-OG/scrybe": "https://opengraph.githubassets.com/6bfe7bed359f3439f3aee3cb9d5f7011b3c60c612f28ddd772f0896d4c8c462a/Sami001-OG/scrybe",
     "https://github.com/Sami001-OG/GGShot": "https://opengraph.githubassets.com/4db351772308e83c82a89311ed086c91033c31e9186ec661ff795bcdb359c273/Sami001-OG/GGShot",
     "https://github.com/Sami001-OG/VDOC": "https://opengraph.githubassets.com/75382613abd167a525fd8d5c83642b179d63e8d5ba482557ac8bbd44ab2079f7/Sami001-OG/VDOC",
-    "https://github.com/Sami001-OG/mmmm": "https://opengraph.githubassets.com/ff3a65496c0b42c53d09566e5316587d99cd488ab62b81cdfb6015f1dd0cb3ed/Sami001-OG/mmmm",
+    "https://github.com/Sami001-OG/mmmm": "https://opengraph.githubassets.com/94c101cf59e8d468a98c85931e30cb20bad5ac0688baa7eb74335ba7efb0ca5a/Sami001-OG/mmmm",
     "https://github.com/Sami001-OG/lumen-world": "https://opengraph.githubassets.com/08b755bb8619554f1de251e18fccf41aa3e001659e4654aeb926d4320d936538/Sami001-OG/lumen-world",
     "https://github.com/Sami001-OG/rubiks-cube-solver": "https://opengraph.githubassets.com/ae4f250ecb6d3c2681623a3c52f85f8a099bdb0b3ae4e2264349dde9b44da667/Sami001-OG/rubiks-cube-solver"
   },
-  "projectImagesCheckedAt": "2026-11-10T09:43:50.919Z"
+  "projectImagesCheckedAt": "2026-11-11T09:19:12.703Z"
 }
