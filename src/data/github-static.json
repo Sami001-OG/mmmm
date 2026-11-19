@@ -7,9 +7,9 @@
   "twitter": "Sami38174202",
   "blog": "",
   "email": "",
-  "followers": 39,
+  "followers": 37,
   "following": 12,
-  "publicRepos": 33,
+  "publicRepos": 34,
   "totalStars": 28,
   "pinnedRepos": [],
   "repos": [
@@ -164,20 +164,18 @@
       "updatedAt": "2026-07-07T20:39:03Z"
     },
     {
-      "id": 1432332002,
-      "title": "dhamti-jonoseba",
-      "description": "dhamti-jonoseba",
-      "tags": [
-        "TypeScript"
-      ],
+      "id": 1462631712,
+      "title": "Ricks-clips-reverse-engineered",
+      "description": "No description provided.",
+      "tags": [],
       "status": "Live",
       "statusColor": "emerald",
       "stars": 0,
-      "forks": 1,
-      "href": "https://github.com/Sami001-OG/dhamti-jonoseba",
-      "homepage": "https://dhamti-jonoseba.vercel.app",
-      "createdAt": "2026-10-24T15:41:39Z",
-      "updatedAt": "2026-11-17T08:30:04Z"
+      "forks": 0,
+      "href": "https://github.com/Sami001-OG/Ricks-clips-reverse-engineered",
+      "homepage": "",
+      "createdAt": "2026-11-18T10:15:13Z",
+      "updatedAt": "2026-11-19T09:32:25Z"
     },
     {
       "id": 1223246699,
@@ -193,23 +191,23 @@
       "href": "https://github.com/Sami001-OG/mmmm",
       "homepage": "https://porfoliofsami.vercel.app",
       "createdAt": "2026-04-28T06:26:28Z",
-      "updatedAt": "2026-11-16T09:34:39Z"
+      "updatedAt": "2026-11-17T10:39:58Z"
     },
     {
-      "id": 1458527180,
-      "title": "VoiceStitch",
-      "description": "Make your audio stick together how you want.",
+      "id": 1432332002,
+      "title": "dhamti-jonoseba",
+      "description": "dhamti-jonoseba",
       "tags": [
         "TypeScript"
       ],
       "status": "Live",
       "statusColor": "emerald",
       "stars": 0,
-      "forks": 0,
-      "href": "https://github.com/Sami001-OG/VoiceStitch",
-      "homepage": "https://voice-stitch.vercel.app",
-      "createdAt": "2026-11-15T06:49:14Z",
-      "updatedAt": "2026-11-15T06:58:36Z"
+      "forks": 1,
+      "href": "https://github.com/Sami001-OG/dhamti-jonoseba",
+      "homepage": "https://dhamti-jonoseba.vercel.app",
+      "createdAt": "2026-10-24T15:41:39Z",
+      "updatedAt": "2026-11-17T08:30:04Z"
     }
   ],
   "languages": [
@@ -2192,8 +2190,8 @@
       ]
     ]
   },
-  "fetchedAt": "2026-11-17T10:39:56.273Z",
-  "githubFetchedAt": "2026-11-17T10:39:56.273Z",
+  "fetchedAt": "2026-11-19T10:15:23.191Z",
+  "githubFetchedAt": "2026-11-19T10:15:23.191Z",
   "contributionsFetchedAt": "2026-10-28T19:36:40.127Z",
   "systems": [
     {
@@ -2201,55 +2199,47 @@
       "url": "https://endellion-trade.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 220
+      "ms": 325
     },
     {
       "name": "myReactApp",
       "url": "https://myreactapp-alpha-nine.vercel.app/",
       "ok": false,
       "status": 404,
-      "ms": 40
+      "ms": 104
     },
     {
       "name": "Flow",
       "url": "https://flow-7qiy.onrender.com/",
       "ok": false,
       "status": 503,
-      "ms": 238
+      "ms": 340
     },
     {
       "name": "GGShot",
       "url": "https://gg-shot.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 41
-    },
-    {
-      "name": "dhamti-jonoseba",
-      "url": "https://dhamti-jonoseba.vercel.app",
-      "ok": true,
-      "status": 200,
-      "ms": 76
+      "ms": 116
     },
     {
       "name": "mmmm",
       "url": "https://porfoliofsami.vercel.app",
       "ok": false,
       "status": 404,
-      "ms": 53
+      "ms": 121
     },
     {
-      "name": "VoiceStitch",
-      "url": "https://voice-stitch.vercel.app",
+      "name": "dhamti-jonoseba",
+      "url": "https://dhamti-jonoseba.vercel.app",
       "ok": true,
       "status": 200,
-      "ms": 208
+      "ms": 206
     }
   ],
-  "systemsCheckedAt": "2026-11-17T10:39:56.514Z",
+  "systemsCheckedAt": "2026-11-19T10:15:23.535Z",
   "projectImages": {
-    "https://dhamti-jonoseba.vercel.app": "https://iili.io/nkRTTsn.jpg",
-    "https://voice-stitch.vercel.app": "https://voice-stitch.vercel.app/og-card.png",
+    "https://dhamti-jonoseba.vercel.app": "https://dhamti-jonoseba.vercel.app/og-image-v3.jpg",
     "https://github.com/Sami001-OG/forge": "https://opengraph.githubassets.com/76a7b3663840818926e1329bb7dafd2417ab4a56470e0de85a520ecf4e511d96/Sami001-OG/forge",
     "https://github.com/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer": "https://opengraph.githubassets.com/3f0b768111627b7133bb0eb9447d2300d8231ea15b07cb33a47d7a2ac9cc8bd0/Sami001-OG/Crypto-Backtester-and-Strategy-Optimizer",
     "https://github.com/Sami001-OG/Winning-AI": "https://opengraph.githubassets.com/c35558631ce7fe946b7ab4e4b08eea085c16403918e0a3a95aa4c07a6d9db3dd/Sami001-OG/Winning-AI",
@@ -2259,9 +2249,9 @@
     "https://github.com/Sami001-OG/scrybe": "https://opengraph.githubassets.com/6bfe7bed359f3439f3aee3cb9d5f7011b3c60c612f28ddd772f0896d4c8c462a/Sami001-OG/scrybe",
     "https://github.com/Sami001-OG/GGShot": "https://opengraph.githubassets.com/4db351772308e83c82a89311ed086c91033c31e9186ec661ff795bcdb359c273/Sami001-OG/GGShot",
     "https://github.com/Sami001-OG/VDOC": "https://opengraph.githubassets.com/75382613abd167a525fd8d5c83642b179d63e8d5ba482557ac8bbd44ab2079f7/Sami001-OG/VDOC",
-    "https://github.com/Sami001-OG/dhamti-jonoseba": "https://opengraph.githubassets.com/a8a5e3008baedc65831a8cb21bb72fa5e717a180c5e1450670b3dd14ec1ab921/Sami001-OG/dhamti-jonoseba",
+    "https://github.com/Sami001-OG/Ricks-clips-reverse-engineered": "https://opengraph.githubassets.com/687ed85056e395eb58e3bc410a56365392afca4defcb4dd17209e3360c00ecbf/Sami001-OG/Ricks-clips-reverse-engineered",
     "https://github.com/Sami001-OG/mmmm": "https://opengraph.githubassets.com/5e940a5ac100488f798938c36d7f3c63ab49870ae331d7b861ac7de70c544078/Sami001-OG/mmmm",
-    "https://github.com/Sami001-OG/VoiceStitch": "https://opengraph.githubassets.com/1c63ade886be2f2b49e958593b580f933c776e7e93c2ece3e168ab68666c881a/Sami001-OG/VoiceStitch"
+    "https://github.com/Sami001-OG/dhamti-jonoseba": "https://opengraph.githubassets.com/a8a5e3008baedc65831a8cb21bb72fa5e717a180c5e1450670b3dd14ec1ab921/Sami001-OG/dhamti-jonoseba"
   },
-  "projectImagesCheckedAt": "2026-11-17T10:39:57.270Z"
+  "projectImagesCheckedAt": "2026-11-19T10:15:23.907Z"
 }
